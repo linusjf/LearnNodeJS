@@ -11,6 +11,8 @@ Try out various Node.js examples to gain an understanding of the server program 
 
 ## Installation
 
+For instructions how to install node on your machine,refer to https://code.tutsplus.com/tutorials/learning-server-side-javascript-with-nodejs--net-10044
+
 Use `git clone` to download the code to your machine.
 
 Run:

@@ -1,4 +1,13 @@
-// server.js
+// goalsserver.js
+//
+function log (err, newGoal) {
+  if (err) console.log(err);
+  console.log(newGoal);
+}
+
+function firstRoute(req, res) {
+  res.send('Our first route is working. :)');
+}
 
 // DEPENDENCIES AND SETUP
 // ===============================================
@@ -25,18 +34,13 @@ var goal = {
 };
 
 // Save this goal to the database.
-db.insert(goal, function(err, newGoal) {
-  if (err) console.log(err);
-  console.log(newGoal);
-});
+db.insert(goal, log);
 
 // ROUTES
 // ===============================================
 
 // Define the home page route.
-app.get('/', function(req, res) {
-  res.send('Our first route is working. :)');
-});
+app.get('/', firstRoute);
 
 // START THE SERVER
 // ===============================================
