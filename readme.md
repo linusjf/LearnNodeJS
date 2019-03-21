@@ -18,7 +18,7 @@ Run:
 
 `npm install nedb`
 
-to use express and nedb in your Node.js applications.
+to use express and nedb in your goalsserver Node.js application in the goalsserver directory.
 
 ## API Reference
 
