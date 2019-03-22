@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<title>Random Number Streamer</title>
+<script type = "text/javascript" src =
+  "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" ></script>
+</head> 
+<body>
+<p>Random Numbers:</p>
+<ul id = "loaded"></ul>
+<ul id = "strings"></ul>
+<script type="text/javascript"> 
+var load_list = $("#loaded");
+var string_list = $ ("#strings");
+function load_strings ()
+{
+  $.get ("/stream", function (strings)
+	     {
+	     $.each (strings.split('\n', function ()
+		     {
+		     $ ("<li>").html (this.text).prependTo (string_list);}
+	     ); load_strings ();}
+  );
+load_list.text = load_list.text + 'Called loaded.\n');
+}
+
+setTimeout (load_strings, 1000);
+</script>
+</body> 
+</html>

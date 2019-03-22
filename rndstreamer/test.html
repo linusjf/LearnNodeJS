@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head> 
-<title>Tweet Streamer</title>
-<script type = "text/javascript" src =
-  "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" ></script>
+<title>Random Number Streamer</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head> 
 <body>
-<ul id = "tweets"></ul>
+<p>Random Numbers:</p>
+<div id = "debugDiv"></div>
+<ul id = "strings"></ul>
 <script type="text/javascript"> 
-var tweet_list = $ ("#tweets");
-function load_tweets ()
+var string_list = $ ("#strings");
+function load_strings()
 {
-  $.getJSON ("/stream", function (tweets)
-	     {
-	     $.each (tweets, function ()
-		     {
-		     $ ("<li>").html (this.text).prependTo (tweet_list);}
-	     ); load_tweets ();}
-  );
+    alert('loadstrings called');
+  $.get("/stream",function (data,st,request)
+{
+    alert(data);
+    $.each (data.split('\n', function ()
+    {
+	$("<li>").html (this.text).prependTo(string_list);
+    }
+); 
+setTimeout (load_strings, 1000);
+});
+$('#debugDiv').append('<p>' + loaded more strings. + '</p>');
 }
-
-setTimeout (load_tweets, 1000);
+load_strings();
 </script>
 </body> 
 </html>

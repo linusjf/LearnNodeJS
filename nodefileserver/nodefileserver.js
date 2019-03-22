@@ -1,6 +1,9 @@
-var sys = require("util"), http = require("http"),
-                                 url = require("url"), path = require("path"),
-                                 fs = require("fs");
+var sys = require("util"), 
+http = require("http"),
+url = require("url"), 
+path = require("path"),
+fs = require("fs");
+
 http.createServer(function(request, response) {
       var uri = url.parse(request.url).pathname;
       var filename = path.join(process.cwd(), uri);
