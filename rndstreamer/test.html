@@ -5,25 +5,23 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head> 
 <body>
-<p>Random Numbers:</p>
+<p>Random Strings from random.org:</p>
 <div id = "debugDiv"></div>
 <ul id = "strings"></ul>
 <script type="text/javascript"> 
-var string_list = $ ("#strings");
+var string_list = $("#strings");
 function load_strings()
 {
-    alert('loadstrings called');
-  $.get("/stream",function (data,st,request)
-{
-    alert(data);
-    $.each (data.split('\n', function ()
+    $.get("/stream",function (data,st,request)
+{      
+    var strings = data.split('\n');
+    $.each(strings,function(i,value) 
     {
-	$("<li>").html (this.text).prependTo(string_list);
-    }
-); 
-setTimeout (load_strings, 1000);
+        string_list.append('<li>'+value+'</li>');
+    }); 
+    setTimeout (load_strings, 1000);
 });
-$('#debugDiv').append('<p>' + loaded more strings. + '</p>');
+$('#debugDiv').append('<p style="color:red;">' + 'Loaded more strings...' + '</p>');
 }
 load_strings();
 </script>
