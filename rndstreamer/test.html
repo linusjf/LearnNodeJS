@@ -6,10 +6,11 @@
 </head> 
 <body>
 <p>Random Strings from random.org:</p>
-<div id = "debugDiv"></div>
+<p id = "debugDiv" style="color: green;font-size: 2em;"></p>
 <ul id = "strings"></ul>
 <script type="text/javascript"> 
 var string_list = $("#strings");
+var statusElement = $("#debugDiv");
 function load_strings()
 {
     $.get("/stream",function (data,st,request)
@@ -17,11 +18,11 @@ function load_strings()
     var strings = data.split('\n');
     $.each(strings,function(i,value) 
     {
-        string_list.append('<li>'+value+'</li>');
+        string_list.prepend('<li>'+value+'</li>');
     }); 
     setTimeout (load_strings, 1000);
 });
-$('#debugDiv').append('<p style="color:red;">' + 'Loaded more strings...' + '</p>');
+    statusElement.text(statusElement.text()+'<--->');
 }
 load_strings();
 </script>
