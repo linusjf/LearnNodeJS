@@ -2,7 +2,19 @@
 
 This project contains code examples to run Node.js examples.
 
-## Code Example
+## Example
+
+rndstreamer:
+
+`cd rndstreamer
+node rndstreamer`
+    or
+`node rndstreamer.js`
+
+Load `http://localhost:8080/test.html`
+
+in browser.
+
 
 
 ## Motivation
@@ -34,4 +46,4 @@ Obviously the author(s) and myself for any code enhancements.
 
 ## License
 
-
+MIT License.
