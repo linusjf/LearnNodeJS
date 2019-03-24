@@ -11,6 +11,7 @@
 <script type="text/javascript"> 
 var string_list = $("#strings");
 var statusElement = $("#debugDiv");
+var inc = 0;
 function load_strings()
 {
     $.get("/stream",function (data,st,request)
@@ -19,11 +20,17 @@ function load_strings()
     $.each(strings,function(i,value) 
     {
         string_list.prepend('<li>'+value+'</li>');
-    }); 
+    });
+    inc++;
+    if (inc > 0)
+    {
+        statusElement.text(
+            statusElement.text()+'+');
+    }
     setTimeout (load_strings, 1000);
 });
-    statusElement.text(statusElement.text()+'<--->');
 }
+
 load_strings();
 </script>
 </body> 
