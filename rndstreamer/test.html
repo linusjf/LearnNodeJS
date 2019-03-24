@@ -22,11 +22,8 @@ function load_strings()
         string_list.prepend('<li>'+value+'</li>');
     });
     inc++;
-    if (inc > 0)
-    {
-        statusElement.text(
+    statusElement.text(
             statusElement.text()+'+');
-    }
     setTimeout (load_strings, 1000);
 });
 }
