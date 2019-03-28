@@ -40,6 +40,11 @@ function emitNextBinary(num,rep)
     emitNextBinary(quotient,rep);
 }
 
+function toBinaryJS(num)
+{
+    return (num >>> 0).toString(2);
+}
+
 function isOdd(num)
 {
     return (num % 2 > 0);
@@ -52,11 +57,15 @@ if (!integers.length)
     process.exit(1);
 }
 
+var methods = [toBinary,toBinaryShift,toBinaryJS];
+
+function printBinary(integers,method)
+{
 integers.forEach(function(item){
     try{
     num = parseInt(item);
     if (!isNaN(num))
-    console.log(item + ' : '+toBinary(num));
+    console.log(item + ' : '+method(num));
     else
         throw {
             name: "Number Format exception",
@@ -68,37 +77,10 @@ integers.forEach(function(item){
         console.error(item + ' : '+ exc.name + ' ' + exc.message);
     }
 });
-integers.forEach(function(item){
-    try{
-    num = parseInt(item);
-    if (!isNaN(num))
-    console.log(item + ' : '+toBinaryShift(num));
-    else
-        throw {
-            name: "Number Format exception",
-            message: "Not a number."
-        }
-    }
-    catch (exc)
-    {
-        console.error(item + ' : '+ exc.name + ' ' + exc.message);
-    }
-});
-integers.forEach(function(item){
-    try{
-    num = parseInt(item);
-    if (!isNaN(num))
-    console.log(item + ' : '+(num >>> 0).toString(2));
-    else
-        throw {
-            name: "Number Format exception",
-            message: "Not a number."
-        }
-    }
-    catch (exc)
-    {
-        console.error(item + ' : '+ exc.name + ' ' + exc.message);
-    }
+}
+
+methods.forEach(function(item){
+    printBinary(integers,item);
 });
 
 process.exit(0);
