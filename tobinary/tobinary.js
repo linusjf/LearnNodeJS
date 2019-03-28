@@ -13,10 +13,7 @@ function toBinary(num)
 function toBinaryShift(num)
 {
     var binary = "";
-    var sizeof = require('object-sizeof');
-    numsize = sizeof(num);
-    if (numsize > 4)
-        numsize = 4;
+    var numsize = 4; 
     var i;
      for (i = numsize* 8 - 1; i >= 0; i--)
     {
@@ -27,8 +24,9 @@ function toBinaryShift(num)
         else
             binary = binary + "0"
     }
-    return binary;
+    return binary.replace(/^0+/g,'');
 }
+
 
 function emitNextBinary(num,rep)
 {
