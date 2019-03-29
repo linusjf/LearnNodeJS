@@ -14,7 +14,6 @@ function toBinary(num)
 
 function emitNextBinary(num,rep)
 {
-//    quotient = Math.floor(num / 2);
     quotient = num >> 1;
     var rep;
     if (!quotient)
@@ -36,16 +35,9 @@ function toBinaryShift(num)
      for (i = Math.log2(num); i >= 0; i--)
     {
         leftshift = 1 << i;
-        // omit leading 0 bits
-       // if (leftshift  > num)
-         //   continue;
         newnum = num & leftshift;
         if (!newnum)
-        {
-            // omit leading 0 bit
-           //if (binary.length > 0)
                 binary = binary + "0";
-        }
         else
           binary = binary +"1"; 
     }
