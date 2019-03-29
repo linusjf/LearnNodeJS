@@ -33,36 +33,30 @@ function toBinaryShift(num)
     var numsize = 4; 
     var i;
     var set = false;
+    var newnum,leftshift;
      for (i = numsize* 8 - 1; i >= 0; i--)
     {
-        var leftshift = 1 << i;
+        leftshift = 1 << i;
         // omit leading 0 bits
         if (leftshift  > num)
             continue;
-        var newnum = num & leftshift;
+        newnum = num & leftshift;
         if (!newnum)
         {
             // omit leading 0 bit
-            if (set)
+           if (binary.length > 0)
                 binary = binary + "0";
         }
         else
-        {
-            binary = binary +"1";
-            if (!set)
-                set = true;
-        } 
+          binary = binary +"1"; 
     }
     return binary;
 }
-
-
 
 function toBinaryJS(num)
 {
     return (num >>> 0).toString(2);
 }
-
 
 var integers = process.argv.slice(2);
 if (!integers.length)
