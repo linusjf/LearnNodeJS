@@ -36,10 +36,13 @@ function toBinaryShift(num)
      for (i = numsize* 8 - 1; i >= 0; i--)
     {
         var leftshift = 1 << i;
+        // omit leading 0 bits
+        if (leftshift  > num)
+            continue;
         var newnum = num & leftshift;
         if (!newnum)
         {
-            // omit leading 0 bits
+            // omit leading 0 bit
             if (set)
                 binary = binary + "0";
         }
