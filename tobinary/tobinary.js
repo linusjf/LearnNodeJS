@@ -2,7 +2,6 @@ function isOdd(num)
 {
     return (num & 1);
 }
-
 function toBinary(num)
 {
     var binaryRep = "";
@@ -34,17 +33,17 @@ function toBinaryShift(num)
     var i;
     var set = false;
     var newnum,leftshift;
-     for (i = numsize* 8 - 1; i >= 0; i--)
+     for (i = Math.log2(num); i >= 0; i--)
     {
         leftshift = 1 << i;
         // omit leading 0 bits
-        if (leftshift  > num)
-            continue;
+       // if (leftshift  > num)
+         //   continue;
         newnum = num & leftshift;
         if (!newnum)
         {
             // omit leading 0 bit
-           if (binary.length > 0)
+           //if (binary.length > 0)
                 binary = binary + "0";
         }
         else
@@ -73,7 +72,7 @@ integers.forEach(function(item){
     try{
     num = parseInt(item);
     if (!isNaN(num))
-    console.log(item + ' : '+method(num));
+        console.log(item + ' : '+method(num));
     else
         throw {
             name: "Number Format exception",
