@@ -47,7 +47,7 @@ function toBinaryJS(num)
 
 function isOdd(num)
 {
-    return (num % 2 > 0);
+    return (num & 1);
 }
 
 var integers = process.argv.slice(2);
@@ -80,7 +80,9 @@ integers.forEach(function(item){
 }
 
 methods.forEach(function(item){
+   console.time(item.name);
     printBinary(integers,item);
+    console.timeEnd(item.name);
 });
 
 process.exit(0);

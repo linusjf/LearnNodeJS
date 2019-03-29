@@ -33,3 +33,10 @@ require.cache = {};
 require.resolve = function(moduleName) {
   /* resolve a full module id fromthe moduleName */
 }
+
+// load another dependency
+var dependency = require('./ anotherModule');
+// a private function
+function log() { console.log(' Well done ' + dependency.username); }
+// the API to be exported for public use
+module.exports.run = function() { log(); };
