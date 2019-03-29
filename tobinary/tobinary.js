@@ -1,13 +1,25 @@
 function toBinary(num)
 {
-    var binaryRep = [];
+    var binaryRep = "";
     if (isOdd(num))
-        binaryRep.push('1');
+        binaryRep = "1";
     else
-        binaryRep.push('0');
-    emitNextBinary(num,binaryRep);
-    binaryRep = binaryRep.reverse();
-    return binaryRep.toString().replace(/,/g,"");
+        binaryRep = "0";
+    return emitNextBinary(num) + binaryRep;
+}
+
+function emitNextBinary(num)
+{
+//    quotient = Math.floor(num / 2);
+    quotient = num >> 1;
+    var rep;
+    if (!quotient)
+        return "";
+    else if (isOdd(quotient))
+        rep = "1";
+    else
+        rep = "0";
+    return emitNextBinary(quotient) + rep;
 }
 
 function toBinaryShift(num)
@@ -15,30 +27,28 @@ function toBinaryShift(num)
     var binary = "";
     var numsize = 4; 
     var i;
+    var set = false;
      for (i = numsize* 8 - 1; i >= 0; i--)
     {
         var leftshift = 1 << i;
         var newnum = num & leftshift;
-        if (newnum)
-            binary = binary +"1";
+        if (!newnum)
+        {
+            // omit leading 0 bits
+            if (set)
+                binary = binary + "0";
+        }
         else
-            binary = binary + "0"
+        {
+            binary = binary +"1";
+            if (!set)
+                set = true;
+        } 
     }
-    return binary.replace(/^0+/g,'');
+    return binary;
 }
 
 
-function emitNextBinary(num,rep)
-{
-    quotient = Math.floor(num / 2);
-    if (!quotient)
-        return;
-    else if (isOdd(quotient))
-        rep.push('1');
-    else
-        rep.push('0');
-    emitNextBinary(quotient,rep);
-}
 
 function toBinaryJS(num)
 {
