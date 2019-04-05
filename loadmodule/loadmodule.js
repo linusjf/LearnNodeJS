@@ -1,12 +1,15 @@
+"use strict";
+var fs = require('fs');
+
 function loadModule(filename, module, require) {
-  var wrappedSrc = '( function( module, exports, require) {' +
+    var wrappedSrc = '( function( module, exports, require) {' +
                    fs.readFileSync(filename, 'utf8') +
                    '})( module, module.exports, require);';
   eval(wrappedSrc);
 }
 
 var require = function(moduleName) {
-  console.log(' Require invoked for module: ' + moduleName);
+  console.log('Require invoked for module: ' + moduleName);
   var id = require.resolve(moduleName);
   //[ 1]
   if (require.cache[id]) {
@@ -32,11 +35,14 @@ var require = function(moduleName) {
 require.cache = {};
 require.resolve = function(moduleName) {
   /* resolve a full module id fromthe moduleName */
+    if (moduleName.indexOf('.js'))
+        return moduleName;
+    return moduleName + '.js';
 }
 
 // load another dependency
-var dependency = require('./ anotherModule');
+var dependency = require('./anothermodule.js');
 // a private function
-function log() { console.log(' Well done ' + dependency.username); }
+function log() { console.log('Well done ' + dependency.username); }
 // the API to be exported for public use
 module.exports.run = function() { log(); };

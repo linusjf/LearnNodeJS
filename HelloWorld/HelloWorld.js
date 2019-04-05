@@ -1,3 +1,4 @@
+"use strict";
 function serve(req, res) {
     res.writeHead(200, {
         "Content-Type": "text/plain"
