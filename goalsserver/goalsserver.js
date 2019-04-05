@@ -1,3 +1,4 @@
+"use strict";
 // goalsserver.js
 //
 function log (err, newGoal) {
@@ -22,7 +23,7 @@ var express = require('express'),
 // Setup the database.
 var Datastore = require('nedb');
 var db = new Datastore({
-  filename: 'goals.db', // provide a path to the database file 
+  filename: 'goals.db', // provide a path to the database file
   autoload: true, // automatically load the database
   timestampData: true // automatically add and manage the fields createdAt and updatedAt
 });

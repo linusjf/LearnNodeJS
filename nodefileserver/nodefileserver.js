@@ -1,6 +1,7 @@
-var sys = require("util"), 
+"use strict";
+var sys = require("util"),
 http = require("http"),
-url = require("url"), 
+url = require("url"),
 path = require("path"),
 fs = require("fs");
 
@@ -25,4 +26,4 @@ http.createServer(function(request, response) {
       });
     })
     .listen(8080);
-console.log("Server running at http://localhost:8080/"); 
+console.log("Server running at http://localhost:8080/");

@@ -1,3 +1,4 @@
+"use strict";
 var util = require("util"), https = require("https"), http = require("http"),
     url = require("url"), path = require("path"), fs = require("fs"),
     events = require("events");
@@ -61,12 +62,12 @@ function get_strings() {
     response.on("end", function() {
       var strings = body;
      if (strings.length > 0) {
-       
+
         string_emitter.emit("strings", strings);
       }
     });
   });
-  
+
 }
 
 setInterval(get_strings, 5000);
@@ -77,7 +78,7 @@ http.createServer(function(request, response) {
         string_emitter.once("strings", function(values) {
                           response.statusCode = 200;
           response.setHeader("Content-Type", "text/plain");
-          
+
           response.write(values);
          response.end();
            clearTimeout(timeout);

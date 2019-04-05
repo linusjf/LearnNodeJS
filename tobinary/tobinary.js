@@ -1,3 +1,5 @@
+"use strict";
+
 function isOdd(num)
 {
     return (num & 1);
@@ -14,7 +16,7 @@ function toBinary(num)
 
 function emitNextBinary(num,rep)
 {
-    quotient = num >> 1;
+    let quotient = num >> 1;
     var rep;
     if (!quotient)
         return rep;
@@ -28,7 +30,7 @@ function emitNextBinary(num,rep)
 function toBinaryShift(num)
 {
     var binary = "";
-    var numsize = 4; 
+    var numsize = 4;
     var i;
     var set = false;
     var newnum,leftshift;
@@ -39,7 +41,7 @@ function toBinaryShift(num)
         if (!newnum)
                 binary = binary + "0";
         else
-          binary = binary +"1"; 
+          binary = binary +"1";
     }
     return binary;
 }
@@ -62,7 +64,7 @@ function printBinary(integers,method)
 {
 integers.forEach(function(item){
     try{
-    num = parseInt(item);
+    let  num = parseInt(item);
     if (!isNaN(num))
         console.log(item + ' : '+method(num));
     else
