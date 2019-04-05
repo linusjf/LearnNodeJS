@@ -1,3 +1,4 @@
+"use strict";
 var fs = require('fs');
 function readJSON(filename, callback) {
   fs.readFile(filename, 'utf8', function(err, data) {
@@ -21,9 +22,9 @@ if (!files.length)
     process.exit(1);
 }
 
-process.on('uncaughtException', function( err){ 
-    console.error('Caught JSON parsing exception ' + err.name + ' : ' +err.message); 
-    // without this, the application would continue 
+process.on('uncaughtException', function( err){
+    console.error('Caught JSON parsing exception ' + err.name + ' : ' +err.message);
+    // without this, the application would continue
     process.exit(1);
 });
 

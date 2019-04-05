@@ -1,3 +1,4 @@
+"use strict";
 var fs = require("fs");
 var files = process.argv.slice(2);
 if (!files.length)
@@ -27,8 +28,8 @@ function consistentReadAsync(filename, callback) {
 ];***/
 
 files.forEach(function(item) {
-  
+
     consistentReadAsync(item,function(data){
     console.log(item + ' : '+data);
-  }); 
+  });
 });

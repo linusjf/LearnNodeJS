@@ -1,3 +1,4 @@
+"use strict";
 var fs = require("fs");
 var files = process.argv.slice(2);
 if (!files.length)
@@ -58,8 +59,8 @@ setTimeout(() => {
 
 files.forEach(function(item){
 
-createFileReader(item).onDataReady(function(data) 
-    {   
+createFileReader(item).onDataReady(function(data)
+    {
 //        console.log('on data ready');
         console.log(item + ' : ' + data);
         //... sometime
@@ -68,8 +69,8 @@ createFileReader(item).onDataReady(function(data)
 
 files.forEach(function(item){
 
-createFileReader(item).onDataReady(function(data) 
-    {   
+createFileReader(item).onDataReady(function(data)
+    {
 //        console.log('on data ready');
         console.log(item + ' : ' + data);
         //... sometime

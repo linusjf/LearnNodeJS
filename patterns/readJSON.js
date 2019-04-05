@@ -1,3 +1,4 @@
+"use strict";
 var fs = require('fs');
 function readJSON(filename, callback) {
   fs.readFile(filename, 'utf8', function(err, data) {
@@ -11,7 +12,7 @@ function readJSON(filename, callback) {
       } catch (err) {
         // catch parsing errors
         callback(filename + ' : '+err.message);
-      } 
+      }
     // no errors, propagate just the data
     callback(filename + ' : '+JSON.stringify(parsed)); });
 };
