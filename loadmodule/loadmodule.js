@@ -1,8 +1,8 @@
 "use strict";
 var fs = require('fs');
-
+var req = require;
 function loadModule(filename, module, require) {
-    var wrappedSrc = '( function( module, exports, require) {' +
+  var wrappedSrc = '( function( module, exports, require) {' +
                    fs.readFileSync(filename, 'utf8') +
                    '})( module, module.exports, require);';
   eval(wrappedSrc);
@@ -33,11 +33,15 @@ var require = function(moduleName) {
   //[ 6]
 };
 require.cache = {};
-require.resolve = function(moduleName) {
+require.resolve =
+    function(moduleName) {
   /* resolve a full module id fromthe moduleName */
+  if (moduleName.startsWith('./')) {
     if (moduleName.indexOf('.js'))
-        return moduleName;
+      return moduleName;
     return moduleName + '.js';
+  }
+  return req.resolve(moduleName);
 }
 
 // load another dependency
