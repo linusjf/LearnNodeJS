@@ -28,11 +28,15 @@ For instructions how to install node on your machine,refer to https://code.tutsp
 Use `git clone` to download the code to your machine.
 
 Run:
-`npm install express`
+`npm install express --save`
 
 `npm install nedb`
 
 to use express and nedb in your goalsserver Node.js application in the goalsserver directory.
+
+update your .bash_profile with the following:
+
+`export NODE_PATH=your/path/to/node_modules:%NODE_PATH`
 
 ## API Reference
 
