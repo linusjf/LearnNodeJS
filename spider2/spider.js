@@ -88,7 +88,7 @@ if (isNaN(level) || level <= 0)
 exitMessage();
 }
 else
-	level = 10;
+	level = 1;
 
 if (url )
 {
@@ -111,7 +111,7 @@ else
 
 function exitMessage()
 {
-    console.error('Usage: node spider.js url {level}.\nLevel defaults to 10.');
+    console.error('Usage: node spider.js url {level}.\nLevel defaults to 1.');
     process.exit(1);
 }
 
