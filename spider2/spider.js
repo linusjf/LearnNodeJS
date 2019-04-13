@@ -6,8 +6,10 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 const utilities = require('./utilities');
 
+var filename;
 function saveFile(filename,body,callback)
 {
+	console.log(filename);
         mkdirp(path.dirname(filename), err => {
             if (err)
               return callback(err);
@@ -21,12 +23,12 @@ function saveFile(filename,body,callback)
 
 function download(url,filename,callback)
 {
-      console.log(`Downloading ${url}`);
+      console.log(`Downloading ${url} to ${filename}`);
       request(url, (err, response, body) => { //[2]
         if (err)
           return callback(err);
     saveFile(filename,body,err => {
-    console.log("Downloaded and saved " + url);
+    console.log("Downloaded and saved " + url)+ " to ${filename}";
     if (err)
         return callback(err);
         callback(null,body);
@@ -37,7 +39,7 @@ function download(url,filename,callback)
 
 function spider( url, nesting, callback) 
 { 
-	var filename = utilities.urlToFilename( url);
+	filename = utilities.urlToFilename( url);
 	fs.readFile( filename, 'utf8', function( err, body) 
 		{ 
 			if( err) 
@@ -60,9 +62,10 @@ function spider( url, nesting, callback)
 } 
 
 function spiderLinks( currentUrl, body, nesting, callback) {
-	if( nesting === 0) 
-	{ 
-		return process.nextTick( callback);
+	if( nesting <= 0) 
+	{
+		console.log(filename);
+		return process.nextTick( callback,null,filename,false);
 	} 
 	var links = utilities.getPageLinks( currentUrl, body); 
 	//[ 1] 
@@ -75,23 +78,21 @@ function spiderLinks( currentUrl, body, nesting, callback) {
 }
 iterate( 0); //[ 4] 
 } 
-
-/**function spider(url, callback) {
-  const filename = utilities.urlToFilename(url);
-  fs.exists(filename, exists => { //[1]
-    if (exists)
-        return callback(null, filename, false);
-    download(url,filename,err => {
-    if (err)
-        return callback(err);
-    return callback(null,filename,true);
-    })
-});
-}
-**/
-if (process.argv[2])
+let url = process.argv[2];
+var level;
+if (process.argv[3])
 {
-spider(process.argv[2], (err, filename, downloaded) => {
+level = parseInt(process.argv[3]);
+ 
+if (isNaN(level) || level <= 0)
+exitMessage();
+}
+else
+	level = 10;
+
+if (url )
+{
+	spider(process.argv[2], level,(err, filename, downloaded) => {
   if (err) {
     console.log(err);
 
@@ -105,6 +106,13 @@ spider(process.argv[2], (err, filename, downloaded) => {
 }
 else
 {
-    console.error('Usage: node spider.js url');
+	exitMessage();
+}
+
+function exitMessage()
+{
+    console.error('Usage: node spider.js url {level}.\nLevel defaults to 10.');
     process.exit(1);
 }
+
+

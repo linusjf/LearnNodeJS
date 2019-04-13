@@ -47,7 +47,8 @@ function spider(url, callback) {
     })
 });
 }
-
+if (process.argv[2])
+{
 spider(process.argv[2], (err, filename, downloaded) => {
   if (err) {
     console.log(err);
@@ -59,3 +60,9 @@ spider(process.argv[2], (err, filename, downloaded) => {
     console.log(`"${filename}" was already downloaded`);
   }
 });
+}
+else
+{
+    console.error('Usage: node spider.js url');
+    process.exit(1);
+}
