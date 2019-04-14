@@ -64,10 +64,10 @@ function spider( url, nesting, callback)
 
 function spiderLinks( currentUrl, body, nesting, callback) {
 	if( nesting <= 0) 
-		return process.nextTick( callback,null,currentUrl,true);
+		return process.nextTick( callback);
 	 
 	var links = utilities.getPageLinks( currentUrl, body); 
-	 
+	 /**
 	function iterate( index) { 
 		
 		if( index === links.length) { return callback(null,filename,downloaded); } spider( links[ index], nesting - 1, function( err) { 
@@ -76,24 +76,26 @@ function spiderLinks( currentUrl, body, nesting, callback) {
 
 }
 iterate( 0); 
-
-//iterateAll(links,nesting,callback);
+***/
+iterateAll(links,nesting,callback);
 } 
+
+
 function iterateAll(collection,nesting,finalCallback)
 {
 
 	function iterate( index) { 
 		
-		if( index === collection.length)
-	return finalCallback();
- spider( collection[ index], nesting - 1, function( err) { 
-			if( err)  
-		 return finalCallback( err); 
-  iterate( index + 1); 
+		if( index === -1)
+	return finalCallback(null,url,downloaded);
+ spider( collection[index], nesting - 1, function( err) { 
+	if( err)  
+		return finalCallback(err); 
+  iterate(index - 1); 
  });
 
 }
-iterate(0);  
+iterate(collection.length-1);  
 }
 
 let url = process.argv[2];
@@ -103,7 +105,7 @@ if (process.argv[3])
 level = parseInt(process.argv[3]);
  
 if (isNaN(level) || level <= 0)
-exitMessage();
+	exitMessage();
 }
 else
 	level = 1;
@@ -123,9 +125,8 @@ if (url )
 });
 }
 else
-{
 	exitMessage();
-}
+
 
 function exitMessage()
 {
