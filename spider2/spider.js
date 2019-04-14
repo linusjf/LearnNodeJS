@@ -7,9 +7,9 @@ const path = require('path');
 const utilities = require('./utilities');
 
 var filename;
+var downloaded = false;
 function saveFile(filename,body,callback)
 {
-	console.log(filename);
         mkdirp(path.dirname(filename), err => {
             if (err)
               return callback(err);
@@ -34,7 +34,7 @@ function download(url,filename,callback)
         callback(null,body);
     })
  });
-
+downloaded = true;
 }
 
 function spider( url, nesting, callback) 
@@ -46,38 +46,56 @@ function spider( url, nesting, callback)
 			{ 
 				if( err.code !== 'ENOENT') 
 				{ 
-					return callback( err); 
+					return callback( err,filename,false); 
 				} 
 				return download( url, filename, function( err, body)
 					{ 
 						if( err) 
 						{ 
-							return callback( err);
+							return callback( err,filename,false);
 						} 
 						spiderLinks( url, body, nesting, callback);
 					});
 			} 
+		
 			spiderLinks( url, body, nesting, callback);
 }); 
 } 
 
 function spiderLinks( currentUrl, body, nesting, callback) {
 	if( nesting <= 0) 
-	{
-		console.log(filename);
-		return process.nextTick( callback,null,filename,false);
-	} 
+		return process.nextTick( callback,null,currentUrl,true);
+	 
 	var links = utilities.getPageLinks( currentUrl, body); 
-	//[ 1] 
+	 
 	function iterate( index) { 
-		//[ 2]
-		if( index === links.length) { return callback(); } spider( links[ index], nesting - 1, function( err) { 
-			//[ 3]
+		
+		if( index === links.length) { return callback(null,filename,downloaded); } spider( links[ index], nesting - 1, function( err) { 
+			
 			if( err) { return callback( err); } iterate( index + 1); });
 
 }
-iterate( 0); //[ 4] 
+iterate( 0); 
+
+//iterateAll(links,nesting,callback);
 } 
+function iterateAll(collection,nesting,finalCallback)
+{
+
+	function iterate( index) { 
+		
+		if( index === collection.length)
+	return finalCallback();
+ spider( collection[ index], nesting - 1, function( err) { 
+			if( err)  
+		 return finalCallback( err); 
+  iterate( index + 1); 
+ });
+
+}
+iterate(0);  
+}
+
 let url = process.argv[2];
 var level;
 if (process.argv[3])
@@ -89,18 +107,18 @@ exitMessage();
 }
 else
 	level = 1;
-
 if (url )
 {
-	spider(process.argv[2], level,(err, filename, downloaded) => {
+	spider(url, level,(err, filename, downloaded) => {
+		
   if (err) {
     console.log(err);
 
   } else if (downloaded) {
-    console.log(`Completed the download of "${filename}"`);
+    console.log(`Completed the download of "${url}"`);
 
   } else {
-    console.log(`"${filename}" was already downloaded`);
+    console.log(`"${url}" has already been downloaded`);
   }
 });
 }
