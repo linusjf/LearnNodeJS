@@ -66,37 +66,29 @@ function spiderLinks( currentUrl, body, nesting, callback) {
 	if( nesting <= 0) 
 		return process.nextTick( callback);
 	 
-	var links = utilities.getPageLinks( currentUrl, body); 
-	 /**
-	function iterate( index) { 
-		
-		if( index === links.length) { return callback(null,filename,downloaded); } spider( links[ index], nesting - 1, function( err) { 
-			
-			if( err) { return callback( err); } iterate( index + 1); });
+	var links = utilities.getPageLinks( currentUrl, body);
+
+	
+iterateSeries(links,nesting,iterate,callback);
 
 }
-iterate( 0); 
-***/
-iterateAll(links,nesting,callback);
-} 
 
 
-function iterateAll(collection,nesting,finalCallback)
+function iterate( collection,index,nesting,finalCallback) { 
+		if( index === collection.length)  
+			return finalCallback(null,filename,downloaded); 
+		spider( collection[ index], nesting - 1, function( err) { 
+			if( err) 
+				return finalCallback( err); 
+			iterate( collection,index + 1,nesting-1,finalCallback);
+		});
+}
+
+function iterateSeries(collection,nesting,iter,finalCallback)
 {
-
-	function iterate( index) { 
-		
-		if( index === -1)
-	return finalCallback(null,url,downloaded);
- spider( collection[index], nesting - 1, function( err) { 
-	if( err)  
-		return finalCallback(err); 
-  iterate(index - 1); 
- });
-
+	iter(collection,0,nesting,finalCallback); 
 }
-iterate(collection.length-1);  
-}
+
 
 let url = process.argv[2];
 var level;
