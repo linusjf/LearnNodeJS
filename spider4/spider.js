@@ -9,6 +9,7 @@ const debug = require('debug')('spider');
 debug.enabled = false;
 var downloaded = false;
 var spidering  = new Map();
+var errors = new Array();
 /**var running = 0;
 var allLinks = new Array();
 var index = 0;**/
@@ -82,6 +83,7 @@ let completed = 0;
 let running = 0;
 let index = 0;
 let inError = false;
+let error = null;
 //allLinks = allLinks.concat(links);
 function next() {
 	debug('index = '+index);
@@ -90,17 +92,25 @@ function next() {
 	while( running < concurrency && index < links.length) {
 		const link = links[index++];
 
-		spider(link,nesting-1, function() {
+		spider(link,nesting-1, function(err) {
+			if (err)
+			{
+				inError = true;
+				error = err;
+				return callback(err);
+			}
 			debug('completed = '+completed);
-			if( completed === links.length) 
+			if( completed === links.length && !inError) 
 				return done();
 			completed++, running--; 
 			next();
 		}); 
 		running++; 
 	} 
-if( completed === links.length) 
+if( completed === links.length && !inError) 
 	return done();
+/**else 
+	return done(error);**/
 } 
 next();
 
@@ -145,13 +155,21 @@ if (url)
 		
   if (err) {
     console.log(err);
-
+    errors.push(err);
   } else if (downloaded) {
     console.log(`Completed the download of "${url}"`);
 
   } else {
     console.log(`"${url}" has already been downloaded`);
   }
+		if (errors.length)
+		{
+			console.log("Check errors. Redownload if necessary.");
+		errors.forEach(function (error)
+			{
+				console.log(error.name + ':' + error.message);
+			});
+		}
 });
 }
 else
