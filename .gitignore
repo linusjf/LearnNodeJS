@@ -3,5 +3,5 @@
 *.txt
 *.html
 *node_modules/
-!*test.html
+!rndstreamer*test.html
 !*package.json
