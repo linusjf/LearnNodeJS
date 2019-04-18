@@ -16,12 +16,19 @@ const cmdOptions = [
 		group: 'main',
 	description: 'Number of concurrent requests' },
 	{ name: 'url',
-		type: String,
+		type: url => fullURL(url),
 		alias: 'u',
 		defaultOption: true,
 		group: 'main',
 	description:'Url to be traversed'}
 ] 
+
+function fullURL(url)
+{
+	if (!url.startsWith('http'))
+		return 'http://' + url;
+	return url;
+}
 
 const sections = [
   {

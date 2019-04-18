@@ -66,6 +66,7 @@ assert(options._all.url,'No url specified');
 		console.log(cmdConfig.usage);
 		return false;
 	}
+	
 	return true;
 }
 
