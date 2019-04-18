@@ -18,6 +18,7 @@ const cmdOptions = [
 	{ name: 'url',
 		type: String,
 		alias: 'u',
+		defaultOption: true,
 		group: 'main',
 	description:'Url to be traversed'}
 ] 
@@ -61,5 +62,5 @@ module.exports.get = function getValue(key,defaultValue)
 	{
 		return config.get(key);
 	}
-	return defaultValue;
+	return (defaultValue === undefined) ? null: defaultValue;
 }

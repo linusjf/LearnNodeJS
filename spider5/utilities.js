@@ -16,7 +16,8 @@ module.exports.urlToFilename = function urlToFilename(url) {
       return slug(component);
     })
     .join('/');
-  let filename = path.join(parsedUrl.hostname, urlPath);
+console.log(parsedUrl.hostname);
+	let filename = path.join(parsedUrl.hostname, urlPath);
   if(!path.extname(filename).match(/htm/)) {
     filename += '.html';
   }
