@@ -1,13 +1,7 @@
 const validator = require('validator');
 const cmdConfig = require('./cmdconfig');
 const assert = require('assert');
-// write code to validate as follows:
-// non-empty and valid url
-// help should only display help; no processing
-// concurrency > 0
-// nesting > 0
-//
-//
+
 module.exports.validate = function()
 {
 	const options = cmdConfig.options;
@@ -17,8 +11,6 @@ module.exports.validate = function()
 		assertCount++;
 		return assertCount;
 	}
-	console.log(options);
-	console.log();
 	try{
 assert(options._all.url,'No url specified');
 	}
@@ -63,13 +55,9 @@ assert(options._all.url,'No url specified');
 
 			if (assertCount || options._all.help)
 	{
-		console.log(cmdConfig.usage);
+		console.error(cmdConfig.usage);
 		return false;
 	}
 	
 	return true;
 }
-
-
-
-
