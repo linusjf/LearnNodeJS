@@ -2,6 +2,7 @@
 *.json
 *.txt
 *.html
+*.clean
 *node_modules/
 !rndstreamer*test.html
 !*package.json
