@@ -1,110 +1,79 @@
 "use strict";
 
-const request = require('request');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
+var Promise = require('bluebird');
+var utilities = require('./utilities');
+var request = utilities.promisify(require('request'));
+var mkdirp = utilities.promisify(require('mkdirp'));
+var fs = require('fs');
+var readFile = utilities.promisify(fs.readFile);
+var writeFile = utilities.promisify(fs.writeFile);
+
+
 const path = require('path');
 const async = require('async');
-const utilities = require('./utilities');
 const cmdConfig = require('./cmdconfig');
 const validator = require('./validator');
 const debug = require('debug')('spider');
 debug.enabled = cmdConfig.get('debug', false);
-var downloadQueue = async.queue(
-    function(taskData, callback) {
-        spider(taskData.link, taskData.nesting - 1, callback);
-    }, cmdConfig.get('concurrency', 2));
 
-function spiderLinks(currentUrl, body, nesting, callback) {
-    if (nesting === 0)
-        return process.nextTick(callback);
-    var links = utilities.getPageLinks(currentUrl, body);
-    if (links.length === 0)
-        return process.nextTick(callback);
-    var completed = 0,
-        errored = false;
-    links.forEach(function(link) {
-        var taskData = {
-            link: link,
-            nesting: nesting
-        };
-        downloadQueue.push(taskData, function(err) {
-            if (err) {
-                errored = true;
-                return callback(err);
-            }
-            if (++completed === links.length && !errored)
-                callback();
-        });
-    });
-}
-
-function download(url, filename, callback) {
-    console.log(' Downloading ' + url);
+function download(url, filename) {
+    console.log('Downloading ' + url);
     var body;
-    async.waterfall([function(callback) {
-            request(url,
-                function(err, response, resBody) {
-                    if (err)
-                        return callback(err);
-                    body = resBody;
-                    callback();
-                });
-        },
-        function(callback) {
-            mkdirp(path.dirname(filename), (err) => {
-                if (err) {
-                    return callback(err);
-                }
-                callback();
-            });
-        },
-        function(callback) {
-            fs.writeFile(filename, body, callback);
-        }
-    ], function(err) {
-        console.log(' Downloaded and saved: ' + url);
-        if (err)
-            return callback(err);
-        callback(null, body);
+    return request(url).
+    then(function(results) {
+        body = results[1];
+        return mkdirp(path.dirname(filename));
+    }).
+    then(function() {
+        return writeFile(filename, body);
+    }).
+    then(function() {
+        console.log('Downloaded and saved: ' + url);
+        return body;
     });
 }
 
+function spiderLinks(currentUrl,body,nesting) { 
+	var promise = Promise.resolve(); 
+	if( nesting === 0)
+	return promise;
+	var links = utilities.getPageLinks( currentUrl, body);
+	links.forEach( function( link) 
+		{ 
+			promise = promise.then( function() 
+				{ 
+					return spider( link, nesting - 1);
+				});
+		}); 
+	return promise;
+}
 
-let spidering = new Map();
 
-function spider(url, nesting, callback) {
-    if (spidering.has(url)) {
-        return process.nextTick(callback);
-    }
-    spidering.set(url, true);
 
-    const filename = utilities.urlToFilename(url);
-    fs.readFile(filename, 'utf8', function(err, body) {
-        if (err) {
-            if (err.code !== 'ENOENT') {
-                return callback(err);
-            }
 
-            return download(url, filename, function(err, body) {
-                if (err)
-                    return callback(err);
-                spiderLinks(url, body, nesting, callback);
-            });
-        }
-        spiderLinks(url, body, nesting, callback);
 
-    });
+function spider( url, nesting) 
+{ 
+	var filename = utilities.urlToFilename(url); return readFile( filename, 'utf8').
+		then( function( body) 
+			{ 
+				return spiderLinks( url, body, nesting);}, 
+			function( err) { 
+				if( err.code !== 'ENOENT') 
+					throw err;
+				return download(url,filename).then(function(body) 
+					{ 
+						return spiderLinks( url, body, nesting); 
+					});
+		}
+	);
 }
 
 if (!validator.validate())
     process.exit();
 
-spider(cmdConfig.get('url'), cmdConfig.get('nesting', 1), (err) => {
-    if (err) {
-        console.log(err);
-        process.exit();
-    } else {
-        console.log('Download complete');
-    }
-});
+spider(cmdConfig.get('url'),cmdConfig.get('nesting',1)).
+	then( function() {
+		console.log('Download complete'); }).catch( function( err) 
+			{ console.log( err); 
+}); 
