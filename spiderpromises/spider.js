@@ -10,7 +10,6 @@ var writeFile = utilities.promisify(fs.writeFile);
 
 
 const path = require('path');
-const async = require('async');
 const cmdConfig = require('./cmdconfig');
 const validator = require('./validator');
 const debug = require('debug')('spider');

@@ -30,16 +30,6 @@ assert(options._all.url,'No url specified');
 		console.error(err.message);
 	}
 	}
-	if (options._all.concurrency !== undefined)
-		try
-	{
-		assert(validator.isInt(options._all.concurrency.toString(),{min:1}),'Concurrency must be greater than 0');
-	}
-	catch(err)
-	{
-		inc();
-		console.error(err.message);
-	}
 
 		if (options._all.nesting !== undefined)
 	{
