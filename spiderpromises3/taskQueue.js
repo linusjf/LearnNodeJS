@@ -1,4 +1,8 @@
 "use strict";
+const cmdConfig = require('./cmdconfig');
+const debug = require('debug')('TaskQueue');
+debug.enabled = cmdConfig.get('debug',false);
+console.log(debug.enabled);
 
 module.exports = class TaskQueue {
   constructor (concurrency) {
@@ -12,17 +16,22 @@ module.exports = class TaskQueue {
     this.next();
   }
 
-next() { 
-	var self = this; 
-	while( self.running < self.concurrency && self.queue.length) 
-	{ 
-		var task = self.queue.shift();
-		task().then( function() 
-		{ 
-			self.running--;
-			self.next();
-		});
-		self.running ++; 
-	}
+  next() 
+  { 
+    
+    while( this.running < this.concurrency && this.queue.length) 
+    { 
+      debug('running='+this.running);
+      var task = this.queue.shift();
+      task().then( () => 
+      { 
+        this.running--;
+      debug('calling next running = '+this.running);
+        this.next();
+      });
+      this.running++; 
+      debug('running incremented = '+this.running);
+    }
 }
+
 }

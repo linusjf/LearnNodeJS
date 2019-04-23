@@ -5,13 +5,16 @@ const urlResolve = require('url').resolve;
 const slug = require('slug');
 const path = require('path');
 const cheerio = require('cheerio');
+const debug = require('debug')('utilities');
+debug.enabled = false;
 var Promise = require('bluebird');
 
 module.exports.promisify =
     function(callbackBasedApi) {
         return function promisified() {
             var args = Array.prototype.slice.call(arguments);
-            return new Promise(function(resolve, reject) { 
+          debug(args);  
+          return new Promise(function(resolve, reject) { 
     args.push(function(err, result) {
                     if (err)
                         return reject(err);
@@ -20,6 +23,7 @@ module.exports.promisify =
                     else
                         resolve(Array.prototype.slice.call(arguments, 1));
                 });
+            debug(args);
                 callbackBasedApi.apply(null, args);
             });
         }

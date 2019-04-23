@@ -8,14 +8,14 @@ var fs = require('fs');
 var readFile = utilities.promisify(fs.readFile);
 var writeFile = utilities.promisify(fs.writeFile);
 
-
 const path = require('path');
 const cmdConfig = require('./cmdconfig');
 const validator = require('./validator');
 const debug = require('debug')('spider');
 debug.enabled = cmdConfig.get('debug', false);
 var TaskQueue = require('./taskQueue');
-var downloadQueue = new TaskQueue(cmdConfig.get('concurrency',2));
+
+
 
 function download(url, filename) {
     console.log('Downloading ' + url);
@@ -40,8 +40,12 @@ function spiderLinks( currentUrl, body, nesting)
 		return Promise.resolve();
 	var links = utilities.getPageLinks( currentUrl, body);
 // we need the following because the Promise we create next will never settle if there are no tasks to process 
-	if( links.length === 0) 
+console.log('links = '+links.length);
+  if( links.length === 0) 
 		return Promise.resolve();
+var downloadQueue = new TaskQueue(cmdConfig.get('concurrency',2));
+debug(downloadQueue.concurrency);
+
 	return new Promise( function( resolve, reject) 
 	{ 
 		var completed = 0;
@@ -49,22 +53,14 @@ function spiderLinks( currentUrl, body, nesting)
 			var task = function() {
 	return spider( link, nesting - 1).
 		then( function() { 
-			if( ++completed === links.length) { resolve(); } 
-		}).catch( reject); }; 
-	downloadQueue.pushTask( task); });
+      debug('completed = '+completed);
+			if( ++completed === links.length) { 
+      debug('Calling resolve');
+        resolve(); } 
+		}).catch( reject); };
+      downloadQueue.pushTask( task); });
 	});
 } 
-
-function spiderLinks(currentUrl,body,nesting) { 
-	if( nesting === 0)
-		return Promise.resolve();
-	var links = utilities.getPageLinks(currentUrl, body);
-	var promises = links.map(function(link)
-	{
-		return spider( link, nesting - 1);
-	});
-	return Promise.all(promises);
-}
 
 function spider( url, nesting) 
 { 
@@ -72,6 +68,7 @@ function spider( url, nesting)
 	return readFile( filename, 'utf8').
 		then( function( body) 
 			{ 
+        debug('File '+filename+' found');
 				return spiderLinks( url, body, nesting);}, 
 			function( err) { 
 				if( err.code !== 'ENOENT') 
