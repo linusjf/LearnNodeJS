@@ -8,7 +8,6 @@ const utilities = require('./utilities');
 const cmdConfig = require('./cmdconfig');
 //const uriValidator = require('valid-url');
 const TaskQueue = require('./taskQueue');
-let downloadQueue = new TaskQueue(cmdConfig.get('concurrency',2));
 const validator = require('./validator');
 
 function spiderLinks(currentUrl, body, nesting, callback) {
@@ -20,6 +19,7 @@ function spiderLinks(currentUrl, body, nesting, callback) {
   if(links.length === 0) {
     return process.nextTick(callback);
   }
+let downloadQueue = new TaskQueue(cmdConfig.get('concurrency',2));
 
   let completed = 0, hasErrors = false;
   links.forEach(link => {

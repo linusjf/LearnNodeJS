@@ -8,10 +8,6 @@ const async = require('async');
 const utilities = require('./utilities');
 const cmdConfig = require('./cmdconfig');
 const validator = require('./validator');
-var downloadQueue = async.queue( 
-	function( taskData, callback) 
-	{ spider( taskData.link, taskData.nesting - 1, callback);
-	},cmdConfig.get('concurrency',2));
 
 function spiderLinks( currentUrl, body, nesting, callback) 
 { 
@@ -20,6 +16,11 @@ function spiderLinks( currentUrl, body, nesting, callback)
 	var links = utilities.getPageLinks( currentUrl, body);
 	if( links.length === 0) 
 		return process.nextTick( callback);
+var downloadQueue = async.queue( 
+	function( taskData, callback) 
+	{ spider( taskData.link, taskData.nesting - 1, callback);
+	},cmdConfig.get('concurrency',2));
+
 var completed = 0, errored = false;
 	links.forEach( function( link) 
 		{ 
