@@ -4,6 +4,7 @@
 *.html
 *.clean
 *node_modules/
+clone_of*.js
 !rndstreamer*test.html
 !*package.json
 !*default.json
