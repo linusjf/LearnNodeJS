@@ -1,6 +1,9 @@
 /*jshint globalstrict: true*/
-/*jshint esversion: 6 */
 /*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
 'use strict';
 
 function asyncFlowWithPromises(generatorFunction) {

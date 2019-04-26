@@ -1,0 +1,18 @@
+export comment_file='jshint.txt'
+export size=$(wc -c < $comment_file)
+files=0
+for file in $(find . -name '*.js' -type f ! -path "*node_modules*");
+  do
+  cmp -s -n "$size" "$comment_file" "$file"
+  comment_not_exists=$(echo $?)
+if [ $comment_not_exists -ne 0 ]
+   then
+     tempfile=$(mktemp)
+     cat "$comment_file" >"$tempfile"
+     echo >> "$tempfile"
+     cat "$file" >> "$tempfile"
+     mv "$tempfile" "$file"
+     $files=$files+1
+  fi
+done
+echo $files ' files updated.'

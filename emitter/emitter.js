@@ -1,3 +1,10 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+"use strict";
 var argc = process.argv.length;
 var expression;
 

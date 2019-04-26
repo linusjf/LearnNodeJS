@@ -1,3 +1,9 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
 "use strict";
 const urlResolve = require('url').resolve;
 const urlParse = require('url').parse;

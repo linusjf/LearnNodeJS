@@ -1,3 +1,21 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
 "use strict";
 
 const urlParse = require('url').parse;

@@ -1,3 +1,21 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
 const validator = require('validator');
 const cmdConfig = require('./cmdconfig');
 const assert = require('assert');

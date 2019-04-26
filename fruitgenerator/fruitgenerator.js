@@ -1,3 +1,11 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+"use strict";
+
 function* fruitGenerator() 
 { 
   yield 'apple';

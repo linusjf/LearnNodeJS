@@ -1,3 +1,9 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
 "use strict";
 var sys = require("util"),
 http = require("http"),

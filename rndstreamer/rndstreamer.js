@@ -1,3 +1,9 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
 "use strict";
 var util = require("util"), https = require("https"), http = require("http"),
     url = require("url"), path = require("path"), fs = require("fs"),

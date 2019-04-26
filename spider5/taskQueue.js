@@ -1,3 +1,9 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
 "use strict";
 
 module.exports = class TaskQueue {

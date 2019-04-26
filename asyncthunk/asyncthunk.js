@@ -1,6 +1,10 @@
 /*jshint globalstrict: true*/
-/*jshint esversion: 6 */
 /*jshint node: true */
+
+/*jshint globalstrict: true*/
+/*jshint node: true */
+
+/*jshint esversion: 6 */
 'use strict';
 
 function asyncFlowWithThunks(generatorFunction) {
