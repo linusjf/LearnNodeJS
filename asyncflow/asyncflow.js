@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 'use strict';
 
 function asyncFlow(generatorFunction) {
@@ -13,7 +10,7 @@ function asyncFlow(generatorFunction) {
         }
         var results = Array.prototype.slice.call(arguments, 1);
         generator.next(results.length > 1 ? results : results[0]);
-    };
+    }
     var generator = generatorFunction(callback);
     generator.next();
 }

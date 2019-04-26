@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 
 function* iteratorGenerator( arr) 
@@ -11,7 +8,7 @@ function* iteratorGenerator( arr)
   for( var i = 0; i < arr.length; i++) 
   { 
     yield arr[i]; 
-  }; 
+  } 
 } 
 
 var iterator = iteratorGenerator(['apple', 'orange', 'watermelon']); 

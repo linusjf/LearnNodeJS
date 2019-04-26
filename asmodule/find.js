@@ -36,11 +36,11 @@ FindPattern.prototype.find =
         return self.emit('error', err);
       self.emit('fileread', file);
       var match = null;
-      if (match = content.match(self.regex))
+      if (!!(match = content.match(self.regex)))
         match.forEach(function(elem) { self.emit('found', file, elem); });
     });
   });
   return this;
-}
+};
 
 module.exports = FindPattern;

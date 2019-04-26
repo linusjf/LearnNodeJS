@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 var argc = process.argv.length;
 var expression;
@@ -65,12 +62,12 @@ FindPattern.prototype.find =
         return self.emit('error', err);
       self.emit('fileread', file);
       var match = null;
-      if (match = content.match(self.regex))
+      if (!!(match = content.match(self.regex)))
         match.forEach(function(elem) { self.emit('found', file, elem); });
     });
   });
   return this;
-}
+};
 
     function findPattern(files, regex) {
       var emitter = new EventEmitter();
@@ -81,7 +78,7 @@ FindPattern.prototype.find =
             return emitter.emit("error", err);
           emitter.emit("fileread", file);
           var match = null;
-          if (match = content.match(regex))
+          if (!!(match = content.match(regex)))
             match.forEach(function(
                 elem) { emitter.emit("found", file, elem); });
         });

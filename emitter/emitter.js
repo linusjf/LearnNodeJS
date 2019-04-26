@@ -1,8 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
+/*jshint esversion: 6 */
 
 "use strict";
 var argc = process.argv.length;
@@ -47,7 +45,7 @@ function findPattern(files, regex) {
         return emitter.emit("error", err);
       emitter.emit("fileread", file);
       var match = null;
-      if (match = content.match(regex))
+      if (!!(match = content.match(regex)))
         match.forEach(function(elem) { emitter.emit("found", file, elem); });
     });
   });

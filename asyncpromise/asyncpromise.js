@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 'use strict';
 
 function asyncFlowWithPromises(generatorFunction) {
@@ -36,7 +33,7 @@ function promisify(callbackBasedApi) {
                 });
                 callbackBasedApi.apply(null, args);
             });
-        }
+        };
 }
 
 var fs = require('fs');
