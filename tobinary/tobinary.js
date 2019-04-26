@@ -1,8 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
+/*jshint esversion: 6 */
 
 "use strict";
 
@@ -23,7 +21,6 @@ function toBinary(num)
 function emitNextBinary(num,rep)
 {
     let quotient = num >> 1;
-    var rep;
     if (!quotient)
         return rep;
     else if (isOdd(quotient))
@@ -77,7 +74,7 @@ integers.forEach(function(item){
         throw {
             name: "Number Format exception",
             message: "Not a number."
-        }
+        };
     }
     catch (exc)
     {

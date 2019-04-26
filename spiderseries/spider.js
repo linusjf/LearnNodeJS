@@ -1,21 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 
 const request = require('request');
@@ -44,7 +29,7 @@ function spiderLinks( currentUrl, body, nesting, callback)
 		callback);
 } 
 
-function download( url, filename, callback
+function download( url, filename, callback)
  { 
 console.log(' Downloading ' + url); 
 var body; 

@@ -1,21 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
+"use strict";
 const validator = require('validator');
 const cmdConfig = require('./cmdconfig');
 const assert = require('assert');
@@ -78,4 +64,4 @@ assert(options._all.url,'No url specified');
 	}
 	
 	return true;
-}
+};
