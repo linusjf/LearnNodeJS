@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 const cmdOptions = [{
         name: 'help',
@@ -34,7 +31,7 @@ const cmdOptions = [{
         group: 'main',
         description: 'Web url to be traversed'
     }
-]
+];
 
 function fullURL(url) {
     if (!url.startsWith('http'))
@@ -56,7 +53,7 @@ const sections = [{
         optionList: cmdOptions,
         group: '_none'
     }
-]
+];
 
 var config = require('config');
 const commandLineArgs = require('command-line-args');
@@ -71,11 +68,11 @@ module.exports.config = config;
 module.exports.usage = usage;
 // return config values with command line values overriding configuration file values
 module.exports.get = function getValue(key, defaultValue) {
-    if (key in options['_all']) {
-        return options['_all'][key];
+    if (key in options._all) {
+        return options._all[key];
     }
     if (config.has(key)) {
         return config.get(key);
     }
     return (defaultValue === undefined) ? null : defaultValue;
-}
+};

@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 
 const urlParse = require('url').parse;
@@ -33,8 +30,7 @@ module.exports.getLinkUrl = function getLinkUrl(currentUrl, element) {
   const link = urlResolve(currentUrl, element.attribs.href || "");
   const parsedLink = urlParse(link);
   const currentParsedUrl = urlParse(currentUrl);
-  if(parsedLink.hostname !== currentParsedUrl.hostname
-    || !parsedLink.pathname) {
+  if(parsedLink.hostname !== currentParsedUrl.hostname  || !parsedLink.pathname) {
     return null;
   }
   return link;
