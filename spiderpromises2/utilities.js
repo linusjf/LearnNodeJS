@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 
 const urlParse = require('url').parse;
@@ -28,8 +25,8 @@ module.exports.promisify =
                 });
                 callbackBasedApi.apply(null, args);
             });
-        }
-}
+        };
+};
 
 module.exports.urlToFilename = function urlToFilename(url) {
     const parsedUrl = urlParse(url);

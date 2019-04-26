@@ -1,21 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 const cmdConfig = require('./cmdconfig');
 const debug = require('debug')('TaskQueue');
@@ -52,4 +37,4 @@ module.exports = class TaskQueue {
     }
 }
 
-}
+};
