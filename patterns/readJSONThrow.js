@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 var fs = require('fs');
 function readJSON(filename, callback) {
@@ -19,7 +16,7 @@ function readJSON(filename, callback) {
         // catch parsing errors
     // no errors, propagate just the data
     callback(filename + ' : '+JSON.stringify(parsed));} });
-};
+}
 
 var files = process.argv.slice(2);
 if (!files.length)

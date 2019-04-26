@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 var util = require("util"), https = require("https"), http = require("http"),
     url = require("url"), path = require("path"), fs = require("fs"),
@@ -41,7 +38,7 @@ var options = {
   method : 'GET',
   path :
       '/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new'
-}
+};
 
 var string_emitter = new events.EventEmitter();
 

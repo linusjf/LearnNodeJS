@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 
 const request = require('request');
@@ -34,11 +31,11 @@ function download(url,filename,callback)
         if (err)
           return callback(err);
     saveFile(filename,body,err => {
-    console.log("Downloaded and saved " + url)+ " to ${filename}";
+    console.log("Downloaded and saved " + url + " to ${filename}");
     if (err)
         return callback(err);
         callback(null,body);
-    })
+    });
  });
 downloaded = true;
 }

@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
 "use strict";
 var fs = require('fs');
 var req = require;
@@ -11,7 +8,7 @@ function loadModule(filename, module, require) {
   var wrappedSrc = '( function( module, exports, require) {' +
                    fs.readFileSync(filename, 'utf8') +
                    '})( module, module.exports, require);';
-  eval(wrappedSrc);
+  eval(wrappedSrc); //jshint ignore:line
 }
 
 var require = function(moduleName) {
@@ -48,7 +45,7 @@ require.resolve =
     return moduleName + '.js';
   }
   return req.resolve(moduleName);
-}
+};
 
 // load another dependency
 var dependency = require('./anothermodule.js');

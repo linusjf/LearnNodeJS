@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 const http = require('http');
 const request = require('request');
@@ -15,10 +12,8 @@ const debug = require('debug')('spider');
 debug.enabled = false;
 var downloaded = false;
 var spidering  = new Map();
-var errors = new Array();
-/**var running = 0;
-var allLinks = new Array();
-var index = 0;**/
+var errors = [];
+
 function saveFile(filename,body,callback)
 {
         mkdirp(path.dirname(filename), err => {
@@ -38,19 +33,17 @@ function download(url,filename,callback)
       request(url, (err, response, body) => {       if (err)
           return callback(err);
     saveFile(filename,body,err => {
-    console.log("Downloaded and saved " + url)+ " to ${filename}";
+    console.log("Downloaded and saved " + url + " to ${filename}");
     if (err)
         return callback(err);
         callback(null,body);
-    })
+    });
  });
 downloaded = true;
 }
 
 function spider( url, nesting, callback) 
 { 
-  /**let clearIntvl = true;
-	let clearIntvl1 = true;**/
 	if (spidering.has(url))
 		return process.nextTick(callback);
 	spidering.set(url,true);
@@ -62,13 +55,11 @@ function spider( url, nesting, callback)
 		return download( url, filename, function( err, body)		{ 
 			if( err) 
 				return callback( err,filename,false);
-	/**var idVar = setInterval(() => {**/
 				spiderLinks( url, body, nesting, callback);
 		
 				});
 			}
 		  
-	/**var idVar1 = setInterval(() => {**/
 				spiderLinks( url, body, nesting, callback);
 	
 
@@ -76,13 +67,12 @@ function spider( url, nesting, callback)
 }
  
 
-function spiderLinks( currentUrl, body, nesting, callback/**,redo**/) {
+function spiderLinks( currentUrl, body, nesting, callback) {
 	if( nesting <= 0) 
 		return process.nextTick( callback,null,currentUrl,downloaded);
 	 
 	var links = utilities.getPageLinks( currentUrl, body);
 debug(links.length);
-//	debug(currentUrl);
 if (links.length === 0)
 	return process.nextTick(callback,null,currentUrl,downloaded);
 let completed = 0;
@@ -90,7 +80,6 @@ let running = 0;
 let index = 0;
 let inError = false;
 let error = null;
-//allLinks = allLinks.concat(links);
 function next() {
 	debug('index = '+index);
 	debug('running = '+running);
@@ -106,17 +95,14 @@ function next() {
 				return callback(err);
 			}
 			debug('completed = '+completed);
-			if( completed === links.length && !inError) 
+			if ( completed === links.length && !inError) 
 				return done();
-			completed++, running--; 
-			next();
+			completed++, running--;next();
 		}); 
 		running++; 
 	} 
-if( completed === links.length && !inError) 
+if ( completed === links.length && !inError) 
 	return done();
-/**else 
-	return done(error);**/
 } 
 next();
 
@@ -154,7 +140,6 @@ if (process.argv[4])
 }
 else
 	concurrency = 2;
-//http.globalAgent.maxSockets = concurrency;
 if (url)
 {
 	spider(url, level,(err, filename, downloaded) => {

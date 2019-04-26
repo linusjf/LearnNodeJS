@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6*/
 "use strict";
 
 const request = require('request');
@@ -12,7 +9,6 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 const utilities = require('./utilities');
 const cmdConfig = require('./cmdconfig');
-//const uriValidator = require('valid-url');
 const TaskQueue = require('./taskQueue');
 const validator = require('./validator');
 

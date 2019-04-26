@@ -1,9 +1,6 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
+/*jshint esversion: 6 */
 "use strict";
 
 const request = require('request');
@@ -36,7 +33,7 @@ function download(url,filename,callback)
     if (err)
         return callback(err);
         callback(null,body);
-    })
+    });
  });
 
 }
@@ -50,7 +47,7 @@ function spider(url, callback) {
     if (err)
         return callback(err);
     return callback(null,filename,true);
-    })
+    });
 });
 }
 if (process.argv[2])

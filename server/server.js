@@ -1,8 +1,5 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
+"use strict";
 
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-
-console.log('This is Node.js running on Android.')
+console.log('This is Node.js running on Android.');
