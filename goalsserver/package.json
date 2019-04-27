@@ -1,0 +1,19 @@
+{
+  "name": "goalsserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "goalsserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nedb",
+    "express"
+  ],
+  "author": "Linus Fernandes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nedb": "^1.8.0"
+  }
+}

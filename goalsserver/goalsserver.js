@@ -1,15 +1,14 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
 "use strict";
 // goalsserver.js
 //
 function log (err, newGoal) {
-  if (err) console.log(err);
-  console.log(newGoal);
+  if (err) 
+    console.log(err);
+  else
+    console.log(newGoal);
 }
 
 function firstRoute(req, res) {
