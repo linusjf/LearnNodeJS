@@ -13,7 +13,8 @@ if [ $comment_not_exists -ne 0 ]
      echo >> "$tempfile"
      cat "$file" >> "$tempfile"
      mv "$tempfile" "$file"
-     $files=$files+1
+     files=`expr $files + 1`
   fi
 done
-echo $files ' files updated.'
+echo $files 'file(s) updated.'
+exit $files
