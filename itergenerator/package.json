@@ -1,0 +1,15 @@
+{
+  "name": "itergenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "itergenerator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "generator",
+    "iterator"
+  ],
+  "author": "Linus Fernandes",
+  "license": "ISC"
+}
