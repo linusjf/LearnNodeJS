@@ -1,0 +1,21 @@
+{
+  "name": "asmodule",
+  "version": "1.0.0",
+  "description": "",
+  "main": "proto.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "regular",
+    "expresions",
+    "regex"
+  ],
+  "author": "Linus Fernandes",
+  "license": "ISC",
+  "dependencies": {
+    "events": "^3.0.0",
+    "fs": "0.0.1-security",
+    "utils": "^0.3.1"
+  }
+}
