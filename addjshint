@@ -1,3 +1,4 @@
+#!/bin/bash
 export comment_file='jshint.txt'
 export size=$(wc -c < $comment_file)
 files=0

@@ -1,0 +1,12 @@
+#!/bin/bash
+folders=0
+errors=0
+for dir in $(find . -type d ! -path "*node_modules*" ! -path "*.git*" ! -path "*config*" ! -path .);
+  do
+    echo $dir
+  jshint "$dir" --exclude "$dir/node_modules"
+  errors=`expr $(echo $?) + $errors`
+  folders=`expr $folders + 1`
+done
+echo $folders ' folders processed with ' $errors ' errors.'
+exit $errors
