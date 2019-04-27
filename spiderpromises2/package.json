@@ -1,23 +1,22 @@
 {
-  "name": "spiderseries",
+  "name": "spiderpromises2",
   "version": "1.0.0",
-  "description": "This package downloads the links from an url recursively upto the nesting level specified. ",
+  "description": "Web crawler",
   "main": "spider.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "spider",
-    "webcrawler",
-    "async",
-    "series"
+    "web",
+    "crawler"
   ],
-  "author": "",
+  "author": "Linus Fernandes",
   "license": "ISC",
   "dependencies": {
     "assert": "^1.4.1",
-    "async": "^2.6.2",
     "bluebird": "^3.5.4",
+    "cheerio": "^1.0.0-rc.3",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
     "config": "^3.1.0",
@@ -26,6 +25,8 @@
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
     "request": "^2.88.0",
+    "slug": "^1.1.0",
+    "url": "^0.11.0",
     "validator": "^10.11.0"
   }
 }
