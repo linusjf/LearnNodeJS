@@ -1,21 +1,17 @@
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
-"use strict";
-function serve(req, res) {
+/* jshint globalstrict: true */
+/* jshint node: true */
+'use strict';
+function serve (req, res) {
     res.writeHead(200, {
-        "Content-Type": "text/plain"
+        'Content-Type"+': 'text/plain'
     });
-    res.end("Hello World\n");
+    res.end('Hello World\n');
 }
 
-var http = require("http");
+var http = require('http');
 
 var server = http.createServer(serve);
 
-server.listen(1337, "127.0.0.1");
+server.listen(1337, '127.0.0.1');
 
-console.log("Server running at http://127.0.0.1:1337/");
+console.log('Server running at http://127.0.0.1:1337/');
