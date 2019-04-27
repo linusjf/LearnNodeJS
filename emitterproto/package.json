@@ -1,0 +1,16 @@
+{
+  "name": "emitterproto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "proto.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Linus Fernandes",
+  "license": "ISC",
+  "dependencies": {
+    "events": "^3.0.0",
+    "fs": "0.0.1-security",
+    "util": "^0.11.1"
+  }
+}
