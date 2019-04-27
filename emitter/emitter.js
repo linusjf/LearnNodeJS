@@ -12,7 +12,7 @@ function parseArgs(noOfArgs) {
     if (noOfArgs > 3) {
 
       let options = process.argv[3];
-      let pattern = new RegExp("^-(?=[gim]{1,3}$)(?!.*(.).*\1).*$");
+      let pattern = new RegExp("^-(?=[gim]{1,3}$)(?!.*(.).*\\1).*$");
       if (!pattern.test(options))
         exitMessage();
       else
