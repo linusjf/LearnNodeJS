@@ -1,5 +1,5 @@
 {
-  "name": "spider3",
+  "name": "spider",
   "version": "1.0.0",
   "description": "Web crawler.",
   "main": "spider.js",
@@ -14,7 +14,6 @@
   "author": "Linus Fernandes",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
     "fs": "0.0.1-security",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",

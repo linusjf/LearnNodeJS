@@ -31,7 +31,7 @@ function download(url,filename,callback)
         if (err)
           return callback(err);
     saveFile(filename,body,err => {
-    console.log("Downloaded and saved " + url + " to ${filename}");
+    console.log("Downloaded and saved " + url + " to " + filename);
     if (err)
         return callback(err);
         callback(null,body);

@@ -1,25 +1,23 @@
 {
-  "name": "spider3",
+  "name": "rndstreamer",
   "version": "1.0.0",
-  "description": "Web crawler.",
-  "main": "spider.js",
+  "description": "",
+  "main": "rndstreamer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "spider",
-    "crawler",
-    "web"
+    "streamer"
   ],
   "author": "Linus Fernandes",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
+    "events": "^3.0.0",
     "fs": "0.0.1-security",
-    "mkdirp": "^0.5.1",
+    "http": "0.0.0",
+    "https": "^1.0.0",
     "path": "^0.12.7",
-    "request": "^2.88.0",
-    "slug": "^1.1.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "util": "^0.11.1"
   }
 }
