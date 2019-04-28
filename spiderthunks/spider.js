@@ -1,3 +1,7 @@
+/*jshint globalstrict: true*/
+/*jshint node: true */
+/*jshint esversion: 6 */
+"use strict";
 var thunkify = require('thunkify');
 var co = require('co');
 var request = thunkify(require('request'));
@@ -46,7 +50,7 @@ function* spiderLinks(currentUrl, body, nesting) {
     var links = utilities.getPageLinks(currentUrl, body);
     for (var i = 0; i < links.length; i++) {
         yield spider(links[i], nesting - 1);
-    };
+    }
 }
 
 
@@ -59,5 +63,5 @@ co(function*() {
         console.log('Download  complete');
     } catch (err) {
         console.log(err);
-    };
+    }
 });
