@@ -1,6 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
+/*jshint latedef: false */
 "use strict";
 
 const request = require('request');

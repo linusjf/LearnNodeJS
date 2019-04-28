@@ -1,8 +1,8 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
+/*jshint latedef: false */
 "use strict";
-const http = require('http');
 const request = require('request');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
@@ -13,7 +13,7 @@ debug.enabled = false;
 var downloaded = false;
 var spidering  = new Map();
 var errors = [];
-
+var url,concurrency;
 function saveFile(filename,body,callback)
 {
         mkdirp(path.dirname(filename), err => {
@@ -66,13 +66,11 @@ function spider( url, nesting, callback)
 	});
 }
  
-
 function spiderLinks( currentUrl, body, nesting, callback) {
-	if( nesting <= 0) 
+	if( nesting === 0) 
 		return process.nextTick( callback,null,currentUrl,downloaded);
 	 
 	var links = utilities.getPageLinks( currentUrl, body);
-debug(links.length);
 if (links.length === 0)
 	return process.nextTick(callback,null,currentUrl,downloaded);
 let completed = 0;
@@ -80,10 +78,16 @@ let running = 0;
 let index = 0;
 let inError = false;
 let error = null;
+	function done( err) 
+	{ 
+		if( err) 
+		{ 
+			inError = true; 
+			return callback( err);
+		} 
+		return callback(null,url,downloaded);
+	}
 function next() {
-	debug('index = '+index);
-	debug('running = '+running);
-	debug(links.length);
 	while( running < concurrency && index < links.length) {
 		const link = links[index++];
 
@@ -94,7 +98,6 @@ function next() {
 				error = err;
 				return callback(err);
 			}
-			debug('completed = '+completed);
 			if ( completed === links.length && !inError) 
 				return done();
 			completed++, running--;next();
@@ -106,20 +109,15 @@ if ( completed === links.length && !inError)
 } 
 next();
 
-	function done( err) 
-	{ 
-		if( err) 
-		{ 
-			inError = true; 
-			return callback( err);
-		} 
-		debug('Into done: callback');
-		return callback(null,url,downloaded);
-	}
 }
 
+function exitMessage()
+{
+    console.error('Usage: node spider.js url {level} {concurrency}.\nLevel defaults to 1.\nConcurrency defaults to 2.');
+    process.exit(1);
+}
 
-let url = process.argv[2];
+url = process.argv[2];
 var level;
 if (process.argv[3])
 {
@@ -130,7 +128,6 @@ if (isNaN(level) || level <= 0)
 }
 else
 	level = 1;
-var concurrency;
 if (process.argv[4])
 {
 	concurrency = parseInt(process.argv[4]);
@@ -167,10 +164,5 @@ else
 	exitMessage();
 
 
-function exitMessage()
-{
-    console.error('Usage: node spider.js url {level} {concurrency}.\nLevel defaults to 1.\nConcurrency defaults to 2.');
-    process.exit(1);
-}
 
 

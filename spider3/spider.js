@@ -1,6 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
+/*jshint latedef: false */
 "use strict";
 
 const request = require('request');
@@ -9,9 +10,9 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 const utilities = require('./utilities');
 
-//var filename;
 var downloaded = false;
 var spidering = new Map();
+var url;
 
 function saveFile(filename, body, callback) {
     mkdirp(path.dirname(filename), err => {
@@ -59,9 +60,8 @@ function spider(url, nesting, callback) {
     });
 }
 
-
 function spiderLinks(currentUrl, body, nesting, callback) {
-    if (nesting <= 0)
+    if (nesting === 0)
         return process.nextTick(callback);
 
     var links = utilities.getPageLinks(currentUrl, body);
@@ -86,9 +86,12 @@ function spiderLinks(currentUrl, body, nesting, callback) {
 
 }
 
+function exitMessage() {
+    console.error('Usage: node spider.js url {level}.\nLevel defaults to 1.');
+    process.exit(1);
+}
 
-
-let url = process.argv[2];
+url = process.argv[2];
 var level;
 if (process.argv[3]) {
     level = parseInt(process.argv[3]);
@@ -112,9 +115,3 @@ if (url) {
     });
 } else
     exitMessage();
-
-
-function exitMessage() {
-    console.error('Usage: node spider.js url {level}.\nLevel defaults to 1.');
-    process.exit(1);
-}

@@ -1,7 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
-
+/*jshint bitwise: false */
 "use strict";
 
 function isOdd(num)

@@ -1,6 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
+/*jshint latedef: false */
 "use strict";
 
 const request = require('request');
@@ -40,6 +41,33 @@ function download(url,filename,callback)
 downloaded = true;
 }
 
+function iterateSeries(collection,nesting,iter,finalCallback)
+{
+	iter(collection,0,nesting,finalCallback); 
+}
+
+
+function iterate( collection,index,nesting,finalCallback) { 
+		if( index === collection.length)  
+			return finalCallback(null,filename,downloaded); 
+		spider( collection[ index], nesting - 1, function( err) { 
+			if( err) 
+				return finalCallback( err); 
+			iterate( collection,index + 1,nesting-1,finalCallback);
+		});
+}
+
+function spiderLinks( currentUrl, body, nesting, callback) {
+	if( nesting <= 0) 
+		return process.nextTick( callback);
+	 
+	var links = utilities.getPageLinks( currentUrl, body);
+
+	
+iterateSeries(links,nesting,iterate,callback);
+
+}
+
 function spider( url, nesting, callback) 
 { 
 	filename = utilities.urlToFilename( url);
@@ -65,33 +93,11 @@ function spider( url, nesting, callback)
 }); 
 } 
 
-function spiderLinks( currentUrl, body, nesting, callback) {
-	if( nesting <= 0) 
-		return process.nextTick( callback);
-	 
-	var links = utilities.getPageLinks( currentUrl, body);
-
-	
-iterateSeries(links,nesting,iterate,callback);
-
-}
-
-
-function iterate( collection,index,nesting,finalCallback) { 
-		if( index === collection.length)  
-			return finalCallback(null,filename,downloaded); 
-		spider( collection[ index], nesting - 1, function( err) { 
-			if( err) 
-				return finalCallback( err); 
-			iterate( collection,index + 1,nesting-1,finalCallback);
-		});
-}
-
-function iterateSeries(collection,nesting,iter,finalCallback)
+function exitMessage()
 {
-	iter(collection,0,nesting,finalCallback); 
+    console.error('Usage: node spider.js url {level}.\nLevel defaults to 1.');
+    process.exit(1);
 }
-
 
 let url = process.argv[2];
 var level;
@@ -122,11 +128,5 @@ if (url )
 else
 	exitMessage();
 
-
-function exitMessage()
-{
-    console.error('Usage: node spider.js url {level}.\nLevel defaults to 1.');
-    process.exit(1);
-}
 
 
