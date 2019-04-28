@@ -1,0 +1,24 @@
+{
+  "name": "spiderthunks",
+  "version": "1.0.0",
+  "description": "Spider thunks",
+  "main": "spider.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "spider",
+    "web",
+    "crawler"
+  ],
+  "author": "Linus Fernandes",
+  "license": "ISC",
+  "dependencies": {
+    "co": "^4.6.0",
+    "fs": "0.0.1-security",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "thunkify": "^2.1.2"
+  }
+}
