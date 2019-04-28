@@ -12,7 +12,6 @@ function exitMessage() {
 }
 
 function parseArgs(noOfArgs) {
-  if (noOfArgs > 2) {
     let xpr = process.argv[2];
 
       if (noOfArgs > 3) {
@@ -25,11 +24,9 @@ function parseArgs(noOfArgs) {
         expression = new RegExp(xpr, options.substring(1));
     } else
       expression = new RegExp(xpr);
+} 
 
-  } else
-    exitMessage();
-}
-
+if (argc > 2) {
 parseArgs(argc);
 
 var fs = require("fs");
@@ -52,3 +49,6 @@ fs.readdir(".", function(err, files) {
             function(err) { console.log('Error emitted ' + err.message); });
   }
 });
+}
+else
+    exitMessage();
