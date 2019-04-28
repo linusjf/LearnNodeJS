@@ -8,5 +8,5 @@ for dir in $(find . -type d ! -path "*node_modules*" ! -path "*.git*" ! -path "*
   errors=`expr $(echo $?) + $errors`
   folders=`expr $folders + 1`
 done
-echo $folders ' folders processed with ' $errors ' errors.'
+echo $folders 'folders processed with ' $errors ' errors.'
 exit $errors

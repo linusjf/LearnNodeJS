@@ -2,8 +2,7 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
-var util = require("util"),
-    https = require("https"),
+var https = require("https"),
     http = require("http"),
     url = require("url"),
     path = require("path"),
@@ -58,7 +57,7 @@ function get_strings() {
         const contentType = response.headers['content-type'];
 
         let error;
-        if (statusCode != 200) {
+        if (statusCode !== 200) {
             error = new Error('Request Failed.\n' +
                 `Status Code
                         : $ { statusCode }`);
@@ -82,7 +81,8 @@ setInterval(get_strings, 5000);
 
 http.createServer(function(request, response) {
         var uri = url.parse(request.url).pathname;
-        if (uri == "/stream") {
+var timeout;
+  if (uri === "/stream") {
             string_emitter.once("strings", function(values) {
                 response.statusCode = 200;
                 response.setHeader("Content-Type", "text/plain");
@@ -91,7 +91,7 @@ http.createServer(function(request, response) {
                 response.end();
                 clearTimeout(timeout);
             });
-            var timeout = setTimeout(
+            timeout = setTimeout(
                 function() {
                     response.statusCode = 200;
                     response.setHeader("Content-Type", "text/plain");
