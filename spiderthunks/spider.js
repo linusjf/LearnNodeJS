@@ -9,6 +9,11 @@ var nextTick = thunkify(process.nextTick);
 var utilities = require('./utilities');
 var path = require('path');
 
+const cmdConfig = require('./cmdconfig');
+const validator = require('./validator');
+const debug = require('debug')('spider');
+debug.enabled = cmdConfig.get('debug', false);
+
 function* download(url, filename) {
     console.log('Downloading ' + url);
     var results = yield request(url);
@@ -45,10 +50,12 @@ function* spiderLinks(currentUrl, body, nesting) {
 }
 
 
+if (!validator.validate())
+    process.exit();
 
 co(function*() {
     try {
-        yield spider(process.argv[2], 1);
+        yield spider(cmdConfig.get('url'),cmdConfig.get('nesting',1));
         console.log('Download  complete');
     } catch (err) {
         console.log(err);

@@ -14,11 +14,16 @@
   "author": "Linus Fernandes",
   "license": "ISC",
   "dependencies": {
+    "assert": "^1.4.1",
     "co": "^4.6.0",
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^5.0.5",
+    "config": "^3.1.0",
     "fs": "0.0.1-security",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
     "request": "^2.88.0",
-    "thunkify": "^2.1.2"
+    "thunkify": "^2.1.2",
+    "validator": "^10.11.0"
   }
 }
