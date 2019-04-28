@@ -6,21 +6,6 @@ const validator = require('validator');
 const cmdConfig = require('./cmdconfig');
 const assert = require('assert');
 
-module.exports.validate = function()
-{
-	const options = cmdConfig.options;
-	let assertCount = 0;
-	assertCount += isURLEmpty(options) + isURLValid(options) + isNestingValid(options);
-	
-	if (assertCount || options._all.help)
-	{
-		console.error(cmdConfig.usage);
-		return false;
-	}
-	
-	return true;
-};
-
 function isURLEmpty(options) {
 	try {
 assert(options._all.url,'No url specified');
@@ -65,19 +50,18 @@ if (options._all.nesting !== undefined)
 	return 0;
 }
 
-
-function isConcurrencyValid(options)
+module.exports.validate = function()
 {
-if (options._all.concurrency !== undefined)
+	const options = cmdConfig.options;
+	let assertCount = 0;
+	assertCount += isURLEmpty(options) + isURLValid(options) + isNestingValid(options);
+	
+	if (assertCount || options._all.help)
 	{
-		try {
-		assert(validator.isInt(options._all.concurrency+'',{gt:0}),'Concurency must be greater than 0');
-		}
-	catch(err)
-	{
-		console.error(err.message);
-		return 1;
+		console.error(cmdConfig.usage);
+		return false;
 	}
-	}
-	return 0;
-}
+	
+	return true;
+};
+

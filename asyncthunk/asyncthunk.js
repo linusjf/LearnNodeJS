@@ -1,9 +1,5 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
-
-/*jshint globalstrict: true*/
-/*jshint node: true */
-
 /*jshint esversion: 6 */
 'use strict';
 
@@ -24,7 +20,6 @@ function asyncFlowWithThunks(generatorFunction) {
 }
 
 var fs = require('fs');
-var path = require('path');
 
 function readFileThunk(filename, options) {
     return function(callback) {

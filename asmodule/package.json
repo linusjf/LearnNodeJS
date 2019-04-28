@@ -1,22 +1,21 @@
 {
   "name": "asmodule",
   "version": "1.0.0",
-  "description": "",
+  "description": "Regular expression tester.",
   "main": "proto.js",
+  "dependencies": {
+    "events": "^3.0.0",
+    "fs": "^0.0.1-security",
+    "util": "^0.11.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "regular",
-    "expresions",
-    "regex"
+    "regex",
+    "proto"
   ],
   "author": "Linus Fernandes",
-  "license": "ISC",
-  "dependencies": {
-    "events": "^3.0.0",
-    "fs": "0.0.1-security",
-    "util": "^0.11.1",
-    "utils": "^0.3.1"
-  }
+  "license": "ISC"
 }

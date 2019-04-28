@@ -5,6 +5,7 @@
 *.clean
 *node_modules/
 clone_of*.js
+*.errors
 !rndstreamer*test.html
 !*package.json
 !*package-lock.json

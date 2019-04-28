@@ -1,6 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
+/*jshint latedef:true */
 "use strict";
 var Promise = require('bluebird');
 var utilities = require('./utilities');

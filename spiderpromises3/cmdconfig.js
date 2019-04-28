@@ -2,6 +2,13 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
+
+function fullURL(url) {
+    if (!url.startsWith('http'))
+        return 'http://' + url;
+    return url;
+}
+
 const cmdOptions = [{
         name: 'help',
         description: 'Display usage guide.',
@@ -40,11 +47,6 @@ const cmdOptions = [{
     }
 ];
 
-function fullURL(url) {
-    if (!url.startsWith('http'))
-        return 'http://' + url;
-    return url;
-}
 
 const sections = [{
         header: 'Webcrawler app',

@@ -5,6 +5,12 @@
 var argc = process.argv.length;
 var expression;
 
+function exitMessage() {
+  console.error(
+      "Usage: node proto.js 'regex' -{g}{i}{m}\ng - global,\ni - case-insensitive,\nm - multiline");
+  process.exit(1);
+}
+
 function parseArgs(noOfArgs) {
   if (noOfArgs > 2) {
     let xpr = process.argv[2];
@@ -25,11 +31,6 @@ function parseArgs(noOfArgs) {
 
 parseArgs(argc);
 
-function exitMessage() {
-  console.error(
-      "Usage: node proto.js 'regularexpression' -[g][i][m]\ng - global,i - case-insensitive,m - multiline");
-  process.exit(1);
-}
 
 var EventEmitter = require("events").EventEmitter;
 var util = require("util");
@@ -69,41 +70,3 @@ FindPattern.prototype.find =
   return this;
 };
 
-    function findPattern(files, regex) {
-      var emitter = new EventEmitter();
-
-      files.forEach(function(file) {
-        fs.readFile(file, "utf8", function(err, content) {
-          if (err)
-            return emitter.emit("error", err);
-          emitter.emit("fileread", file);
-          var match = null;
-          if (!!(match = content.match(regex)))
-            match.forEach(function(
-                elem) { emitter.emit("found", file, elem); });
-        });
-      });
-      return emitter;
-    }
-
-    fs.readdir(".", function(err, files) {
-      if (err)
-        console.log("Error reading directory: " + err.message);
-      else {
-        var findPatternObject = new FindPattern(expression);
-        findPatternObject.setFiles(files);
-        findPatternObject.addFile('nonexistentfile.txt');
-        findPatternObject.find()
-            .on('found',
-                function(file, match) {
-                  console.log('Matched "' + match + '" in file ' + file);
-                })
-            .on('fileread',
-                function(file) {
-                  console.log('Read file ' + file);
-                })
-            .on('error',
-                function(
-                    err) { console.log('Error emitted ' + err.message); });
-      }
-    });

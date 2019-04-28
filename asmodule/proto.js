@@ -5,6 +5,12 @@
 var argc = process.argv.length;
 var expression;
 
+function exitMessage() {
+  console.error(
+      "Usage: node proto.js 'regex' -{g}{i}{m}\ng - global,\ni - case-insensitive,\nm - multiline");
+  process.exit(1);
+}
+
 function parseArgs(noOfArgs) {
   if (noOfArgs > 2) {
     let xpr = process.argv[2];
@@ -26,14 +32,6 @@ function parseArgs(noOfArgs) {
 
 parseArgs(argc);
 
-function exitMessage() {
-  console.error(
-      "Usage: node proto.js 'regularexpression' -[g][i][m]\ng - global,i - case-insensitive,m - multiline");
-  process.exit(1);
-}
-
-var EventEmitter = require("events").EventEmitter;
-var util = require("util");
 var fs = require("fs");
 var finder = require('./find.js');
 

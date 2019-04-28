@@ -4,14 +4,15 @@
 'use strict';
 
 function asyncFlow(generatorFunction) {
-    function callback(err) {
+  var generator;  
+  function callback(err) {
         if (err) {
             return generator.throw(err);
         }
         var results = Array.prototype.slice.call(arguments, 1);
         generator.next(results.length > 1 ? results : results[0]);
     }
-    var generator = generatorFunction(callback);
+    generator = generatorFunction(callback);
     generator.next();
 }
 

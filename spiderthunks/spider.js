@@ -1,6 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
+/* jshint latedef:false */
 "use strict";
 var thunkify = require('thunkify');
 var co = require('co');
@@ -28,6 +29,16 @@ function* download(url, filename) {
     return body;
 }
 
+function* spiderLinks(currentUrl, body, nesting) {
+    if (nesting === 0) {
+        return yield nextTick();
+    }
+    var links = utilities.getPageLinks(currentUrl, body);
+    for (var i = 0; i < links.length; i++) 
+        yield spider(links[i], nesting - 1);
+}
+
+
 function* spider(url, nesting) {
     var filename = utilities.urlToFilename(url);
     var body;
@@ -42,17 +53,6 @@ function* spider(url, nesting) {
     }
     yield spiderLinks(url, body, nesting);
 }
-
-function* spiderLinks(currentUrl, body, nesting) {
-    if (nesting === 0) {
-        return yield nextTick();
-    }
-    var links = utilities.getPageLinks(currentUrl, body);
-    for (var i = 0; i < links.length; i++) {
-        yield spider(links[i], nesting - 1);
-    }
-}
-
 
 if (!validator.validate())
     process.exit();

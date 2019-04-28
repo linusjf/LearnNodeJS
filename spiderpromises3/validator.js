@@ -6,21 +6,6 @@ const validator = require('validator');
 const cmdConfig = require('./cmdconfig');
 const assert = require('assert');
 
-module.exports.validate = function()
-{
-	const options = cmdConfig.options;
-	let assertCount = 0;
-	assertCount += isURLEmpty(options) + isURLValid(options) + isNestingValid(options) + isConcurrencyValid(options);
-	
-	if (assertCount || options._all.help)
-	{
-		console.error(cmdConfig.usage);
-		return false;
-	}
-	
-	return true;
-};
-
 function isURLEmpty(options) {
 	try {
 assert(options._all.url,'No url specified');
@@ -81,3 +66,19 @@ if (options._all.concurrency !== undefined)
 	}
 	return 0;
 }
+
+module.exports.validate = function()
+{
+	const options = cmdConfig.options;
+	let assertCount = 0;
+	assertCount += isURLEmpty(options) + isURLValid(options) + isNestingValid(options) + isConcurrencyValid(options);
+	
+	if (assertCount || options._all.help)
+	{
+		console.error(cmdConfig.usage);
+		return false;
+	}
+	
+	return true;
+};
+

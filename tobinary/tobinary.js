@@ -8,15 +8,6 @@ function isOdd(num)
 {
     return (num & 1);
 }
-function toBinary(num)
-{
-    var binaryRep = "";
-    if (isOdd(num))
-        binaryRep = "1";
-    else
-        binaryRep = "0";
-    return emitNextBinary(num,binaryRep);
-}
 
 function emitNextBinary(num,rep)
 {
@@ -30,12 +21,20 @@ function emitNextBinary(num,rep)
     return emitNextBinary(quotient,rep);
 }
 
+function toBinary(num)
+{
+    var binaryRep = "";
+    if (isOdd(num))
+        binaryRep = "1";
+    else
+        binaryRep = "0";
+    return emitNextBinary(num,binaryRep);
+}
+
 function toBinaryShift(num)
 {
     var binary = "";
-    var numsize = 4;
     var i;
-    var set = false;
     var newnum,leftshift;
      for (i = Math.log2(num); i >= 0; i--)
     {

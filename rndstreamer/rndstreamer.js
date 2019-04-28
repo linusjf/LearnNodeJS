@@ -50,11 +50,11 @@ string_emitter.on('error', function(err) {
 
 function get_strings() {
     console.log('get_strings invoked');
-    var request = https.get(options, function(response) {
+ https.get(options, function(response) {
         const {
             statusCode
         } = response;
-        const contentType = response.headers['content-type'];
+//        const contentType = response.headers['content-type'];
 
         let error;
         if (statusCode !== 200) {

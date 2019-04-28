@@ -39,8 +39,6 @@ function promisify(callbackBasedApi) {
 var fs = require('fs');
 var readFile = promisify(fs.readFile);
 var writeFile = promisify(fs.writeFile);
-var path = require('path');
-
 
 asyncFlowWithPromises(function*() {
     var myself = yield readFile(__filename, 'utf8');
