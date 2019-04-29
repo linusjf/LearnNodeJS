@@ -1,19 +1,25 @@
-/*jshint globalstrict: true*/
+/*jshint globalstrict: true */
 /*jshint node: true */
 /*jshint latedef: false */
-/*jshint unused:false*/
+/*jshint unused:false */
+/*jshint evil:true */
 "use strict";
 
 const fs = require('fs');
 //save the original require
 let originalRequire = require;
 
-function loadModule(filename, module, require) {
+/**function loadModule(filename, module, require) {
   const wrappedSrc =
     `(function(module, exports, require) {
       ${fs.readFileSync(filename, 'utf8')}
     })(module, module.exports, require);`;
   eval(wrappedSrc); // jshint ignore:line 
+}**/
+
+function loadModule(filename, module, require) {
+  const load = new Function('module', 'exports', 'require',`${fs.readFileSync(filename, 'utf8')}`);
+    load(module, module.exports, require);
 }
 
 // We intentionally use var in the next line to avoid "SyntaxError: Identifier 'require' has already been declared"
