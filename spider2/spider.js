@@ -10,8 +10,8 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 const utilities = require('./utilities');
 
-var filename;
-var downloaded = false;
+let filename;
+let downloaded = false;
 function saveFile(filename,body,callback)
 {
         mkdirp(path.dirname(filename), err => {
@@ -61,7 +61,7 @@ function spiderLinks( currentUrl, body, nesting, callback) {
 	if( nesting <= 0) 
 		return process.nextTick( callback);
 	 
-	var links = utilities.getPageLinks( currentUrl, body);
+	let links = utilities.getPageLinks( currentUrl, body);
 
 	
 iterateSeries(links,nesting,iterate,callback);
@@ -100,7 +100,7 @@ function exitMessage()
 }
 
 let url = process.argv[2];
-var level;
+let level;
 if (process.argv[3])
 {
 level = parseInt(process.argv[3]);
@@ -127,6 +127,3 @@ if (url )
 }
 else
 	exitMessage();
-
-
-

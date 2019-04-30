@@ -1,14 +1,14 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 "use strict";
-var http = require("http"),
+const http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs");
 
 http.createServer(function(request, response) {
-        var uri = url.parse(request.url).pathname;
-        var filename = path.join(process.cwd(), uri);
+        let uri = url.parse(request.url).pathname;
+        let filename = path.join(process.cwd(), uri);
         fs.exists(filename, function(exists) {
             if (!exists) {
                 response.writeHead(404, {

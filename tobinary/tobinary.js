@@ -23,7 +23,7 @@ function emitNextBinary(num,rep)
 
 function toBinary(num)
 {
-    var binaryRep = "";
+    let binaryRep = "";
     if (isOdd(num))
         binaryRep = "1";
     else
@@ -33,9 +33,8 @@ function toBinary(num)
 
 function toBinaryShift(num)
 {
-    var binary = "";
-    var i;
-    var newnum,leftshift;
+    let binary = "";
+    let i,newnum,leftshift;
      for (i = Math.log2(num); i >= 0; i--)
     {
         leftshift = 1 << i;
@@ -53,14 +52,14 @@ function toBinaryJS(num)
     return (num >>> 0).toString(2);
 }
 
-var integers = process.argv.slice(2);
+const integers = process.argv.slice(2);
 if (!integers.length)
 {
     console.error('Usage: node tobinary.js <list of positive integers>');
     process.exit(1);
 }
 
-var methods = [toBinary,toBinaryShift,toBinaryJS];
+const methods = [toBinary,toBinaryShift,toBinaryJS];
 
 function printBinary(integers,method)
 {

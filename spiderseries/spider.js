@@ -18,7 +18,7 @@ function spiderLinks( currentUrl, body, nesting, callback)
 	if( nesting === 0) 
 		return process.nextTick( callback);
 	
-	var links = utilities.getPageLinks( currentUrl, body);
+	const links = utilities.getPageLinks( currentUrl, body);
 	if( links.length === 0) 
 		return process.nextTick( callback);
 	
@@ -33,7 +33,7 @@ function spiderLinks( currentUrl, body, nesting, callback)
 function download( url, filename, callback)
  { 
 console.log(' Downloading ' + url); 
-var body; 
+let body; 
 async.series([ function( callback) 
 { 
 request( url, 

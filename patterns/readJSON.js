@@ -2,10 +2,10 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
-var fs = require('fs');
+const fs = require('fs');
 function readJSON(filename, callback) {
   fs.readFile(filename, 'utf8', function(err, data) {
-    var parsed;
+    let parsed;
     if (err)
       // propagate the error and exit the current function
       callback(filename + ' : '+err);
@@ -20,7 +20,7 @@ function readJSON(filename, callback) {
     callback(filename + ' : '+JSON.stringify(parsed)); });
 }
 
-var files = process.argv.slice(2);
+const files = process.argv.slice(2);
 if (!files.length)
     console.log('Usage: node readJSON.js <list of file names>');
 

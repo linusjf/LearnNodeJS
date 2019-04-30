@@ -2,12 +2,12 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
-var EventEmitter = require("events").EventEmitter;
-var util = require("util");
-var fs = require("fs");
-var argc = process.argv.length;
-var expression;
-var finder;
+const EventEmitter = require("events").EventEmitter;
+const util = require("util");
+const fs = require("fs");
+const argc = process.argv.length;
+let expression;
+let finder;
 function FindPattern(regex) {
     EventEmitter.call(this);
     this.regex = regex;
@@ -28,16 +28,15 @@ FindPattern.prototype.setFiles = function(files) {
 
 FindPattern.prototype.find =
     function() {
-        var self = this;
-        self.files.forEach(function(file) {
+        this.files.forEach(function(file) {
             fs.readFile(file, 'utf8', function(err, content) {
                 if (err)
-                    return self.emit('error', err);
-                self.emit('fileread', file);
-                var match = null;
-                if (!!(match = content.match(self.regex)))
+                    return this.emit('error', err);
+                this.emit('fileread', file);
+                let match = null;
+                if (!!(match = content.match(this.regex)))
                     match.forEach(function(elem) {
-                        self.emit('found', file, elem);
+                        this.emit('found', file, elem);
                     });
             });
         });

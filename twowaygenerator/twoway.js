@@ -4,11 +4,11 @@
 "use strict";
 
 function* twoWayGenerator() {
-    var what = yield null;
+    const what = yield null;
     console.log('Hello ' + what);
 }
 
-var twoWay = twoWayGenerator();
+let twoWay = twoWayGenerator();
 twoWay.next();
 twoWay.next('world');
 

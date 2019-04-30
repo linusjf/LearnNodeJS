@@ -3,26 +3,24 @@
 /*jshint esversion: 6 */
 /*jshint latedef:false */
 "use strict";
-var Promise = require('bluebird');
-var utilities = require('./utilities');
-var request = utilities.promisify(require('request'));
-var mkdirp = utilities.promisify(require('mkdirp'));
-var fs = require('fs');
-var readFile = utilities.promisify(fs.readFile);
-var writeFile = utilities.promisify(fs.writeFile);
+const promise = require('bluebird');
+const utilities = require('./utilities');
+const request = utilities.promisify(require('request'));
+const mkdirp = utilities.promisify(require('mkdirp'));
+const fs = require('fs');
+const readFile = utilities.promisify(fs.readFile);
+const writeFile = utilities.promisify(fs.writeFile);
 
 const path = require('path');
 const cmdConfig = require('./cmdconfig');
 const validator = require('./validator');
 const debug = require('debug')('spider');
 debug.enabled = cmdConfig.get('debug', false);
-var TaskQueue = require('./taskQueue');
-
-
+const TaskQueue = require('./taskQueue');
 
 function download(url, filename) {
     console.log('Downloading ' + url);
-    var body;
+    let body;
     return request(url).
     then(function(results) {
         body = results[1];
@@ -40,20 +38,20 @@ function download(url, filename) {
 function spiderLinks( currentUrl, body, nesting) 
 { 
 	if( nesting === 0) 
-		return Promise.resolve();
-	var links = utilities.getPageLinks( currentUrl, body);
+		return promise.resolve();
+	const links = utilities.getPageLinks( currentUrl, body);
 // we need the following because the Promise we create next will never settle if there are no tasks to process 
 console.log('links = '+links.length);
   if( links.length === 0) 
-		return Promise.resolve();
-var downloadQueue = new TaskQueue(cmdConfig.get('concurrency',2));
+		return promise.resolve();
+let downloadQueue = new TaskQueue(cmdConfig.get('concurrency',2));
 debug(downloadQueue.concurrency);
 
-	return new Promise( function( resolve, reject) 
+	return new promise( function( resolve, reject) 
 	{ 
-		var completed = 0;
+		let completed = 0;
 		links.forEach( function( link) { 
-			var task = function() {
+			const task = function() {
 	return spider( link, nesting - 1).
 		then( function() { 
       debug('completed = '+completed);
@@ -67,7 +65,7 @@ debug(downloadQueue.concurrency);
 
 function spider( url, nesting) 
 { 
-	var filename = utilities.urlToFilename(url); 
+	const filename = utilities.urlToFilename(url); 
 	return readFile( filename, 'utf8').
 		then( function( body) 
 			{ 

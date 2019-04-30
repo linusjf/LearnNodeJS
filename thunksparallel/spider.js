@@ -3,16 +3,16 @@
 /*jshint esversion: 6 */
 /* jshint latedef:false */
 "use strict";
-var thunkify = require('thunkify');
-var co = require('co');
-var request = thunkify(require('request'));
-var fs = require('fs');
-var mkdirp = thunkify(require('mkdirp'));
-var readFile = thunkify(fs.readFile);
-var writeFile = thunkify(fs.writeFile);
-var nextTick = thunkify(process.nextTick);
-var utilities = require('./utilities');
-var path = require('path');
+const thunkify = require('thunkify');
+const co = require('co');
+const request = thunkify(require('request'));
+const fs = require('fs');
+const mkdirp = thunkify(require('mkdirp'));
+const readFile = thunkify(fs.readFile);
+const writeFile = thunkify(fs.writeFile);
+const nextTick = thunkify(process.nextTick);
+const utilities = require('./utilities');
+const path = require('path');
 
 const cmdConfig = require('./cmdconfig');
 const validator = require('./validator');
@@ -21,8 +21,8 @@ debug.enabled = cmdConfig.get('debug', false);
 
 function* download(url, filename) {
     console.log('Downloading ' + url);
-    var results = yield request(url);
-    var body = results[1];
+    const results = yield request(url);
+    const body = results[1];
     yield mkdirp(path.dirname(filename));
     yield writeFile(filename, body);
     console.log('Downloaded and saved:' + url);
@@ -33,8 +33,8 @@ function* spiderLinks(currentUrl, body, nesting) {
     if (nesting === 0) {
         return yield nextTick();
     }
-    var links = utilities.getPageLinks(currentUrl, body);
-  var tasks = links.map( function( link) 
+    const links = utilities.getPageLinks(currentUrl, body);
+  const tasks = links.map( function( link) 
   { 
     return spider( link, nesting - 1); 
   }); 
@@ -43,9 +43,8 @@ function* spiderLinks(currentUrl, body, nesting) {
 
 
 function* spider(url, nesting) {
-    var filename = utilities.urlToFilename(url);
-    var body;
-
+    const filename = utilities.urlToFilename(url);
+    let body;
     try {
         body = yield readFile(filename, 'utf8');
     } catch (err) {

@@ -2,7 +2,7 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
-var https = require("https"),
+const https = require("https"),
     http = require("http"),
     url = require("url"),
     path = require("path"),
@@ -10,7 +10,7 @@ var https = require("https"),
     events = require("events");
 
 function load_static_file(uri, response) {
-    var filename = path.join(process.cwd(), uri);
+    const filename = path.join(process.cwd(), uri);
     fs.exists(filename, function(exists) {
         if (!exists) {
             response.setHeader("Content-Type", "text/plain");
@@ -35,14 +35,14 @@ function load_static_file(uri, response) {
     });
 }
 
-var options = {
+const options = {
     port: 443,
     host: 'www.random.org',
     method: 'GET',
     path: '/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new'
 };
 
-var string_emitter = new events.EventEmitter();
+const string_emitter = new events.EventEmitter();
 
 string_emitter.on('error', function(err) {
     console.error('whoops! there was an error' + err);
@@ -62,12 +62,12 @@ function get_strings() {
                 `Status Code
                         : $ { statusCode }`);
         }
-        var body = "";
+        let body = "";
         response.on("data", function(data) {
             body += data;
         });
         response.on("end", function() {
-            var strings = body;
+            let strings = body;
             if (strings.length > 0) {
 
                 string_emitter.emit("strings", strings);
@@ -80,8 +80,8 @@ function get_strings() {
 setInterval(get_strings, 5000);
 
 http.createServer(function(request, response) {
-        var uri = url.parse(request.url).pathname;
-var timeout;
+        const uri = url.parse(request.url).pathname;
+let timeout;
   if (uri === "/stream") {
             string_emitter.once("strings", function(values) {
                 response.statusCode = 200;

@@ -2,8 +2,8 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
-var argc = process.argv.length;
-var expression;
+const argc = process.argv.length;
+let expression;
 
 function exitMessage() {
   console.error(
@@ -29,14 +29,14 @@ function parseArgs(noOfArgs) {
 if (argc > 2) {
 parseArgs(argc);
 
-var fs = require("fs");
-var finder = require('./find.js');
+const fs = require("fs");
+const finder = require('./find.js');
 
 fs.readdir(".", function(err, files) {
   if (err)
     console.log("Error reading directory: " + err.message);
   else {
-    var findPatternObject = new finder(expression);
+    let findPatternObject = new finder(expression);
     findPatternObject.setFiles(files);
     findPatternObject.addFile('nonexistentfile.txt');
     findPatternObject.find()

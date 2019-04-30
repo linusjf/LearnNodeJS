@@ -18,7 +18,7 @@ function firstRoute(req, res) {
 // DEPENDENCIES AND SETUP
 // ===============================================
 
-var express = require('express'),
+const express = require('express'),
   app = express(),
   port = Number(process.env.PORT || 8080);
 
@@ -26,8 +26,8 @@ var express = require('express'),
 // ===============================================
 
 // Setup the database.
-var Datastore = require('nedb');
-var db = new Datastore({
+const Datastore = require('nedb');
+const db = new Datastore({
   filename: 'goals.db', // provide a path to the database file
   autoload: true, // automatically load the database
   timestampData: true // automatically add and manage the fields createdAt and updatedAt
@@ -35,7 +35,7 @@ var db = new Datastore({
 
 // Let us check that we can save to the database.
 // Define a goal.
-var goal = {
+const goal = {
   description: 'Do 10 minutes meditation every day',
 };
 

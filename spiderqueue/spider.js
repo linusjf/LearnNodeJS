@@ -17,18 +17,18 @@ function spiderLinks( currentUrl, body, nesting, callback)
 { 
 	if( nesting === 0) 
 	return process.nextTick( callback);
-	var links = utilities.getPageLinks( currentUrl, body);
+	const links = utilities.getPageLinks( currentUrl, body);
 	if( links.length === 0) 
 		return process.nextTick( callback);
-var downloadQueue = async.queue( 
+const downloadQueue = async.queue( 
 	function( taskData, callback) 
 	{ spider( taskData.link, taskData.nesting - 1, callback);
 	},cmdConfig.get('concurrency',2));
 
-var completed = 0, errored = false;
+let completed = 0, errored = false;
 	links.forEach( function( link) 
 		{ 
-			var taskData = {link: link, nesting: nesting}; 
+			const taskData = {link: link, nesting: nesting}; 
 			downloadQueue.push( taskData, function( err) {
 				if( err) {
 					errored = true; 
@@ -43,7 +43,7 @@ var completed = 0, errored = false;
 function download( url, filename, callback)
  { 
 console.log(' Downloading ' + url); 
-var body; 
+let body; 
 async.waterfall([ function( callback) 
 { 
 request( url, 
@@ -70,7 +70,7 @@ fs.writeFile( filename, body, callback); } ], function( err) {
 }
 
 
-let spidering = new Map();
+const spidering = new Map();
 function spider(url, nesting, callback) {
   if(spidering.has(url)) {
     return process.nextTick(callback);

@@ -25,7 +25,7 @@ module.exports = class TaskQueue {
     while( this.running < this.concurrency && this.queue.length) 
     { 
       debug('running='+this.running);
-      var task = this.queue.shift();
+      const task = this.queue.shift();
       task().then( () => 
       { 
         this.running--;

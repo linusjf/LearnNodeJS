@@ -8,13 +8,13 @@ const urlResolve = require('url').resolve;
 const slug = require('slug');
 const path = require('path');
 const cheerio = require('cheerio');
-var Promise = require('bluebird');
+const promise = require('bluebird');
 
 module.exports.promisify =
     function(callbackBasedApi) {
         return function promisified() {
-            var args = [].slice.call(arguments);
-            return new Promise(function(resolve, reject) { 
+            const args = [].slice.call(arguments);
+            return new promise(function(resolve, reject) { 
     args.push(function(err, result) {
                     if (err)
                         return reject(err);

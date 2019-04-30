@@ -4,14 +4,13 @@
 /*jshint latedef: false */
 "use strict";
 
-var Promise = require('bluebird');
-var utilities = require('./utilities');
-var request = utilities.promisify(require('request'));
-var mkdirp = utilities.promisify(require('mkdirp'));
-var fs = require('fs');
-var readFile = utilities.promisify(fs.readFile);
-var writeFile = utilities.promisify(fs.writeFile);
-
+const promise = require('bluebird');
+const utilities = require('./utilities');
+const request = utilities.promisify(require('request'));
+const mkdirp = utilities.promisify(require('mkdirp'));
+const fs = require('fs');
+const readFile = utilities.promisify(fs.readFile);
+const writeFile = utilities.promisify(fs.writeFile);
 
 const path = require('path');
 const cmdConfig = require('./cmdconfig');
@@ -21,7 +20,7 @@ debug.enabled = cmdConfig.get('debug', false);
 
 function download(url, filename) {
     console.log('Downloading ' + url);
-    var body;
+    let body;
     return request(url).
     then(function(results) {
         body = results[1];
@@ -38,18 +37,18 @@ function download(url, filename) {
 
 function spiderLinks(currentUrl,body,nesting) { 
 	if( nesting === 0)
-		return Promise.resolve();
-	var links = utilities.getPageLinks(currentUrl, body);
-	var promises = links.map(function(link)
+		return promise.resolve();
+	const links = utilities.getPageLinks(currentUrl, body);
+	const promises = links.map(function(link)
 	{
 		return spider( link, nesting - 1);
 	});
-	return Promise.all(promises);
+	return promise.all(promises);
 }
 
 function spider( url, nesting) 
 { 
-	var filename = utilities.urlToFilename(url); return readFile( filename, 'utf8').
+	const filename = utilities.urlToFilename(url); return readFile( filename, 'utf8').
 		then( function( body) 
 			{ 
 				return spiderLinks( url, body, nesting);}, 

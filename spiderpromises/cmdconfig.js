@@ -57,7 +57,7 @@ const sections = [{
     }
 ];
 
-var config = require('config');
+const config = require('config');
 const commandLineArgs = require('command-line-args');
 const options = commandLineArgs(cmdOptions);
 const commandLineUsage = require('command-line-usage');
