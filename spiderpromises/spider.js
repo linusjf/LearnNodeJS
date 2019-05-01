@@ -68,8 +68,16 @@ function spider( url, nesting)
 	);
 }
 
-if (!validator.validate())
-    process.exit();
+const errors = validator.validate();
+if (errors.length || cmdConfig.get("help"))
+{
+  console.log(cmdConfig.usage);
+  errors.forEach((err) => 
+  {
+    console.error(err);
+  });
+  process.exit(errors.length);
+}
 
 spider(cmdConfig.get("url"),cmdConfig.get("nesting",1)).
 	then( function() {
