@@ -14,14 +14,16 @@ const TaskQueue = require("./taskQueue");
 const validator = require("./validator");
 
 function spiderLinks(currentUrl, body, nesting, callback) {
-  if(nesting === 0) {
+  if(nesting === 0) 
     return process.nextTick(callback);
-  }
 
   const links = utilities.getPageLinks(currentUrl, body);
-  if(links.length === 0) {
+  if(links.length === 0) 
     return process.nextTick(callback);
+<<<<<<< HEAD
   }
+=======
+>>>>>>> development
 let downloadQueue = new TaskQueue(cmdConfig.get("concurrency",2));
 
   let completed = 0, hasErrors = false;
@@ -93,14 +95,27 @@ function spider(url, nesting, callback) {
   });
 }
 
-if (!validator.validate())
-	process.exit();
+const errors = validator.validate();
+if (errors.length || cmdConfig.get("help"))
+{
+  console.log(cmdConfig.usage);
+  errors.forEach((err) => 
+  {
+    console.error(err);
+  });
+  process.exit(errors.length);
+}
 
 spider(cmdConfig.get("url"), cmdConfig.get("nesting",1), (err) => {
   if(err) {
-    console.log(err);
-    process.exit();
+    console.error(err);
+    process.exit(1);
   } else {
     console.log("Download complete");
+<<<<<<< HEAD
+=======
+    process.exit(0);
+>>>>>>> development
   }
 });
+
