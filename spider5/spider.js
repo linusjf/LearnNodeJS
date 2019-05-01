@@ -20,10 +20,6 @@ function spiderLinks(currentUrl, body, nesting, callback) {
   const links = utilities.getPageLinks(currentUrl, body);
   if(links.length === 0) 
     return process.nextTick(callback);
-<<<<<<< HEAD
-  }
-=======
->>>>>>> development
 let downloadQueue = new TaskQueue(cmdConfig.get("concurrency",2));
 
   let completed = 0, hasErrors = false;
@@ -112,10 +108,7 @@ spider(cmdConfig.get("url"), cmdConfig.get("nesting",1), (err) => {
     process.exit(1);
   } else {
     console.log("Download complete");
-<<<<<<< HEAD
-=======
     process.exit(0);
->>>>>>> development
   }
 });
 
