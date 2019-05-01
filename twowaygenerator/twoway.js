@@ -5,12 +5,12 @@
 
 function* twoWayGenerator() {
     const what = yield null;
-    console.log('Hello ' + what);
+    console.log("Hello " + what);
 }
 
 let twoWay = twoWayGenerator();
 twoWay.next();
-twoWay.next('world');
+twoWay.next("world");
 
 twoWay = twoWayGenerator();
 twoWay.next(); 

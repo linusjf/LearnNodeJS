@@ -55,7 +55,7 @@ function toBinaryJS(num)
 const integers = process.argv.slice(2);
 if (!integers.length)
 {
-    console.error('Usage: node tobinary.js <list of positive integers>');
+    console.error("Usage: node tobinary.js <list of positive integers>");
     process.exit(1);
 }
 
@@ -67,7 +67,7 @@ integers.forEach(function(item){
     try{
     let  num = parseInt(item);
     if (!isNaN(num))
-        console.log(item + ' : '+method(num));
+        console.log(item + " : "+method(num));
     else
         throw {
             name: "Number Format exception",
@@ -76,7 +76,7 @@ integers.forEach(function(item){
     }
     catch (exc)
     {
-        console.error(item + ' : '+ exc.name + ' ' + exc.message);
+        console.error(item + " : "+ exc.name + " " + exc.message);
     }
 });
 }

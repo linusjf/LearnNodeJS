@@ -4,12 +4,12 @@
 /*jshint latedef: false */
 /* jshint expr: true */
 "use strict";
-const request = require('request');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
-const path = require('path');
-const utilities = require('./utilities');
-const debug = require('debug')('spider');
+const request = require("request");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const path = require("path");
+const utilities = require("./utilities");
+const debug = require("debug")("spider");
 debug.enabled = false;
 let downloaded = false;
 const spidering = new Map();
@@ -48,9 +48,9 @@ function spider(url, nesting, callback) {
         return process.nextTick(callback);
     spidering.set(url, true);
     const filename = utilities.urlToFilename(url);
-    fs.readFile(filename, 'utf8', function(err, body) {
+    fs.readFile(filename, "utf8", function(err, body) {
         if (err) {
-            if (err.code !== 'ENOENT')
+            if (err.code !== "ENOENT")
                 return callback(err, filename, false);
             return download(url, filename, function(err, body) {
                 if (err)
@@ -112,7 +112,7 @@ function spiderLinks(currentUrl, body, nesting, callback) {
 }
 
 function exitMessage() {
-    console.error('Usage: node spider.js url {level} {concurrency}.\nLevel defaults to 1.\nConcurrency defaults to 2.');
+    console.error("Usage: node spider.js url {level} {concurrency}.\nLevel defaults to 1.\nConcurrency defaults to 2.");
     process.exit(1);
 }
 
@@ -147,7 +147,7 @@ if (url) {
         if (errors.length) {
             console.log("Check errors. Redownload if necessary.");
             errors.forEach(function(error) {
-                console.log(error.name + ':' + error.message);
+                console.log(error.name + ":" + error.message);
             });
         }
     });

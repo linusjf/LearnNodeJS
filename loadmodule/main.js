@@ -1,5 +1,5 @@
 "use strict";
 
-const moduleA = require('./moduleA');
+const moduleA = require("./moduleA");
 moduleA.run();
 

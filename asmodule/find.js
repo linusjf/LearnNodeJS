@@ -28,13 +28,13 @@ FindPattern.prototype.find =
     function() {
   
   this.files.forEach(function(file) {
-    fs.readFile(file, 'utf8', function(err, content) {
+    fs.readFile(file, "utf8", function(err, content) {
       if (err)
-        return this.emit('error', err);
-      this.emit('fileread', file);
+        return this.emit("error", err);
+      this.emit("fileread", file);
       let match = null;
       if (!!(match = content.match(this.regex)))
-        match.forEach(function(elem) { this.emit('found', file, elem); });
+        match.forEach(function(elem) { this.emit("found", file, elem); });
     });
   });
   return this;

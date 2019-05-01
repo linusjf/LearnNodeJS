@@ -6,16 +6,6 @@ const validator = require("validator");
 const cmdConfig = require("./cmdconfig");
 const assert = require("assert");
 
-module.exports.validate = function() {
-    const options = cmdConfig.options;
-    let errors = [];
-    errors = validateEmptyURL(options._all.url, errors);
-    errors = validateURLFormat(options._all.url, errors);
-    errors = validateConcurrency(options._all.concurrency, errors);
-    errors = validateNesting(options._all.nesting, errors);
-    return errors;
-};
-
 function validateEmptyURL(url, errors) {
     try {
         assert(url, "No url specified");
@@ -66,3 +56,14 @@ function validateNesting(nesting, errors) {
     }
     return errors;
 }
+
+module.exports.validate = function() {
+    const options = cmdConfig.options;
+    let errors = [];
+    errors = validateEmptyURL(options._all.url, errors);
+    errors = validateURLFormat(options._all.url, errors);
+    errors = validateConcurrency(options._all.concurrency, errors);
+    errors = validateNesting(options._all.nesting, errors);
+    return errors;
+};
+

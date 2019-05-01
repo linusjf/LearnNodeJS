@@ -2,9 +2,9 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
-const validator = require('validator');
-const cmdConfig = require('./cmdconfig');
-const assert = require('assert');
+const validator = require("validator");
+const cmdConfig = require("./cmdconfig");
+const assert = require("assert");
 
 module.exports.validate = function()
 {
@@ -16,7 +16,7 @@ module.exports.validate = function()
 		return assertCount;
 	}
 	try{
-assert(options._all.url,'No url specified');
+assert(options._all.url,"No url specified");
 	}
 	catch(err)
 	{
@@ -26,7 +26,7 @@ assert(options._all.url,'No url specified');
 	if (options._all.url)
 	{
 	try{
-		assert(validator.isURL(options._all.url,{protocols:['http','https'],require_host: true, require_valid_protocol:true,require_protocols:true}),options._all.url + ' is invalid.');
+		assert(validator.isURL(options._all.url,{protocols:["http","https"],require_host: true, require_valid_protocol:true,require_protocols:true}),options._all.url + " is invalid.");
 	}
 	catch(err)
 	{
@@ -37,7 +37,7 @@ assert(options._all.url,'No url specified');
 	if (options._all.concurrency !== undefined)
 		try
 	{
-		assert(validator.isInt(options._all.concurrency.toString(),{min:1}),'Concurrency must be greater than 0');
+		assert(validator.isInt(options._all.concurrency.toString(),{min:1}),"Concurrency must be greater than 0");
 	}
 	catch(err)
 	{
@@ -48,7 +48,7 @@ assert(options._all.url,'No url specified');
 		if (options._all.nesting !== undefined)
 	{
 		try {
-		assert(validator.isInt(options._all.nesting.toString(),{gt:0}),'Nesting must be greater than 0');
+		assert(validator.isInt(options._all.nesting.toString(),{gt:0}),"Nesting must be greater than 0");
 		}
 	catch(err)
 	{

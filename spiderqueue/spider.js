@@ -4,14 +4,14 @@
 /*jshint latedef: false */
 "use strict";
 
-const request = require('request');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
-const path = require('path');
-const async = require('async');
-const utilities = require('./utilities');
-const cmdConfig = require('./cmdconfig');
-const validator = require('./validator');
+const request = require("request");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const path = require("path");
+const async = require("async");
+const utilities = require("./utilities");
+const cmdConfig = require("./cmdconfig");
+const validator = require("./validator");
 
 function spiderLinks( currentUrl, body, nesting, callback) 
 { 
@@ -23,7 +23,7 @@ function spiderLinks( currentUrl, body, nesting, callback)
 const downloadQueue = async.queue( 
 	function( taskData, callback) 
 	{ spider( taskData.link, taskData.nesting - 1, callback);
-	},cmdConfig.get('concurrency',2));
+	},cmdConfig.get("concurrency",2));
 
 let completed = 0, errored = false;
 	links.forEach( function( link) 
@@ -42,7 +42,7 @@ let completed = 0, errored = false;
 
 function download( url, filename, callback)
  { 
-console.log(' Downloading ' + url); 
+console.log(" Downloading " + url); 
 let body; 
 async.waterfall([ function( callback) 
 { 
@@ -64,7 +64,7 @@ function(callback)
 },
 function( callback) {
 fs.writeFile( filename, body, callback); } ], function( err) { 
- console.log(' Downloaded and saved: ' + url); if( err) 
+ console.log(" Downloaded and saved: " + url); if( err) 
 	return callback( err);
  callback( null, body); });
 }
@@ -78,9 +78,9 @@ function spider(url, nesting, callback) {
   spidering.set(url, true);
 
   const filename = utilities.urlToFilename(url);
-  fs.readFile(filename, 'utf8', function(err, body) {
+  fs.readFile(filename, "utf8", function(err, body) {
     if(err) {
-      if(err.code !== 'ENOENT') {
+      if(err.code !== "ENOENT") {
         return callback(err);
       }
 
@@ -98,11 +98,11 @@ function spider(url, nesting, callback) {
 if (!validator.validate())
 	process.exit();
 
-spider(cmdConfig.get('url'), cmdConfig.get('nesting',1), (err) => {
+spider(cmdConfig.get("url"), cmdConfig.get("nesting",1), (err) => {
   if(err) {
     console.log(err);
     process.exit();
   } else {
-    console.log('Download complete');
+    console.log("Download complete");
   }
 });

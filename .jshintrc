@@ -2,7 +2,7 @@
     // JSHint Default Configuration File (as on JSHint website)
     // See http://jshint.com/docs/ for more details
 
-    "maxerr": 50, // {int} Maximum error before stopping
+    "maxerr": false, // {int} Maximum error before stopping
 
     // Enforcing
     "bitwise": true, // true: Prohibit bitwise operators (&, |, ^, etc.)
@@ -19,7 +19,7 @@
     "nonbsp": true, // true: Prohibit "non-breaking whitespace" characters.
     "nonew": false, // true: Prohibit use of constructors for side-effects (without assignment)
     "plusplus": false, // true: Prohibit use of `++` and `--`
-    "quotmark": false, // Quotation mark consistency:
+    "quotmark": true, // Quotation mark consistency:
     //   false    : do nothing (default)
     //   true     : ensure whatever is used is consistent
     //   "single" : require single quotes
@@ -32,7 +32,7 @@
     "strict": true, // true: Requires all functions run in ES5 Strict Mode
     "maxparams": 7, // {int} Max number of formal params allowed per function,false to turn off
     "maxdepth": 2, // {int} Max depth of nested blocks (within functions) false to turn off
-    "maxstatements": false, // {int} Max number statements per function
+    "maxstatements": 10, // {int} Max number statements per function,false to turn off
     "maxcomplexity": 11, // {int} Max cyclomatic complexity per function,false to turn off
     "maxlen": false, // {int} Max number of characters per line
     "varstmt": true, // true: Disallow any var statements. Only `let` and `const` are allowed.

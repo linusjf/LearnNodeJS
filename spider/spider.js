@@ -3,11 +3,11 @@
 /*jshint esversion: 6 */
 "use strict";
 
-const request = require('request');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
-const path = require('path');
-const utilities = require('./utilities');
+const request = require("request");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const path = require("path");
+const utilities = require("./utilities");
 
 function saveFile(filename,body,callback)
 {
@@ -66,6 +66,6 @@ spider(process.argv[2], (err, filename, downloaded) => {
 }
 else
 {
-    console.error('Usage: node spider.js url');
+    console.error("Usage: node spider.js url");
     process.exit(1);
 }

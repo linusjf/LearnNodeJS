@@ -5,57 +5,57 @@
 
 function fullURL(url)
 {
-	if (!url.startsWith('http'))
-		return 'http://' + url;
+	if (!url.startsWith("http"))
+		return "http://" + url;
 	return url;
 }
 
 const cmdOptions = [
-  { name: 'help',
-    description: 'Display usage guide.',
-    alias: 'h',
+  { name: "help",
+    description: "Display usage guide.",
+    alias: "h",
     type: Boolean,
-    group: 'main'},
-	{ name: 'nesting',
+    group: "main"},
+	{ name: "nesting",
 		type: Number,
-		alias: 'n',
-		group: 'main',
-	description: 'Depth to which the starting url is to be traversed'},
-  { name: 'concurrency', 
+		alias: "n",
+		group: "main",
+	description: "Depth to which the starting url is to be traversed"},
+  { name: "concurrency", 
 		type: Number,
-		alias: 'c',
-		group: 'main',
-	description: 'Number of concurrent requests' },
-	{ name: 'url',
+		alias: "c",
+		group: "main",
+	description: "Number of concurrent requests" },
+	{ name: "url",
 		type: url => fullURL(url),
-		alias: 'u',
+		alias: "u",
 		defaultOption: true,
-		group: 'main',
-	description:'Url to be traversed'}
+		group: "main",
+	description:"Url to be traversed"}
 ]; 
 
 
 const sections = [
   {
-    header: 'Webcrawler app',
-    content: 'Crawls the url provided and downloads page links recursively to the nesting level specified.'
+    header: "Webcrawler app",
+    content: "Crawls the url provided and downloads page links recursively to the nesting level specified."
   },
   {
-    header: 'Main options',
+    header: "Main options",
     optionList: cmdOptions,
-    group: [ 'main' ]
+    group: [ "main" ]
   },
   {
-    header: 'Misc',
+    header: "Misc",
     optionList: cmdOptions,
-    group: '_none'
+    group: "_none"
   }
 ];
 
-const config = require('config');
-const commandLineArgs = require('command-line-args');
+const config = require("config");
+const commandLineArgs = require("command-line-args");
 const options = commandLineArgs(cmdOptions);
-const commandLineUsage = require('command-line-usage');
+const commandLineUsage = require("command-line-usage");
 const usage = commandLineUsage(sections);
 // The command line options
 module.exports.options = options;

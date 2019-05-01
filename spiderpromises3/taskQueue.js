@@ -2,9 +2,9 @@
 /*jshint node: true */
 /*jshint esversion: 6 */
 "use strict";
-const cmdConfig = require('./cmdconfig');
-const debug = require('debug')('TaskQueue');
-debug.enabled = cmdConfig.get('debug',false);
+const cmdConfig = require("./cmdconfig");
+const debug = require("debug")("TaskQueue");
+debug.enabled = cmdConfig.get("debug",false);
 console.log(debug.enabled);
 
 module.exports = class TaskQueue {
@@ -24,16 +24,16 @@ module.exports = class TaskQueue {
     
     while( this.running < this.concurrency && this.queue.length) 
     { 
-      debug('running='+this.running);
+      debug("running="+this.running);
       const task = this.queue.shift();
       task().then( () => 
       { 
         this.running--;
-      debug('calling next running = '+this.running);
+      debug("calling next running = "+this.running);
         this.next();
       });
       this.running++; 
-      debug('running incremented = '+this.running);
+      debug("running incremented = "+this.running);
     }
 }
 
