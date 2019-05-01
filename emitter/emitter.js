@@ -65,7 +65,8 @@ if (argc > 2) {
                     })
                     .on("found",
                         function(file, match) {
-                            console.log("Matched '" + match + "' in file " + file);
+                            console.log("Matched <" + match + "> in file " + file);
+
                         })
                     .on("error",
                         function(

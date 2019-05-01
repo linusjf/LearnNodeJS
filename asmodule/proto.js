@@ -27,7 +27,7 @@ function parseArgs(noOfArgs) {
 } 
 
 if (argc > 2) {
-parseArgs(argc);
+  parseArgs(argc);
 
 const fs = require("fs");
 const finder = require("./find.js");
@@ -42,7 +42,7 @@ fs.readdir(".", function(err, files) {
     findPatternObject.find()
         .on("found",
             function(file, match) {
-              console.log("Matched '" + match + "' in file " + file);
+             console.log("Matched <" + match + "> in file " + file);
             })
         .on("fileread", function(file) { console.log("Read file " + file); })
         .on("error",

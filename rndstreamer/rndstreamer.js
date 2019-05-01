@@ -54,7 +54,7 @@ function get_strings() {
         const {
             statusCode
         } = response;
-//        const contentType = response.headers['content-type'];
+//        const contentType = response.headers["content-type"];
 
         let error;
         if (statusCode !== 200) {

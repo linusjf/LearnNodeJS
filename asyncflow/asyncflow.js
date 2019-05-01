@@ -1,7 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
-'use strict';
+"use strict";
 
 function asyncFlow(generatorFunction) {
   let generator;  
@@ -16,13 +16,13 @@ function asyncFlow(generatorFunction) {
     generator.next();
 }
 
-const fs = require('fs'),
-      path = require('path');
+const fs = require("fs"),
+      path = require("path");
 
 
 asyncFlow(function*(callback) {
     const fileName = path.basename(__filename);
-    const myself = yield fs.readFile(fileName, 'utf8', callback);
-  yield fs.writeFile('clone_of_' + fileName, myself, callback);
-    console.log('Clone created');
+    const myself = yield fs.readFile(fileName, "utf8", callback);
+  yield fs.writeFile("clone_of_" + fileName, myself, callback);
+    console.log("Clone created");
 });

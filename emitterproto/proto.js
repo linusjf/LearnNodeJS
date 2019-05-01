@@ -70,7 +70,7 @@ if (argc > 2) {
                     });
 finder.on("found",
                         function(file, match) {
-                            console.log("Matched '" + match + "' in file " + file);
+                            console.log("Matched <" + match + "> in file " + file);
                         });
   finder.on("error",function(err) {
                             console.log("Error emitted: " + err.message);});
@@ -88,4 +88,3 @@ finder.on("found",
         });
 } else
     exitMessage();
-

@@ -12,13 +12,13 @@ function log (err, newGoal) {
 }
 
 function firstRoute(req, res) {
-  res.send('Our first route is working. :)');
+  res.send("Our first route is working. :)");
 }
 
 // DEPENDENCIES AND SETUP
 // ===============================================
 
-const express = require('express'),
+const express = require("express"),
   app = express(),
   port = Number(process.env.PORT || 8080);
 
@@ -26,9 +26,9 @@ const express = require('express'),
 // ===============================================
 
 // Setup the database.
-const Datastore = require('nedb');
+const Datastore = require("nedb");
 const db = new Datastore({
-  filename: 'goals.db', // provide a path to the database file
+  filename: "goals.db", // provide a path to the database file
   autoload: true, // automatically load the database
   timestampData: true // automatically add and manage the fields createdAt and updatedAt
 });
@@ -36,7 +36,7 @@ const db = new Datastore({
 // Let us check that we can save to the database.
 // Define a goal.
 const goal = {
-  description: 'Do 10 minutes meditation every day',
+  description: "Do 10 minutes meditation every day",
 };
 
 // Save this goal to the database.
@@ -46,11 +46,11 @@ db.insert(goal, log);
 // ===============================================
 
 // Define the home page route.
-app.get('/', firstRoute);
+app.get("/", firstRoute);
 
 // START THE SERVER
 // ===============================================
 
 app.listen(port, function() {
-  console.log('Listening on port ' + port);
+  console.log("Listening on port " + port);
 });
