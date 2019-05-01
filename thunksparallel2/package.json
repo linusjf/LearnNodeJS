@@ -1,7 +1,6 @@
 {
-  "name": "thunksparallel",
+  "name": "thunksparallel2",
   "version": "1.0.0",
-  "description": "",
   "main": "spider.js",
   "dependencies": {
     "assert": "^1.4.1",
@@ -34,5 +33,6 @@
     "crawler"
   ],
   "author": "Linus Fernandes",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }

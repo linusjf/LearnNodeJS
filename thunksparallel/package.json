@@ -5,14 +5,14 @@
   "main": "spider.js",
   "dependencies": {
     "assert": "^1.4.1",
-    "bluebird": "^3.5.4",
     "cheerio": "^1.0.0-rc.3",
+    "bluebird": "^3.5.4",
     "co": "^4.6.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
-    "config": "^3.1.0",
     "debug": "^4.1.1",
-    "fs": "0.0.1-security",
+    "fs": "^0.0.1-security",
+    "config": "^3.1.0",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
     "request": "^2.88.0",
@@ -27,9 +27,6 @@
   },
   "keywords": [
     "spider",
-    "parallel",
-    "thunkify",
-    "thunks",
     "web",
     "crawler"
   ],
