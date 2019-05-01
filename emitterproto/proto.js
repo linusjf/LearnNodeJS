@@ -29,14 +29,14 @@ FindPattern.prototype.setFiles = function(files) {
 FindPattern.prototype.find =
     function() {
         this.files.forEach(function(file) {
-            fs.readFile(file, 'utf8', function(err, content) {
+            fs.readFile(file, "utf8", function(err, content) {
                 if (err)
-                    return this.emit('error', err);
-                this.emit('fileread', file);
+                    return this.emit("error", err);
+                this.emit("fileread", file);
                 let match = null;
                 if (!!(match = content.match(this.regex)))
                     match.forEach(function(elem) {
-                        this.emit('found', file, elem);
+                        this.emit("found", file, elem);
                     });
             });
         });
@@ -65,15 +65,15 @@ function parseArgs(noOfArgs) {
 if (argc > 2) {
     parseArgs(argc);
     finder = new FindPattern(expression);
-  finder.on('fileread', function(file) {
-                        console.log(file + ' was read');
+  finder.on("fileread", function(file) {
+                        console.log(file + " was read");
                     });
-finder.on('found',
+finder.on("found",
                         function(file, match) {
-                            console.log('Matched "' + match + '" in file ' + file);
+                            console.log("Matched '" + match + "' in file " + file);
                         });
-  finder.on('error',function(err) {
-                            console.log('Error emitted: ' + err.message);});
+  finder.on("error",function(err) {
+                            console.log("Error emitted: " + err.message);});
     fs.readdir(
         ".",
         function(err, files) {
@@ -81,7 +81,7 @@ finder.on('found',
                 console.log("Error reading directory: " + err.message);
             else {
                 /**findPattern(files, /hello \w+/g)***/
-                files.push('nonexistentfile.txt');
+                files.push("nonexistentfile.txt");
                 finder.setFiles(files);
                 finder.find();
             }

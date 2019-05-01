@@ -37,19 +37,19 @@ function load_static_file(uri, response) {
 
 const options = {
     port: 443,
-    host: 'www.random.org',
-    method: 'GET',
-    path: '/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new'
+    host: "www.random.org",
+    method: "GET",
+    path: "/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new"
 };
 
 const string_emitter = new events.EventEmitter();
 
-string_emitter.on('error', function(err) {
-    console.error('whoops! there was an error' + err);
+string_emitter.on("error", function(err) {
+    console.error("whoops! there was an error" + err);
 });
 
 function get_strings() {
-    console.log('get_strings invoked');
+    console.log("get_strings invoked");
  https.get(options, function(response) {
         const {
             statusCode
@@ -58,7 +58,7 @@ function get_strings() {
 
         let error;
         if (statusCode !== 200) {
-            error = new Error('Request Failed.\n' +
+            error = new Error("Request Failed.\n" +
                 `Status Code
                         : $ { statusCode }`);
         }
@@ -101,7 +101,7 @@ let timeout;
                 },
                 10000);
         } else {
-            console.log('calling else ' + uri);
+            console.log("calling else " + uri);
             load_static_file(uri, response);
         }
     })

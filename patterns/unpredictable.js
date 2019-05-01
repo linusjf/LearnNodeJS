@@ -4,7 +4,7 @@
 const fs = require("fs"),
       files = process.argv.slice(2);
 if (!files.length)
-    console.log('Usage: node unpredictable.js <list of file names>');
+    console.log("Usage: node unpredictable.js <list of file names>");
 let cache = {};
 
 function inconsistentRead(filename, callback) {
@@ -41,7 +41,7 @@ files.forEach(function(item){
 
 createFileReader(item).onDataReady(function(data)
     {
-        console.log(item + ' : ' + data);
+        console.log(item + " : " + data);
         //... sometime
     });
 });

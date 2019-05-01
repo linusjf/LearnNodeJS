@@ -3,29 +3,29 @@
 /*jshint esversion: 6 */
 /* jshint latedef:false */
 "use strict";
-const thunkify = require('thunkify');
-const co = require('co');
-const request = thunkify(require('request'));
-const fs = require('fs');
-const mkdirp = thunkify(require('mkdirp'));
+const thunkify = require("thunkify");
+const co = require("co");
+const request = thunkify(require("request"));
+const fs = require("fs");
+const mkdirp = thunkify(require("mkdirp"));
 const readFile = thunkify(fs.readFile);
 const writeFile = thunkify(fs.writeFile);
 const nextTick = thunkify(process.nextTick);
-const utilities = require('./utilities');
-const path = require('path');
+const utilities = require("./utilities");
+const path = require("path");
 
-const cmdConfig = require('./cmdconfig');
-const validator = require('./validator');
-const debug = require('debug')('spider');
-debug.enabled = cmdConfig.get('debug', false);
+const cmdConfig = require("./cmdconfig");
+const validator = require("./validator");
+const debug = require("debug")("spider");
+debug.enabled = cmdConfig.get("debug", false);
 
 function* download(url, filename) {
-    console.log('Downloading ' + url);
+    console.log("Downloading " + url);
     const results = yield request(url);
     const body = results[1];
     yield mkdirp(path.dirname(filename));
     yield writeFile(filename, body);
-    console.log('Downloaded and saved:' + url);
+    console.log("Downloaded and saved:" + url);
     return body;
 }
 
@@ -43,9 +43,9 @@ function* spider(url, nesting) {
     const filename = utilities.urlToFilename(url);
     let body;
     try {
-        body = yield readFile(filename, 'utf8');
+        body = yield readFile(filename, "utf8");
     } catch (err) {
-        if (err.code !== 'ENOENT') {
+        if (err.code !== "ENOENT") {
             throw err;
         }
         body = yield download(url, filename);
@@ -58,8 +58,8 @@ if (!validator.validate())
 
 co(function*() {
     try {
-        yield spider(cmdConfig.get('url'),cmdConfig.get('nesting',1));
-        console.log('Download  complete');
+        yield spider(cmdConfig.get("url"),cmdConfig.get("nesting",1));
+        console.log("Download  complete");
     } catch (err) {
         console.log(err);
     }

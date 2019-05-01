@@ -1,7 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
-'use strict';
+"use strict";
 
 function asyncFlowWithPromises(generatorFunction) {
     let generator, promise, next;
@@ -36,12 +36,12 @@ function promisify(callbackBasedApi) {
         };
 }
 
-const fs = require('fs');
+const fs = require("fs");
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
 asyncFlowWithPromises(function*() {
-    const myself = yield readFile(__filename, 'utf8');
+    const myself = yield readFile(__filename, "utf8");
     yield writeFile("clone_of_asyncpromise.js", myself);
     console.log("Clone created");
 });

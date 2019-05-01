@@ -4,22 +4,22 @@
 /*jshint latedef: false */
 "use strict";
 
-const promise = require('bluebird');
-const utilities = require('./utilities');
-const request = utilities.promisify(require('request'));
-const mkdirp = utilities.promisify(require('mkdirp'));
-const fs = require('fs');
+const promise = require("bluebird");
+const utilities = require("./utilities");
+const request = utilities.promisify(require("request"));
+const mkdirp = utilities.promisify(require("mkdirp"));
+const fs = require("fs");
 const readFile = utilities.promisify(fs.readFile);
 const writeFile = utilities.promisify(fs.writeFile);
 
-const path = require('path');
-const cmdConfig = require('./cmdconfig');
-const validator = require('./validator');
-const debug = require('debug')('spider');
-debug.enabled = cmdConfig.get('debug', false);
+const path = require("path");
+const cmdConfig = require("./cmdconfig");
+const validator = require("./validator");
+const debug = require("debug")("spider");
+debug.enabled = cmdConfig.get("debug", false);
 
 function download(url, filename) {
-    console.log('Downloading ' + url);
+    console.log("Downloading " + url);
     let body;
     return request(url).
     then(function(results) {
@@ -30,7 +30,7 @@ function download(url, filename) {
         return writeFile(filename, body);
     }).
     then(function() {
-        console.log('Downloaded and saved: ' + url);
+        console.log("Downloaded and saved: " + url);
         return body;
     });
 }
@@ -48,12 +48,12 @@ function spiderLinks(currentUrl,body,nesting) {
 
 function spider( url, nesting) 
 { 
-	const filename = utilities.urlToFilename(url); return readFile( filename, 'utf8').
+	const filename = utilities.urlToFilename(url); return readFile( filename, "utf8").
 		then( function( body) 
 			{ 
 				return spiderLinks( url, body, nesting);}, 
 			function( err) { 
-				if( err.code !== 'ENOENT') 
+				if( err.code !== "ENOENT") 
 					throw err;
 				return download(url,filename).then(function(body) 
 					{ 
@@ -66,8 +66,8 @@ function spider( url, nesting)
 if (!validator.validate())
     process.exit();
 
-spider(cmdConfig.get('url'),cmdConfig.get('nesting',1)).
+spider(cmdConfig.get("url"),cmdConfig.get("nesting",1)).
 	then( function() {
-		console.log('Download complete'); }).catch( function( err) 
+		console.log("Download complete"); }).catch( function( err) 
 			{ console.log( err); 
 }); 

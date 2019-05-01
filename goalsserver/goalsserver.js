@@ -1,7 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 
-"use strict";
+'use strict';
 // goalsserver.js
 //
 function log (err, newGoal) {

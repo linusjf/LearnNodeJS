@@ -1,7 +1,7 @@
 /*jshint globalstrict: true*/
 /*jshint node: true */
 /*jshint esversion: 6 */
-'use strict';
+"use strict";
 
 function asyncFlowWithThunks(generatorFunction) {
     let generator, thunk;
@@ -19,7 +19,7 @@ function asyncFlowWithThunks(generatorFunction) {
       thunk(callback);
 }
 
-const fs = require('fs');
+const fs = require("fs");
 
 function readFileThunk(filename, options) {
     return function(callback) {
@@ -35,7 +35,7 @@ function writeFileThunk(filename, body) {
 
 
 asyncFlowWithThunks(function*() {
-    const myself = yield readFileThunk(__filename, 'utf8');
+    const myself = yield readFileThunk(__filename, "utf8");
     yield writeFileThunk("clone_of_asyncthunk.js", myself);
     console.log("Clone created");
 });

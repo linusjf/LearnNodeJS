@@ -11,7 +11,7 @@ function* iteratorGenerator( arr)
   } 
 } 
 
-const iterator = iteratorGenerator(['apple', 'orange', 'watermelon']); 
+const iterator = iteratorGenerator(["apple", "orange", "watermelon"]); 
 let currentItem = iterator.next();
 while(!currentItem.done) 
 { 

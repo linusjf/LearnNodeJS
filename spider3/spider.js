@@ -4,11 +4,11 @@
 /*jshint latedef: false */
 "use strict";
 
-const request = require('request');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
-const path = require('path');
-const utilities = require('./utilities');
+const request = require("request");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const path = require("path");
+const utilities = require("./utilities");
 
 let downloaded = false;
 const spidering = new Map();
@@ -46,9 +46,9 @@ function spider(url, nesting, callback) {
         return process.nextTick(callback);
     spidering.set(url, true);
     const filename = utilities.urlToFilename(url);
-    fs.readFile(filename, 'utf8', function(err, body) {
+    fs.readFile(filename, "utf8", function(err, body) {
         if (err) {
-            if (err.code !== 'ENOENT')
+            if (err.code !== "ENOENT")
                 return callback(err, filename, false);
             return download(url, filename, function(err, body) {
                 if (err)
@@ -87,7 +87,7 @@ function spiderLinks(currentUrl, body, nesting, callback) {
 }
 
 function exitMessage() {
-    console.error('Usage: node spider.js url {level}.\nLevel defaults to 1.');
+    console.error("Usage: node spider.js url {level}.\nLevel defaults to 1.");
     process.exit(1);
 }
 

@@ -30,7 +30,7 @@ if (argc > 2) {
 parseArgs(argc);
 
 const fs = require("fs");
-const finder = require('./find.js');
+const finder = require("./find.js");
 
 fs.readdir(".", function(err, files) {
   if (err)
@@ -38,15 +38,15 @@ fs.readdir(".", function(err, files) {
   else {
     let findPatternObject = new finder(expression);
     findPatternObject.setFiles(files);
-    findPatternObject.addFile('nonexistentfile.txt');
+    findPatternObject.addFile("nonexistentfile.txt");
     findPatternObject.find()
-        .on('found',
+        .on("found",
             function(file, match) {
-              console.log('Matched "' + match + '" in file ' + file);
+              console.log("Matched '" + match + "' in file " + file);
             })
-        .on('fileread', function(file) { console.log('Read file ' + file); })
-        .on('error',
-            function(err) { console.log('Error emitted ' + err.message); });
+        .on("fileread", function(file) { console.log("Read file " + file); })
+        .on("error",
+            function(err) { console.log("Error emitted " + err.message); });
   }
 });
 }

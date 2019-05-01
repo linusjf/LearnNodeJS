@@ -4,11 +4,11 @@
 /*jshint latedef: false */
 "use strict";
 
-const request = require('request');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
-const path = require('path');
-const utilities = require('./utilities');
+const request = require("request");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const path = require("path");
+const utilities = require("./utilities");
 
 let filename;
 let downloaded = false;
@@ -71,11 +71,11 @@ iterateSeries(links,nesting,iterate,callback);
 function spider( url, nesting, callback) 
 { 
 	filename = utilities.urlToFilename( url);
-	fs.readFile( filename, 'utf8', function( err, body) 
+	fs.readFile( filename, "utf8", function( err, body) 
 		{ 
 			if( err) 
 			{ 
-				if( err.code !== 'ENOENT') 
+				if( err.code !== "ENOENT") 
 				{ 
 					return callback( err,filename,false); 
 				} 
@@ -95,7 +95,7 @@ function spider( url, nesting, callback)
 
 function exitMessage()
 {
-    console.error('Usage: node spider.js url {level}.\nLevel defaults to 1.');
+    console.error("Usage: node spider.js url {level}.\nLevel defaults to 1.");
     process.exit(1);
 }
 

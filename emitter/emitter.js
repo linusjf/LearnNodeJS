@@ -58,19 +58,19 @@ if (argc > 2) {
             else
             {
                 /**findPattern(files, /hello \w+/g)***/
-                files.push('nonexistentfile.txt');
+                files.push("nonexistentfile.txt");
                 findPattern(files, expression)
-                    .on('fileread', function(file) {
-                        console.log(file + ' was read');
+                    .on("fileread", function(file) {
+                        console.log(file + " was read");
                     })
-                    .on('found',
+                    .on("found",
                         function(file, match) {
-                            console.log('Matched "' + match + '" in file ' + file);
+                            console.log("Matched '" + match + "' in file " + file);
                         })
-                    .on('error',
+                    .on("error",
                         function(
                             err) {
-                            console.log('Error emitted: ' + err.message);
+                            console.log("Error emitted: " + err.message);
                         });
             }
         });
