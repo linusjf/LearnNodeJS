@@ -31,14 +31,11 @@ function* download(url, filename) {
 }
 
 function* spider(url, nesting) {
-  if(spidering.has(url)) {
+  if(spidering.has(url)) 
     return nextTick();
-  }
   spidering.set(url, true);  
-  
   const filename = utilities.urlToFilename(url);
     let body;
-
     try {
         body = yield readFile(filename, "utf8");
     } catch (err) {

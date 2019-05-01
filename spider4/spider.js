@@ -69,15 +69,14 @@ function spider(url, nesting, callback) {
 function spiderLinks(currentUrl, body, nesting, callback) {
     if (nesting === 0)
         return process.nextTick(callback, null, currentUrl, downloaded);
-
     const links = utilities.getPageLinks(currentUrl, body);
     if (links.length === 0)
         return process.nextTick(callback, null, currentUrl, downloaded);
-    let completed = 0;
-    let running = 0;
-    let index = 0;
-    let inError = false;
-    let error = null;
+    let completed = 0,
+        running = 0,
+        index = 0,
+        inError = false,
+        error = null;
 
     function done(err) {
         if (err) {
