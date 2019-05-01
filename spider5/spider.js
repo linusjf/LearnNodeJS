@@ -4,25 +4,23 @@
 /*jshint latedef: false */
 "use strict";
 
-const request = require('request');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
-const path = require('path');
-const utilities = require('./utilities');
-const cmdConfig = require('./cmdconfig');
-const TaskQueue = require('./taskQueue');
-const validator = require('./validator');
+const request = require("request");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
+const path = require("path");
+const utilities = require("./utilities");
+const cmdConfig = require("./cmdconfig");
+const TaskQueue = require("./taskQueue");
+const validator = require("./validator");
 
 function spiderLinks(currentUrl, body, nesting, callback) {
-  if(nesting === 0) {
+  if(nesting === 0) 
     return process.nextTick(callback);
-  }
 
   const links = utilities.getPageLinks(currentUrl, body);
-  if(links.length === 0) {
+  if(links.length === 0) 
     return process.nextTick(callback);
-  }
-let downloadQueue = new TaskQueue(cmdConfig.get('concurrency',2));
+let downloadQueue = new TaskQueue(cmdConfig.get("concurrency",2));
 
   let completed = 0, hasErrors = false;
   links.forEach(link => {
@@ -74,9 +72,9 @@ function spider(url, nesting, callback) {
   spidering.set(url, true);
 
   const filename = utilities.urlToFilename(url);
-  fs.readFile(filename, 'utf8', function(err, body) {
+  fs.readFile(filename, "utf8", function(err, body) {
     if(err) {
-      if(err.code !== 'ENOENT') {
+      if(err.code !== "ENOENT") {
         return callback(err);
       }
 
@@ -93,14 +91,24 @@ function spider(url, nesting, callback) {
   });
 }
 
-if (!validator.validate())
-	process.exit();
+const errors = validator.validate();
+if (errors.length || cmdConfig.get("help"))
+{
+  console.log(cmdConfig.usage);
+  errors.forEach((err) => 
+  {
+    console.error(err);
+  });
+  process.exit(errors.length);
+}
 
-spider(cmdConfig.get('url'), cmdConfig.get('nesting',1), (err) => {
+spider(cmdConfig.get("url"), cmdConfig.get("nesting",1), (err) => {
   if(err) {
-    console.log(err);
-    process.exit();
+    console.error(err);
+    process.exit(1);
   } else {
-    console.log('Download complete');
+    console.log("Download complete");
+    process.exit(0);
   }
 });
+
