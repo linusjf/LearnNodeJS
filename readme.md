@@ -1,6 +1,6 @@
 ## Synopsis
 
-This project contains code examples to run Node.js examples.
+This repository contains Node.js examples.
 
 ## Example
 
@@ -15,11 +15,10 @@ Load `http://localhost:8080/test.html`
 
 in browser.
 
-
-
 ## Motivation
 
-Try out various Node.js examples to gain an understanding of the server program and its applications.
+Try out various Node.js examples to gain an understanding of the server and its applications.
+Most of the source is from Node.js Design Patterns by Mario Casciaro.
 
 ## Installation
 
@@ -28,15 +27,9 @@ For instructions how to install node on your machine,refer to https://code.tutsp
 Use `git clone` to download the code to your machine.
 
 Run:
-`npm install express --save`
 
-`npm install nedb`
-
-to use express and nedb in your goalsserver Node.js application in the goalsserver directory.
-
-update your .bash_profile with the following:
-
-`export NODE_PATH=your/path/to/node_modules:%NODE_PATH`
+Every project has its package.json and package-lock.json files.
+Install dependencies using `npm install` from the project directory.
 
 ## API Reference
 
@@ -44,10 +37,12 @@ update your .bash_profile with the following:
 
 No unit tests.
 
+The root directory contains a script `runjshint` that lints the source using file `.jshintrc` specifying the rules.
+
 ## Contributors
 
 Obviously the author(s) and myself for any code enhancements.
 
 ## License
 
-MIT License.
+ISC License.
