@@ -1,19 +1,11 @@
 {
   "name": "helloworld",
   "version": "1.0.0",
-  "description": "Hello, World",
+  "description": "",
   "main": "HelloWorld.js",
   "scripts": {
-    "test": " npm run unit"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "node.js",
-    "Hello",
-    "World"
-  ],
   "author": "Linus Fernandes",
-  "license": "ISC",
-  "dependencies": {
-    "http": "0.0.0"
-  },
+  "license": "ISC"
 }
