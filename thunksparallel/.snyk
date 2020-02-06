@@ -4,27 +4,26 @@ ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
-    - snyk > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:23:30.656Z'
-    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:23:30.656Z'
-    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
-        patched: '2020-02-06T15:23:30.656Z'
-    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:23:33.848Z'
-    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:23:33.848Z'
-    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
-        patched: '2020-02-06T15:23:33.848Z'
-    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:23:33.848Z'
     - cheerio > lodash:
-        patched: '2020-02-06T15:29:58.400Z'
+        patched: '2020-02-06T15:34:06.231Z'
     - snyk > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:29:58.400Z'
+        patched: '2020-02-06T15:37:58.631Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:29:58.400Z'
+        patched: '2020-02-06T15:37:58.631Z'
     - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
-        patched: '2020-02-06T15:29:58.400Z'
+        patched: '2020-02-06T15:37:58.631Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
-        patched: '2020-02-06T15:29:58.400Z'
+        patched: '2020-02-06T15:37:58.631Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        patched: '2020-02-06T15:38:17.686Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2020-02-06T15:38:17.686Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
+        patched: '2020-02-06T15:38:17.686Z'
+        patched: '2020-02-06T15:35:02.301Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        patched: '2020-02-06T15:35:02.301Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2020-02-06T15:35:02.301Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
+        patched: '2020-02-06T15:35:02.301Z'

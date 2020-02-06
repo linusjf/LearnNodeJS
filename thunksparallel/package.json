@@ -19,11 +19,14 @@
     "slug": "^1.1.0",
     "thunkify": "^2.1.2",
     "url": "^0.11.0",
-    "validator": "^10.11.0"
+    "validator": "^10.11.0",
+    "snyk": "^1.290.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "spider",
@@ -31,5 +34,6 @@
     "crawler"
   ],
   "author": "Linus Fernandes",
-  "license": "ISC"
+  "license": "ISC",
+  "snyk": true
 }
