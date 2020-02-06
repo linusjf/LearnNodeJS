@@ -14,7 +14,7 @@
   "author": "Linus Fernandes",
   "license": "ISC",
   "dependencies": {
-    "assert": "^1.4.1",
+    "assert": "^1.5.0",
     "async": "^2.6.3",
     "cheerio": "^1.0.0-rc.3",
     "command-line-args": "^5.1.1",
