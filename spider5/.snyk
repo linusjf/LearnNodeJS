@@ -1,0 +1,16 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - cheerio > lodash:
+        patched: '2020-02-07T15:22:38.737Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2020-02-07T15:22:38.737Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        patched: '2020-02-07T15:22:38.737Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2020-02-07T15:22:38.737Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
+        patched: '2020-02-07T15:22:38.737Z'
