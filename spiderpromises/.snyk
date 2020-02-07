@@ -5,10 +5,10 @@ ignore: {}
 patch:
   SNYK-JS-LODASH-450202:
     - snyk > @snyk/dep-graph > lodash:
-        patched: '2020-02-07T15:10:59.204Z'
+        patched: '2020-02-07T15:11:03.101Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
-        patched: '2020-02-07T15:10:59.204Z'
+        patched: '2020-02-07T15:11:03.101Z'
     - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
-        patched: '2020-02-07T15:10:59.204Z'
+        patched: '2020-02-07T15:11:03.101Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
-        patched: '2020-02-07T15:10:59.204Z'
+        patched: '2020-02-07T15:11:03.101Z'
