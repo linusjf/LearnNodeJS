@@ -6,3 +6,11 @@ patch:
   SNYK-JS-LODASH-450202:
     - cheerio > lodash:
         patched: '2020-02-07T14:26:54.716Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2020-02-07T14:27:47.769Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        patched: '2020-02-07T14:27:47.769Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2020-02-07T14:27:47.769Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
+        patched: '2020-02-07T14:27:47.769Z'
