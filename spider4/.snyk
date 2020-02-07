@@ -5,8 +5,6 @@ ignore: {}
 patch:
   SNYK-JS-LODASH-450202:
     - cheerio > lodash:
-        patched: '2020-02-07T14:26:54.716Z'
-    - cheerio > lodash:
         patched: '2020-02-07T14:29:41.575Z'
     - snyk > @snyk/dep-graph > lodash:
         patched: '2020-02-07T14:29:41.575Z'
