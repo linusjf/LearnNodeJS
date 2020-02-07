@@ -11,3 +11,4 @@ clone_of*.js
 !*package-lock.json
 !*default.json
 !jshint.txt
+*.snyk
