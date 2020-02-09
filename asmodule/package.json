@@ -5,7 +5,7 @@
   "main": "proto.js",
   "dependencies": {
     "events": "^3.1.0",
-    "fs": "^0.0.1-security",
+    "fs": "^0.0.2",
     "util": "^0.12.1"
   },
   "devDependencies": {},
