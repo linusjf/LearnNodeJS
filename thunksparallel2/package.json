@@ -11,7 +11,7 @@
     "command-line-usage": "^5.0.5",
     "config": "^3.2.5",
     "debug": "^4.1.1",
-    "fs": "0.0.1-security",
+    "fs": "0.0.2",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
     "request": "^2.88.0",
