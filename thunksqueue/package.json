@@ -11,7 +11,7 @@
     "command-line-usage": "^5.0.5",
     "config": "^3.2.5",
     "debug": "^4.1.1",
-    "assert": "^1.5.0",
+    "assert": "^2.0.0",
     "fs": "^0.0.2",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
