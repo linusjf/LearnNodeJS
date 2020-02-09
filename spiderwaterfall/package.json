@@ -20,7 +20,7 @@
     "async": "^2.6.3",
     "cheerio": "^1.0.0-rc.3",
     "command-line-args": "^5.1.1",
-    "command-line-usage": "^5.0.5",
+    "command-line-usage": "^6.0.0",
     "config": "^3.2.5",
     "fs": "0.0.2",
     "mkdirp": "^0.5.1",
