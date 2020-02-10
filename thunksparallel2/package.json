@@ -18,7 +18,7 @@
     "slug": "^2.0.0",
     "thunkify": "^2.1.2",
     "url": "^0.11.0",
-    "validator": "^10.11.0",
+    "validator": "^12.0.0",
     "snyk": "^1.290.2"
   },
   "devDependencies": {},
