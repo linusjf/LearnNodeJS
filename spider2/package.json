@@ -11,7 +11,7 @@
   "dependencies": {
     "cheerio": "^0.22.0",
     "lodash": "^4.17.15",
-    "mkdirp": "^1.0.3",
+    "mkdirp": "^1.0.4",
     "request": "^2.88.2",
     "slug": "^2.0.0"
   },
