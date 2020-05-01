@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.0
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -14,3 +14,20 @@ patch:
         patched: '2020-02-07T13:15:33.892Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
         patched: '2020-02-07T13:15:33.892Z'
+  SNYK-JS-LODASH-567746:
+    - snyk > graphlib > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
+    - snyk > snyk-nodejs-lockfile-parser > snyk-config > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
+    - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
+    - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > graphlib > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
+    - snyk > snyk-docker-plugin > @snyk/rpm-parser > eslint > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
+    - snyk > snyk-mvn-plugin > @snyk/java-call-graph-builder > snyk-config > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
+    - snyk > snyk-docker-plugin > @snyk/rpm-parser > eslint > inquirer > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
+    - snyk > snyk-docker-plugin > @snyk/rpm-parser > eslint > table > lodash:
+        patched: '2020-05-01T15:14:47.620Z'
