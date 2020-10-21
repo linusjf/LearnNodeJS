@@ -13,7 +13,7 @@
     "lodash": "^4.17.15",
     "mkdirp": "^1.0.4",
     "request": "^2.88.2",
-    "slug": "^3.0.0"
+    "slug": "^3.5.2"
   },
   "devDependencies": {},
   "description": ""
