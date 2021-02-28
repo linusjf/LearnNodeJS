@@ -12,7 +12,7 @@
   "author": "Linus Fernandes",
   "license": "ISC",
   "dependencies": {
-    "events": "^3.1.0",
+    "events": "^3.3.0",
     "fs": "0.0.2"
   }
 }
