@@ -1,38 +1,64 @@
 // cluster.js
+"use strict";
 
 // **** Mock DB Call
 const numberOfUsersInDB = function() {
-  this.count = this.count || 5;
-  this.count = this.count * this.count;
-  return this.count;
-}
+    this.count = this.count || 5;
+    this.count = this.count * this.count;
+    return this.count;
+};
 // ****
 
-const cluster = require('cluster');
-const os = require('os');
+const cluster = require("cluster");
+const os = require("os");
 
 if (cluster.isMaster) {
-  const cpus = os.cpus().length;
+    const cpus = os.cpus().length;
 
-  console.log(`Forking for ${cpus} CPUs`);
-  for (let i = 0; i<cpus; i++) {
-    cluster.fork();
-  }
-  Object.values(cluster.workers).forEach(worker => {
-  worker.send(`Hello Worker ${worker.id}`);
-  });
+    console.log(`Forking for ${cpus} CPUs`);
+    for (let i = 0; i < cpus; i++) {
+        cluster.fork();
+    }
+    const workers = Object.values(cluster.workers);
+    const restartWorker = (workerIndex) => {
+        const worker = workers[workerIndex];
+        if (!worker) return;
 
-  const updateWorkers = () => {
-  const usersCount = numberOfUsersInDB();
-  Object.values(cluster.workers).forEach(worker => {
-    worker.send({ usersCount });
-  });
-};
+        worker.on("exit", () => {
+            if (!worker.exitedAfterDisconnect) return;
+            console.log(`Exited process ${worker.process.pid}`);
 
-updateWorkers();
-setInterval(updateWorkers, 10000);
+            cluster.fork().on("listening", () => {
+                restartWorker(workerIndex + 1);
+            });
+        });
+
+        worker.disconnect();
+    };
+
+    restartWorker(0);
+    cluster.on("exit", (worker, code, signal) => {
+        if (code !== 0 && !worker.exitedAfterDisconnect) {
+            console.log(`Worker ${worker.id} crashed. ` +
+                "Starting a new worker...");
+            cluster.fork();
+        }
+    });
+    Object.values(cluster.workers).forEach(worker => {
+        worker.send(`Hello Worker ${worker.id}`);
+    });
+
+    const updateWorkers = () => {
+        const usersCount = numberOfUsersInDB();
+        Object.values(cluster.workers).forEach(worker => {
+            worker.send({
+                usersCount
+            });
+        });
+    };
+
+    updateWorkers();
+    setInterval(updateWorkers, 10000);
 } else {
-  require('./server');
+    require("./server");
 }
-
-
