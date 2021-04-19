@@ -11,5 +11,6 @@ clone_of*.js
 !*package.json
 !*package-lock.json
 !*default.json
+!*.eslintrc.json
 !jshint.txt
 *.snyk
