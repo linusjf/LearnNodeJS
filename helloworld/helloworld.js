@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* jshint globalstrict: true */
 /* jshint node: true */
 "use strict";

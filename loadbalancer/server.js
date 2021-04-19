@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // server.js
 "use strict";
 const http = require("http");
@@ -8,7 +9,6 @@ let usersCount;
 http.createServer((req, res) => {
     // simulate CPU work
     for (let i = 0; i < 1e7; i++);
-    res.write(`Handled by process ${pid}\n`);
     res.write(`Users: ${usersCount}`);
     res.end(`Handled by process ${pid}`);
 }).listen(8080, () => {
@@ -23,5 +23,5 @@ process.on("message", msg => {
 });
 setTimeout(() => {
     // death by random timeout
-    process.exit(1);
+  process.exit(1);
 }, Math.random() * 10000);

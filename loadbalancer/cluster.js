@@ -1,11 +1,14 @@
+#!/usr/bin/env node
 // cluster.js
 "use strict";
 
+let count;
+
 // **** Mock DB Call
 const numberOfUsersInDB = function() {
-    this.count = this.count || 5;
-    this.count = this.count * this.count;
-    return this.count;
+    count = count || 5;
+    count = count * count;
+    return count;
 };
 // ****
 
@@ -36,7 +39,7 @@ if (cluster.isMaster) {
         worker.disconnect();
     };
 
-    restartWorker(0);
+  //    restartWorker(0);
     cluster.on("exit", (worker, code, signal) => {
         if (code !== 0 && !worker.exitedAfterDisconnect) {
             console.log(`Worker ${worker.id} crashed. ` +
