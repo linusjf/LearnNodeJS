@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const watcher = fs.watch("touch.txt")
+"use strict";
+const fs = require("fs");
+const watcher = fs.watch("touch.txt");
 watcher.on("change", function(event, filename) {
- console.log(`${event} on file ${filename}`)
-})
+ console.log(`${event} on file ${filename}`);
+});

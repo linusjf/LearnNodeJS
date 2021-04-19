@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 folders=0
 errors=0
+if [ "$#" -eq 0 ] ; then 
 for dir in $(find . -maxdepth 1 -type d  ! -path "*node_modules*" ! -path "*.git*" ! -path "*config*" ! -path . );
   do
     echo $dir
@@ -8,5 +9,10 @@ for dir in $(find . -maxdepth 1 -type d  ! -path "*node_modules*" ! -path "*.git
   errors=`expr $(echo $?) + $errors`
   folders=`expr $folders + 1`
 done
+else 
+  jshint "$1" --exclude "$1/node_modules"
+  errors=`expr $(echo $?) + $errors`
+  folders=`expr $folders + 1`
+fi
 echo $folders 'folders processed with ' $errors ' errors.'
 exit $errors
