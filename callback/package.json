@@ -1,0 +1,22 @@
+{
+  "name": "callback",
+  "version": "1.0.0",
+  "main": "promise.js",
+  "scripts": {
+ "start": "node ./promise.js"
+ },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fernal73/LearnNodeJS.git"
+  },
+  "keywords": [
+    "promise"
+  ],
+  "author": "Linus Fernandes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fernal73/LearnNodeJS/issues"
+  },
+  "homepage": "https://github.com/fernal73/LearnNodeJS#readme",
+  "description": ""
+}
