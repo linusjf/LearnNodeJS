@@ -18,7 +18,7 @@ class TaskQueue {
 
     spawnWorkers(concurrency) {
         for (let i = 0; i < concurrency; i++) {
-          co(function*() {
+            co(function*() {
                 while (true) {
                     const task = yield this.nextTask();
                     yield task;
@@ -28,11 +28,11 @@ class TaskQueue {
     }
 
     nextTask() {
-      return (callback) => {
-        if (this.taskQueue.length !== 0)
-            return callback(null, this.taskQueue.shift());
-        this.consumerQueue.push(callback);
-    };
+        return (callback) => {
+            if (this.taskQueue.length !== 0)
+                return callback(null, this.taskQueue.shift());
+            this.consumerQueue.push(callback);
+        };
     }
 
     pushTask(task) {

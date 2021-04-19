@@ -30,13 +30,13 @@ const cmdOptions = [{
         group: "main",
         description: "Depth to which the starting url is to be traversed"
     },
-/**    {
-        name: "concurrency",
-        type: Number,
-        alias: "c",
-        group: "main",
-        description: "Number of concurrent connections"
-    },**/
+    /**    {
+            name: "concurrency",
+            type: Number,
+            alias: "c",
+            group: "main",
+            description: "Number of concurrent connections"
+        },**/
     {
         name: "url",
         type: url => fullURL(url),

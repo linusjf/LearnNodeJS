@@ -34,11 +34,10 @@ function* spiderLinks(currentUrl, body, nesting) {
         return yield nextTick();
     }
     const links = utilities.getPageLinks(currentUrl, body);
-  const tasks = links.map( function( link) 
-  { 
-    return spider( link, nesting - 1); 
-  }); 
-  yield tasks;
+    const tasks = links.map(function(link) {
+        return spider(link, nesting - 1);
+    });
+    yield tasks;
 }
 
 
@@ -61,7 +60,7 @@ if (!validator.validate())
 
 co(function*() {
     try {
-        yield spider(cmdConfig.get("url"),cmdConfig.get("nesting",1));
+        yield spider(cmdConfig.get("url"), cmdConfig.get("nesting", 1));
         console.log("Download  complete");
     } catch (err) {
         console.log(err);

@@ -20,7 +20,7 @@ const debug = require("debug")("spider");
 debug.enabled = cmdConfig.get("debug", false);
 const spidering = new Map();
 const TaskQueue = require("./taskQueue");
-const downloadQueue = new TaskQueue(cmdConfig.get("concurrency",2));
+const downloadQueue = new TaskQueue(cmdConfig.get("concurrency", 2));
 
 function* download(url, filename) {
     console.log("Downloading " + url);
@@ -63,7 +63,7 @@ co(function*() {
 });
 
 function spiderLinks(currentUrl, body, nesting) {
-    if (nesting === 0) 
+    if (nesting === 0)
         return nextTick();
     // returns a thunk
     return function(callback) {

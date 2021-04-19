@@ -14,8 +14,8 @@ module.exports.promisify =
     function(callbackBasedApi) {
         return function promisified() {
             const args = [].slice.call(arguments);
-            return new promise(function(resolve, reject) { 
-    args.push(function(err, result) {
+            return new promise(function(resolve, reject) {
+                args.push(function(err, result) {
                     if (err)
                         return reject(err);
                     if (arguments.length <= 2)
@@ -26,7 +26,7 @@ module.exports.promisify =
                 callbackBasedApi.apply(null, args);
             });
         };
-};
+    };
 
 module.exports.urlToFilename = function urlToFilename(url) {
     const parsedUrl = urlParse(url);

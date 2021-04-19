@@ -2,7 +2,7 @@
 /*jshint node: true */
 "use strict";
 const fs = require("fs"),
-      files = process.argv.slice(2);
+    files = process.argv.slice(2);
 if (!files.length)
     console.log("Usage: node unpredictable.js <list of file names>");
 let cache = {};
@@ -37,12 +37,10 @@ function createFileReader(filename) {
 }
 
 
-files.forEach(function(item){
+files.forEach(function(item) {
 
-createFileReader(item).onDataReady(function(data)
-    {
+    createFileReader(item).onDataReady(function(data) {
         console.log(item + " : " + data);
         //... sometime
     });
 });
-

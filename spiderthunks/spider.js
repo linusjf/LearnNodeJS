@@ -34,7 +34,7 @@ function* spiderLinks(currentUrl, body, nesting) {
         return yield nextTick();
     }
     const links = utilities.getPageLinks(currentUrl, body);
-    for (let i = 0; i < links.length; i++) 
+    for (let i = 0; i < links.length; i++)
         yield spider(links[i], nesting - 1);
 }
 
@@ -58,7 +58,7 @@ if (!validator.validate())
 
 co(function*() {
     try {
-        yield spider(cmdConfig.get("url"),cmdConfig.get("nesting",1));
+        yield spider(cmdConfig.get("url"), cmdConfig.get("nesting", 1));
         console.log("Download  complete");
     } catch (err) {
         console.log(err);

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// cluster.js
+ // cluster.js
 "use strict";
 
 let count;
@@ -39,7 +39,7 @@ if (cluster.isMaster) {
         worker.disconnect();
     };
 
-  //    restartWorker(0);
+    //    restartWorker(0);
     cluster.on("exit", (worker, code, signal) => {
         if (code !== 0 && !worker.exitedAfterDisconnect) {
             console.log(`Worker ${worker.id} crashed. ` +

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// server.js
+ // server.js
 "use strict";
 const http = require("http");
 const pid = process.pid;
@@ -23,5 +23,5 @@ process.on("message", msg => {
 });
 setTimeout(() => {
     // death by random timeout
-  process.exit(1);
+    process.exit(1);
 }, Math.random() * 10000);

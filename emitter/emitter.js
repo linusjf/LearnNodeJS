@@ -51,12 +51,10 @@ if (argc > 2) {
     parseArgs(argc);
     fs.readdir(
         ".",
-        function(err, files)
-        {
+        function(err, files) {
             if (err)
                 console.log("Error reading directory: " + err.message);
-            else
-            {
+            else {
                 /**findPattern(files, /hello \w+/g)***/
                 files.push("nonexistentfile.txt");
                 findPattern(files, expression)

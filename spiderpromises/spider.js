@@ -36,51 +36,47 @@ function download(url, filename) {
     });
 }
 
-function spiderLinks(currentUrl,body,nesting) { 
-	let prom = promise.resolve(); 
-	if( nesting === 0)
-	  return prom;
-	const links = utilities.getPageLinks( currentUrl, body);
-	links.forEach( function( link) 
-		{ 
-			prom = prom.then( function() 
-				{ 
-					return spider( link, nesting - 1);
-				});
-		}); 
-	return prom;
+function spiderLinks(currentUrl, body, nesting) {
+    let prom = promise.resolve();
+    if (nesting === 0)
+        return prom;
+    const links = utilities.getPageLinks(currentUrl, body);
+    links.forEach(function(link) {
+        prom = prom.then(function() {
+            return spider(link, nesting - 1);
+        });
+    });
+    return prom;
 }
 
-function spider( url, nesting) 
-{ 
-	const filename = utilities.urlToFilename(url); return readFile( filename, "utf8").
-		then( function( body) 
-			{ 
-				return spiderLinks( url, body, nesting);}, 
-			function( err) { 
-				if( err.code !== "ENOENT") 
-					throw err;
-				return download(url,filename).then(function(body) 
-					{ 
-						return spiderLinks( url, body, nesting); 
-					});
-		}
-	);
+function spider(url, nesting) {
+    const filename = utilities.urlToFilename(url);
+    return readFile(filename, "utf8").
+    then(function(body) {
+            return spiderLinks(url, body, nesting);
+        },
+        function(err) {
+            if (err.code !== "ENOENT")
+                throw err;
+            return download(url, filename).then(function(body) {
+                return spiderLinks(url, body, nesting);
+            });
+        }
+    );
 }
 
 const errors = validator.validate();
-if (errors.length || cmdConfig.get("help"))
-{
-  console.log(cmdConfig.usage);
-  errors.forEach((err) => 
-  {
-    console.error(err);
-  });
-  process.exit(errors.length);
+if (errors.length || cmdConfig.get("help")) {
+    console.log(cmdConfig.usage);
+    errors.forEach((err) => {
+        console.error(err);
+    });
+    process.exit(errors.length);
 }
 
-spider(cmdConfig.get("url"),cmdConfig.get("nesting",1)).
-	then( function() {
-		console.log("Download complete"); }).catch( function( err) 
-			{ console.log( err); 
-}); 
+spider(cmdConfig.get("url"), cmdConfig.get("nesting", 1)).
+then(function() {
+    console.log("Download complete");
+}).catch(function(err) {
+    console.log(err);
+});

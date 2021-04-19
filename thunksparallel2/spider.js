@@ -31,10 +31,10 @@ function* download(url, filename) {
 }
 
 function* spider(url, nesting) {
-  if(spidering.has(url)) 
-    return nextTick();
-  spidering.set(url, true);  
-  const filename = utilities.urlToFilename(url);
+    if (spidering.has(url))
+        return nextTick();
+    spidering.set(url, true);
+    const filename = utilities.urlToFilename(url);
     let body;
     try {
         body = yield readFile(filename, "utf8");
@@ -55,8 +55,8 @@ co(function*() {
         yield spider(cmdConfig.get("url"), cmdConfig.get("nesting", 1));
         console.log("Download  complete");
     } catch (err) {
-      debug(err);
-      console.log(err);
+        debug(err);
+        console.log(err);
     }
 });
 
@@ -69,19 +69,19 @@ function spiderLinks(currentUrl, body, nesting) {
         let completed = 0,
             errored = false;
         let links = utilities.getPageLinks(currentUrl, body);
-        if (links.length === 0) 
+        if (links.length === 0)
             return process.nextTick(callback);
 
         function done(err, result) // jshint ignore: line 
         {
             if (err && !errored) {
                 errored = true;
-              debug("errored = "+errored);
+                debug("errored = " + errored);
                 callback(err);
             }
-            if (++completed === links.length && !errored) 
-          callback();
+            if (++completed === links.length && !errored)
+                callback();
         }
-        for (let i = 0; i < links.length; i++)    co(spider(links[i], nesting - 1)).then(done);
+        for (let i = 0; i < links.length; i++) co(spider(links[i], nesting - 1)).then(done);
     }; // end thunk
 }

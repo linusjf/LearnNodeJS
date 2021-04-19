@@ -66,4 +66,3 @@ module.exports.validate = function() {
     errors = validateNesting(options._all.nesting, errors);
     return errors;
 };
-
