@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="/socket.io/socket.io.js"></script>
+  <title>Index</title>
+</head>
+
+<body>
+  <script>
+    let socket = io.connect("http://localhost:3000");
+    socket.emit("hello-message", {
+      myData: "hello from client"
+    });
+    socket.on("hello-server", function(data) {
+      if (window.console && window.console.log) 
+        console.log(data);
+    });
+  </script>
+</body>
+
+</html>

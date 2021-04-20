@@ -13,4 +13,5 @@ clone_of*.js
 !*default.json
 !*.eslintrc.json
 !jshint.txt
+!index.html
 *.snyk
