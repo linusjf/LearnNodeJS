@@ -3,4 +3,5 @@ curl http://localhost:8000/users/
 curl http://localhost:8000/users/:2
 curl -X POST http://localhost:8000/users
 curl -X PUT http://localhost:8000/users/:2
+curl -X PATCH http://localhost:8000/users/:2
 curl -X DELETE http://localhost:8000/users/:1
