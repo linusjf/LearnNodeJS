@@ -11,9 +11,7 @@ client.connect().catch(err => {
 });
 
 client.query("SELECT 1 + 4").then(res => {
-
   const result = R.head(R.values(R.head(res.rows)));
-
   console.log(result);
 }).catch(err => {
   console.log("error: ", err);
