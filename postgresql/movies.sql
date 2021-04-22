@@ -1,5 +1,5 @@
-drop table movies; 
-create table if not exists movies (
+drop table if exists movies; 
+create table movies (
   id serial primary key, 
   title varchar(50) not null, 
   year integer not null, 
