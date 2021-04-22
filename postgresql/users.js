@@ -31,7 +31,24 @@ CREATE TABLE users (
 
 const insertQuery = `
 INSERT INTO users (email, firstName, lastName, age)
-VALUES ('johndoe@gmail.com', 'john', 'doe', 21)
+VALUES ('johndoe@gmail.com', 'john', 'doe', 21),
+  ('anna@gmail.com', 'anna', 'dias', 35);
+`;
+
+const selectQuery = `
+SELECT *
+FROM users;
+`;
+
+const updateQuery = `
+UPDATE users
+SET age = 22
+WHERE email = 'johndoe@gmail.com'
+`;
+
+const deleteQuery = `
+DELETE FROM users
+WHERE email = 'johndoe@gmail.com'
 `;
 
 function createTable(client) {
@@ -51,7 +68,6 @@ function insertData(client) {
   return new Promise((resolve, reject) => {
     client.query(insertQuery)
       .then(res => {
-        client.release();
         console.log(res.rowCount + " record(s) are successfully inserted");
         resolve(client);
       }).catch(err => {
@@ -60,11 +76,62 @@ function insertData(client) {
   });
 }
 
-pool.connect().then(createTable)
+function selectAll(client) {
+  return new Promise((resolve, reject) => {
+    client.query(selectQuery)
+      .then(res => {
+        console.log(res.rowCount + " record(s) are returned");
+        console.log(res.rows);
+        resolve(client);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+}
+
+function updateData(client) {
+  return new Promise((resolve, reject) => {
+    client.query(updateQuery)
+      .then(res => {
+        console.log(res.rowCount + " record(s) updated.");
+        resolve(client);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+}
+
+function deleteData(client) {
+  return new Promise((resolve, reject) => {
+    client.query(deleteQuery)
+      .then(res => {
+        console.log(res.rowCount + " record(s) deleted.");
+        resolve(client);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+}
+
+function release(client) {
+  return new Promise((resolve, reject) => {
+    client.release();
+    resolve(client);
+  });
+}
+
+let client = pool.connect();
+client.then(createTable)
   .then(insertData)
+  .then(selectAll)
+  .then(updateData)
+  .then(selectAll)
+  .then(deleteData)
+  .then(selectAll)
+  .then(release)
   .catch(err => {
     console.error(err);
   })
-  .finally(() => {
-    pool.end().then(() => console.log("pool has ended"));
-  });
+  .finally(() => {});
+
+pool.end().then(() => console.log("pool has ended"));
