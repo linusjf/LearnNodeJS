@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-createusermdb adminmdb mariadb
+createusermdb adminmdb mariadb localhost

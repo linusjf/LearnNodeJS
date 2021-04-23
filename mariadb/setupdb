@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+execsqlmdb adminmdb mariadb localhost mysql setupdb.sql
