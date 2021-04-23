@@ -13,11 +13,9 @@ const pool = new Pool({
   port: 5432,
 });
 
-/* eslint-disable */
 pool.on("error", (err, _client) => {
   console.error("Error:", err.message);
 });
-/* eslint-enable */
 
 const createQuery = `
 DROP TABLE IF EXISTS users;
@@ -116,7 +114,7 @@ function deleteData(client) {
 }
 
 function release(client) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     client.release();
     resolve(client);
   });
