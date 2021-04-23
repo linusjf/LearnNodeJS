@@ -20,6 +20,9 @@ app.get("/people", async (req, res) => {
 
     // return the results
     res.send(rows);
+  } catch (err) {
+    console.error(err.message);
+    res.send(err.message);
   } finally {
     if (conn)
       conn.release();
