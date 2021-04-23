@@ -4,6 +4,7 @@ const {
   Pool
 } = require("pg");
 
+
 const pool = new Pool({
   user: "adminpgsql",
   host: "localhost",
@@ -32,7 +33,8 @@ CREATE TABLE users (
 const insertQuery = `
 INSERT INTO users (email, firstName, lastName, age)
 VALUES ('johndoe@gmail.com', 'john', 'doe', 21),
-  ('anna@gmail.com', 'anna', 'dias', 35);
+  ('anna@gmail.com', 'anna', 'dias', 35),
+  ('jane@gmail.com', 'jane', 'goodall', 45);
 `;
 
 const selectQuery = `
@@ -120,8 +122,7 @@ function release(client) {
   });
 }
 
-let client = pool.connect();
-client.then(createTable)
+pool.connect().then(createTable)
   .then(insertData)
   .then(selectAll)
   .then(updateData)
