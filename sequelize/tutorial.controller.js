@@ -1,4 +1,4 @@
-const db = require("./tutorial.model.js");
+const db = require("./index.js");
 // models path depend on your structure
 const Tutorial = db.tutorials;
 
