@@ -3,6 +3,7 @@ const db = require("./index.js");
 const Tutorial = db.tutorials;
 
 exports.create = (req, res) => {
+  console.log(req);
   // Validate request
   if (!req.body.title) {
     res.status(400).send({
@@ -15,7 +16,7 @@ exports.create = (req, res) => {
   const tutorial = {
     title: req.body.title,
     description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    published: req.body.published ? req.body.published : 0
   };
 
   // Save Tutorial in the database
