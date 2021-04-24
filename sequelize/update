@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+curl -X PUT -H "Content-Type: application/json" -d '{ "published": 1, "description":"Node js tutorial" }' http://localhost:8080/api/tutorials/1
+curl -X PUT -H "Content-Type: application/json" -d '{ "published": 1, "description":"Node js tutorial advanced" }' http://localhost:8080/api/tutorials/2
+curl -X PUT -H "Content-Type: application/json" -d '{ "published": 1, "description":"Vue js tutorial" }' http://localhost:8080/api/tutorials/3
+curl -X PUT -H "Content-Type: application/json" -d '{ "published": 1, "description":"React JS tutorial" }' http://localhost:8080/api/tutorials/4
+curl -X PUT -H "Content-Type: application/json" -d '{ "published": 1, "description":"Angular JS tutorial" }' http://localhost:8080/api/tutorials/5
