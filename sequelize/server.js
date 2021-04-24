@@ -12,6 +12,8 @@ db.sequelize.sync({
   force: true
 }).then(() => {
   console.log("Drop and re-sync db.");
+}).catch (err => {
+  console.log(err.message);
 });
 
 var corsOptions = {
@@ -28,7 +30,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-db.sequelize.sync();
 // simple route
 app.get("/", (req, res) => {
   res.json({
