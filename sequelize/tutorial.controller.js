@@ -3,7 +3,6 @@ const db = require("./index.js");
 const Tutorial = db.tutorials;
 
 exports.create = (req, res) => {
-  console.log(req);
   // Validate request
   if (!req.body.title) {
     res.status(400).send({
