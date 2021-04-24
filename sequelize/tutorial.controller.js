@@ -1,6 +1,7 @@
 const db = require("./index.js");
 // models path depend on your structure
 const Tutorial = db.tutorials;
+const { Op } = require("sequelize");
 
 exports.create = (req, res) => {
   // Validate request
