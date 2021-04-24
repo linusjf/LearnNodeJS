@@ -4,20 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-
-require("./tutorial.routes.js")(app);
-
-const db = require("./index.js");
-db.sequelize.sync({
-  force: true
-}).then(() => {
-  console.log("Drop and re-sync db.");
-}).catch (err => {
-  console.log(err.message);
-});
-
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8080"
 };
 
 app.use(cors(corsOptions));
@@ -30,11 +18,16 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({
-    message: "Welcome to esparkinfo application."
-  });
+
+require("./tutorial.routes.js")(app);
+
+const db = require("./index.js");
+db.sequelize.sync({
+  force: true
+}).then(() => {
+  console.log("Drop and re-sync db.");
+}).catch (err => {
+  console.log(err.message);
 });
 
 // set port, listen for requests
