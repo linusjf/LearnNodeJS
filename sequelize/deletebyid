@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+curl -X DELETE http://localhost:8080/api/tutorials/1
+curl -X DELETE http://localhost:8080/api/tutorials/2
+curl -X DELETE http://localhost:8080/api/tutorials/3
+curl -X DELETE http://localhost:8080/api/tutorials/4
+curl -X DELETE http://localhost:8080/api/tutorials/5

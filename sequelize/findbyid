@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+curl http://localhost:8080/api/tutorials/1
+curl http://localhost:8080/api/tutorials/2
+curl http://localhost:8080/api/tutorials/3
+curl http://localhost:8080/api/tutorials/4
+curl http://localhost:8080/api/tutorials/5

@@ -4,3 +4,8 @@ curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: Node Tutori
 curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: Vue Tutorial #3", "description":"Tutorial #3 Description" }' http://localhost:8080/api/tutorials
 curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: React Tutorial #3", "description":"Tutorial #4 Description" }' http://localhost:8080/api/tutorials
 curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: Angular Tutorial #3", "description":"Tutorial #5 Description" }' http://localhost:8080/api/tutorials
+curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: JQuery Tutorial", "description":"Tutorial #6 Description" }' http://localhost:8080/api/tutorials
+curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: Express Tutorial", "description":"Tutorial #7 Description" }' http://localhost:8080/api/tutorials
+curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS:Sequelize Tutorial", "description":"Tutorial #8 Description" }' http://localhost:8080/api/tutorials
+curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: Mongoose Tutorial", "description":"Tutorial #9 Description" }' http://localhost:8080/api/tutorials
+curl -X POST -H "Content-Type: application/json" -d '{ "title": "JS: Jasmine Tutorial", "description":"Tutorial #10 Description" }' http://localhost:8080/api/tutorials
