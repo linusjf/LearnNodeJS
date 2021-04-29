@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const movie = mongoose.Schema({
-  title: String,
+  title: {
+    type: String,
+    required: true,
+    unique: true
+  },
   year: Number
 });
 
-//movie.plugin(uniqueValidator);
+movie.plugin(uniqueValidator);
 module.exports =
   mongoose.model("Movie", movie);
