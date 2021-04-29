@@ -2,15 +2,20 @@
 
 const mongoose = require("mongoose");
 
-
 async function insertRecords() {
+  await mongoose.connect("mongodb://localhost/test", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+  let db = mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error:"));
+  db.once("open", function() {
+    console.log("open");
+  });
+
   const Movie = require("./movieSchema");
   let movie = new Movie({
-    title: "The Matrix",
-    year: 1999
-  });
-  await movie.save();
-  movie = new Movie({
     title: "The Matrix",
     year: 1999
   });
@@ -54,7 +59,7 @@ async function insertRecords() {
 
 (async () => {
   try {
-    insertRecords();
+    await insertRecords();
   } catch (err) {
     console.log(err.message);
   } finally {
