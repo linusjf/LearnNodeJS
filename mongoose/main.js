@@ -9,6 +9,11 @@ async function main() {
     email: "ADA.LOVELACE@GMAIL.COM"
   });
   await msg.save();
+  var record = await EmailModel
+    .find({
+      email: "ada.lovelace@gmail.com" 
+    });
+  console.log(record);
 }
 
 (async () => {
