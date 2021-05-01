@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   firstName: String,
-  lastName: String
+  lastName: String,
+  createdAt: Date,
+  updatedAt: Date
 });
 
 userSchema.virtual("fullName").get(function() {
@@ -31,5 +33,17 @@ userSchema.statics.getUsers = function() {
     });
   });
 };
+
+userSchema.pre("save", function (next) {
+  let now = Date.now();
+   
+  this.updatedAt = now;
+  // Set a value for createdAt only if it is null
+  if (!this.createdAt) 
+    this.createdAt = now;
+  
+  // Call the next function in the pre-save chain
+  next();
+});
 
 module.exports = mongoose.model("User", userSchema);

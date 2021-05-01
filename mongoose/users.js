@@ -1,25 +1,42 @@
 #!/usr/bin/env node
 
+const database = require("./database");
 const UserModel = require("./user");
-const model = new UserModel();
 
-model.fullName = "Thomas Anderson";
+async function main() {
+  const model = new UserModel();
 
-// Output model fields as JSON
-console.log(model.toJSON()); 
+  model.fullName = "Thomas Anderson";
 
-console.log();
-// Output the full name
-console.log(model.fullName);
+  // Output model fields as JSON
+  console.log(model.toJSON());
 
-const initials = model.getInitials();
+  console.log();
+  // Output the full name
+  console.log(model.fullName);
 
-console.log(initials);
+  const initials = model.getInitials();
 
-UserModel.getUsers()
-  .then(docs => {
-    console.log(docs);
-  })
-  .catch(err => {
+  console.log(initials);
+
+  await database.connect();
+
+  await model.save();
+  await UserModel.getUsers()
+    .then(docs => {
+      console.log(docs);
+    })
+    .catch(err => {
+      console.error(err.message);
+    });
+}
+
+(async() => {
+  try {
+    await main();
+  } catch (err) {
     console.error(err.message);
-  });
+  } finally {
+    database.close();
+  }
+})();
