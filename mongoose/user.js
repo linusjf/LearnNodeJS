@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const timestampPlugin = require("./timestamp");
 
 const userSchema = new mongoose.Schema({
   firstName: String,
@@ -13,7 +14,6 @@ userSchema.virtual("fullName").get(function() {
 
 userSchema.virtual("fullName").set(function(name) {
   const str = name.split(" ");
-
   this.firstName = str[0];
   this.lastName = str[1];
 });
@@ -45,5 +45,7 @@ userSchema.pre("save", function (next) {
   // Call the next function in the pre-save chain
   next();
 });
+
+userSchema.plugin(timestampPlugin);
 
 module.exports = mongoose.model("User", userSchema);

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const timestampPlugin = require("./timestamp");
 
 const emailSchema = new mongoose.Schema({
   email: {
@@ -12,5 +13,7 @@ const emailSchema = new mongoose.Schema({
     }
   }
 });
+
+emailSchema.plugin(timestampPlugin);
 
 module.exports = mongoose.model("Email", emailSchema);
