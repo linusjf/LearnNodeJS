@@ -1,6 +1,14 @@
 #!/usr/bin/env node
+require("dotenv").config();
 const mqtt = require("mqtt");
-const client = mqtt.connect("mqtt://broker.hivemq.com");
+var options = {
+  host: process.env.HOST,
+  port: process.env.PORT,
+  protocol: process.env.PROTOCOL,
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD
+};
+const client = mqtt.connect(options);
 
 /**
  * The state of the garage, defaults to closed
@@ -15,6 +23,11 @@ client.on("connect", () => {
   // Inform controllers that garage is connected
   client.publish("garage/connected", "true");
   sendStateUpdate();
+});
+
+client.on("error",function(error) {
+  console.log("Can't connect" + error);
+  process.exit(1);
 });
 
 client.on("message", (topic, message) => {
@@ -33,20 +46,22 @@ function sendStateUpdate () {
 }
 
 function handleOpenRequest (_message) {
+  console.log("Handle open request");
   if (state !== "open" && state !== "opening") {
     console.log("opening garage door");
     state = "opening";
     sendStateUpdate();
 
-    // simulate door open after 5 seconds (would be listening to hardware)
+    // simulate door open after 1 seconds (would be listening to hardware)
     setTimeout(() => {
       state = "open";
       sendStateUpdate();
-    }, 5000);
+    }, 1000);
   }
 }
 
 function handleCloseRequest (_message) {
+  console.log("Handle close request");
   if (state !== "closed" && state !== "closing") {
     state = "closing";
     sendStateUpdate();
@@ -55,7 +70,7 @@ function handleCloseRequest (_message) {
     setTimeout(() => {
       state = "closed";
       sendStateUpdate();
-    }, 5000);
+    }, 1000);
   }
 }
 

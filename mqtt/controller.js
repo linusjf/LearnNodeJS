@@ -1,14 +1,30 @@
 #!/usr/bin/env node
 // controller.js
+require("dotenv").config();
 const mqtt = require("mqtt");
-const client = mqtt.connect("mqtt://broker.hivemq.com");
+var options = {
+  host: process.env.HOST,
+  port: process.env.PORT,
+  protocol: process.env.PROTOCOL,
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD
+};
+const client = mqtt.connect(options);
 
 var garageState = "";
 var connected = false;
 
 client.on("connect", () => {
+  console.log("Connected...");
+  connected = true;
   client.subscribe("garage/connected");
   client.subscribe("garage/state");
+  setTimeout(() => openClose() , 5000);
+});
+
+client.on("error",function(error) {
+  console.log("Can't connect" + error);
+  process.exit(1);
 });
 
 client.on("message", (topic, message) => {
@@ -50,13 +66,15 @@ function closeGarageDoor () {
 // --- For Demo Purposes Only ----//
 
 // simulate opening garage door
-setTimeout(() => {
-  console.log("open door");
-  openGarageDoor();
-}, 5000);
+function openClose() { 
+  setInterval(() => {
+    console.log("open door");
+    openGarageDoor();
+  }, Math.floor(Math.random() * 1000));
 
-// simulate closing garage door
-setTimeout(() => {
-  console.log("close door");
-  closeGarageDoor();
-}, 20000);
+  // simulate closing garage door
+  setInterval(() => {
+    console.log("close door");
+    closeGarageDoor();
+  }, Math.floor(Math.random() * 1000));
+}

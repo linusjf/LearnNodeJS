@@ -1,0 +1,5 @@
+HOST=<servername>|<ipaddress>
+PORT=<port>
+PROTOCOL=<protocol>
+USERNAME=<username>
+PASSWORD=<password>
