@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require("dotenv").config();
-var amqp = require("amqplib/callback_api");
+const amqp = require("amqplib/callback_api");
 
 amqp.connect(process.env.CLOUD_AMQP_URL, function(error0, connection) {
   if (error0) {
@@ -11,18 +11,20 @@ amqp.connect(process.env.CLOUD_AMQP_URL, function(error0, connection) {
       throw error1;
     }
 
-    var queue = "hello";
+    const queue = "hello";
 
     channel.assertQueue(queue, {
       durable: false
     });
 
-    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+    setInterval(function() {
+      console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
 
-    channel.consume(queue, function(msg) {
-      console.log(" [x] Received %s", msg.content.toString());
-    }, {
-      noAck: true
-    });
+      channel.consume(queue, function(msg) {
+        console.log(" [x] Received %s", msg.content.toString());
+      }, {
+        noAck: true
+      });
+    }, 2000);
   });
 });

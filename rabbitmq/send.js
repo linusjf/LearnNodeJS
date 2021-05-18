@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require("dotenv").config();
-var amqp = require("amqplib/callback_api");
+const amqp = require("amqplib/callback_api");
 
 amqp.connect(process.env.CLOUD_AMQP_URL, function(error0, connection) {
   if (error0) {
@@ -11,8 +11,8 @@ amqp.connect(process.env.CLOUD_AMQP_URL, function(error0, connection) {
       throw error1;
     }
 
-    var queue = "hello";
-    var msg = "Hello World!";
+    const queue = "hello";
+    const msg = "Hello World!";
 
     channel.assertQueue(queue, {
       durable: false
