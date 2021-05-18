@@ -1,2 +1,10 @@
-CLOUD_AMQP_URL=<cloudamqpurl>
-
+CLOUD_AMQP_URL=<url>
+PROTOCOL=amqps
+HOSTNAME=<hostname>
+PORT=5671
+USERNAME=<user>
+PASSWORD=<password>
+LOCALE=en_US
+FRAMEMAX=0
+HEARTBEAT=0
+VHOST=<vhost>
