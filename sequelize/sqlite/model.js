@@ -51,7 +51,10 @@ User.init({
       return Math.abs(age_dt.getUTCFullYear() - 1970);
     },
   },
-  cash: DataTypes.INTEGER
+  cash:{
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  }
 }, {
   // Other model options go here
   // We need to pass the connection instance
@@ -97,6 +100,21 @@ async function start() {
   console.log(may.toJSON());
   may.firstName = "June";
   console.log(may.toJSON());
+  await may.reload();
+  console.log(may.toJSON());
+  may.firstName = "May II";
+  may.favoriteColor = "blue";
+  await may.save({ fields: ["fullName"] });
+  console.log(may.fullName); 
+  console.log(may.favoriteColor); // "blue"
+  // The above printed blue because the local object has it set to blue, but
+  // in the database it is still "green":
+  await may.reload();
+  console.log(may.fullName); 
+  console.log(may.favoriteColor); // "
+  await may.increment({
+    "cash": 100
+  });
   await may.reload();
   console.log(may.toJSON());
   await may.destroy();
