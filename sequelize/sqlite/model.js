@@ -63,9 +63,6 @@ User.init({
 });
 
 async function start() {
-  const user = User.build({ firstName: "Jane", lastName: "Doe" ,
-    dob: new Date("1969-12-23")});
-  console.log(user.get()); 
   console.log(User === sequelize.models.User);
 
   await sequelize.authenticate();
@@ -78,6 +75,31 @@ async function start() {
     alter: false});
   console.log("Database & tables created!");
 
+  const jane = User.build({ firstName: "Jane", lastName: "Doe" ,
+    dob: new Date("1969-12-23")});
+  console.log(jane instanceof User); 
+  await jane.save();
+  console.log("Jane was saved to the database!");
+  console.log(jane.toJSON()); 
+  const john = await User.create({ firstName: "John",
+    lastName: "Doe", dob: new Date("1974-06-29")});
+  console.log(john instanceof User); 
+  await john.save();
+  console.log("John was saved to the database!");
+  console.log(JSON.stringify(john, null, 2));
+  const may = await User.create({ firstName: "May",
+    lastName: "Poe",
+    dob: new Date("1980-12-24")});
+  console.log(may instanceof User); // true
+  console.log(may.toJSON());
+  may.firstName = "April";
+  await may.save();
+  console.log(may.toJSON());
+  may.firstName = "June";
+  console.log(may.toJSON());
+  await may.reload();
+  console.log(may.toJSON());
+  await may.destroy();
   await User.drop();
   console.log("User table dropped!");
 }
