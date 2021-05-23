@@ -30,8 +30,10 @@ User.init({
     },
     set(value) {
       var arr = value.split(" ");
-      if (arr.length == 1)
+      if (arr.length == 1) {
         this.firstName = arr.pop();
+        this.lastName = "";
+      }
       else {
         this.lastName = arr.pop();
         this.firstName = arr.join(" ");
