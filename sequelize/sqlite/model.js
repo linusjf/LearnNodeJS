@@ -54,6 +54,10 @@ User.init({
   cash:{
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+  isAdmin:{
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
   }
 }, {
   // Other model options go here
@@ -85,7 +89,8 @@ async function start() {
   console.log("Jane was saved to the database!");
   console.log(jane.toJSON()); 
   const john = await User.create({ firstName: "John",
-    lastName: "Doe", dob: new Date("1974-06-29")});
+    lastName: "Doe", dob: new Date("1974-06-29"),
+    isAdmin: true});
   console.log(john instanceof User); 
   await john.save();
   console.log("John was saved to the database!");
@@ -117,6 +122,23 @@ async function start() {
   });
   await may.reload();
   console.log(may.toJSON());
+
+  // Find all users
+  var users = await User.findAll();
+  console.log("All users:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    attributes: ["firstName", ["lastName", "surname"], "cash"]
+  });
+  console.log("All users:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    attributes: [
+      "firstName",
+      [sequelize.fn("SUM", sequelize.col("cash")), "total_cash"],
+      "isAdmin"
+    ],
+    group: ["firstName","isAdmin"]
+  });
+  console.log("All users:", JSON.stringify(users, null, 2));
   await may.destroy();
   await User.drop();
   console.log("User table dropped!");
