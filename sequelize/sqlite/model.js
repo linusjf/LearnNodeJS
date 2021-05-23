@@ -7,7 +7,7 @@ const sequelize = new Sequelize({
   define: {
     freezeTableName: false
   },
-  logging: false
+  logging: console.log
 });
 
 class User extends Model {
@@ -172,6 +172,17 @@ async function start() {
     }
   });
   console.log("Selected users:", JSON.stringify(users, null, 2));
+  User.update({ lastName: "Smith" }, {
+    where: {
+      lastName: null
+    }
+  }).catch(err => console.error(err.message));
+  users = await User.findAll({ group: "isAdmin" });
+  console.log("Selected group users:", JSON.stringify(users, null, 2));
+
+  users = await User.findAll({ offset: 1,limit: 2 });
+  console.log("Selected users:", JSON.stringify(users, null, 2));
+  console.log(`There are ${await User.count()} users.`);
 
   users = await User.max("dob"); 
   console.log("max dob:", JSON.stringify(users, null, 2));
@@ -200,7 +211,7 @@ async function start() {
   console.log("Selected users:", JSON.stringify(users, null, 2));
   await User.destroy({
     truncate: true,
-    resrartIdentity: true
+    restartIdentity: true
   });
   console.log("User table truncated!");
   await sequelize.query("DELETE FROM `sqlite_sequence` WHERE `name` = 'Users'");
