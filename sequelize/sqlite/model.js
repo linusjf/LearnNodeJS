@@ -6,7 +6,8 @@ const sequelize = new Sequelize({
   storage: "mydb.sqlite",
   define: {
     freezeTableName: false
-  }
+  },
+  logging: false
 });
 
 class User extends Model {
@@ -153,9 +154,51 @@ async function start() {
     }
   });
   console.log("Selected users:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    where: {
+      id: 1,
+      isAdmin: false
+    }
+  });
+  console.log("Selected users:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    where: {
+      [Op.and]: [
+        { firstName: "Jane",
+          isAdmin: false }
+      ]
+    }
+  });
+  console.log("Selected users:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    where: {
+      [Op.or]: [
+        { id: 1 },
+        { id: 3 }
+      ]
+    }
+  });
+  console.log("Selected users:", JSON.stringify(users, null, 2));
+
+  await User.destroy({
+    where: {
+      id: {
+        [Op.or]: [1, 2]
+      }
+    }
+  });
+  users = await User.findAll();
+  console.log("Selected users:", JSON.stringify(users, null, 2));
   await may.destroy();
-  await User.drop();
-  console.log("User table dropped!");
+  users = await User.findAll();
+  console.log("Selected users:", JSON.stringify(users, null, 2));
+  await User.destroy({
+    truncate: true,
+    resrartIdentity: true
+  });
+  console.log("User table truncated!");
+  await sequelize.query("DELETE FROM `sqlite_sequence` WHERE `name` = 'Users'");
+  console.log("User table identity reset!");
 }
 
 start();
