@@ -182,6 +182,9 @@ async function start() {
   console.log("max dob < 1970:", JSON.stringify(users, null, 2));
   users = await User.min("dob", { where: { dob: { [Op.gt]: new Date("1980-01-01") } } }); 
   console.log("min dob > 1980:", JSON.stringify(users, null, 2));
+  
+  User.sum("age").catch(err => console.error("Aggregate functions on virtual columns disallowed: " +
+  err.message));
 
   await User.destroy({
     where: {
