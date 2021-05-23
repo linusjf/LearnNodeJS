@@ -22,7 +22,6 @@ User.init({
   lastName: {
     type: DataTypes.STRING,
     defaultValue: ""
-    // allowNull defaults to true
   },
   fullName: {
     type: DataTypes.VIRTUAL,
@@ -61,11 +60,8 @@ User.init({
     defaultValue: false
   }
 }, {
-  // Other model options go here
-  // We need to pass the connection instance
   sequelize,
   timestamps: true,
-  // We need to choose the model name
   modelName: "User",
   tableName: "Users"
 });
@@ -113,8 +109,6 @@ async function start() {
   await may.save({ fields: ["fullName"] });
   console.log(may.fullName); 
   console.log(may.favoriteColor); // "blue"
-  // The above printed blue because the local object has it set to blue, but
-  // in the database it is still "green":
   await may.reload();
   console.log(may.fullName); 
   console.log(may.favoriteColor); // "
@@ -124,7 +118,6 @@ async function start() {
   await may.reload();
   console.log(may.toJSON());
 
-  // Find all users
   var users = await User.findAll();
   console.log("All users:", JSON.stringify(users, null, 2));
   users = await User.findAll({
@@ -179,6 +172,16 @@ async function start() {
     }
   });
   console.log("Selected users:", JSON.stringify(users, null, 2));
+
+  users = await User.max("dob"); 
+  console.log("max dob:", JSON.stringify(users, null, 2));
+  users = await User.max("dob", { where: { dob: { [Op.lt]: new Date("1970-01-01") } } }); 
+  console.log("max dob < 1970:", JSON.stringify(users, null, 2));
+  users = await User.min("dob"); 
+  console.log("min dob:", JSON.stringify(users, null, 2));
+  console.log("max dob < 1970:", JSON.stringify(users, null, 2));
+  users = await User.min("dob", { where: { dob: { [Op.gt]: new Date("1980-01-01") } } }); 
+  console.log("min dob > 1980:", JSON.stringify(users, null, 2));
 
   await User.destroy({
     where: {
