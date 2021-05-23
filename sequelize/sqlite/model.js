@@ -18,10 +18,16 @@ User.init({
   firstName: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      len: [1, 20]
+    }
   },
   lastName: {
     type: DataTypes.STRING,
-    defaultValue: ""
+    defaultValue: "",
+    validate: {
+      len: [1, 30]
+    }
   },
   fullName: {
     type: DataTypes.VIRTUAL,
@@ -69,7 +75,6 @@ User.init({
 });
 
 async function start() {
-  console.log(User === sequelize.models.User);
 
   await sequelize.authenticate();
   console.log("Connection has been established successfully.");
@@ -83,21 +88,18 @@ async function start() {
 
   const jane = User.build({ firstName: "Jane", lastName: "Doe" ,
     dob: new Date("1969-12-23")});
-  console.log(jane instanceof User); 
   await jane.save();
   console.log("Jane was saved to the database!");
   console.log(jane.toJSON()); 
   const john = await User.create({ firstName: "John",
     lastName: "Doe", dob: new Date("1974-06-29"),
     isAdmin: true});
-  console.log(john instanceof User); 
   await john.save();
   console.log("John was saved to the database!");
   console.log(JSON.stringify(john, null, 2));
   const may = await User.create({ firstName: "May",
     lastName: "Poe",
     dob: new Date("1980-12-24")});
-  console.log(may instanceof User); // true
   console.log(may.toJSON());
   may.firstName = "April";
   await may.save();
@@ -209,6 +211,11 @@ async function start() {
   users = await User.findAll();
   console.log("Selected users:", JSON.stringify(users, null, 2));
   await may.destroy();
+  users = await User.findAll();
+  console.log("Selected users:", JSON.stringify(users, null, 2));
+  await User.bulkCreate([
+    {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12")},
+    {firstName: "Joe", lastName: "Baker", dob: new Date("1940-05-09"), isAdmin: true}]);
   users = await User.findAll();
   console.log("Selected users:", JSON.stringify(users, null, 2));
   await User.destroy({
