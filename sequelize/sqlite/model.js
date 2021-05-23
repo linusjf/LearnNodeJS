@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { Sequelize, DataTypes, Model, Op } = require("sequelize");
 const sequelize = new Sequelize({
   database: "mydb",
   dialect: "sqlite",
@@ -139,6 +139,20 @@ async function start() {
     group: ["firstName","isAdmin"]
   });
   console.log("All users:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    where: {
+      isAdmin: false
+    }
+  });
+  console.log("Non-admin users:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    where: {
+      id: {
+        [Op.in]: [1,3]
+      }
+    }
+  });
+  console.log("Selected users:", JSON.stringify(users, null, 2));
   await may.destroy();
   await User.drop();
   console.log("User table dropped!");
