@@ -100,8 +100,8 @@ async function start() {
   const may = await User.create({ firstName: "May",
     lastName: "Poe",
     dob: new Date("1980-12-24")});
-  console.log(may.toJSON());
   await may.save();
+  console.log("May was saved to the database!");
   console.log(may.toJSON());
   User.update({ lastName: "Smith" }, {
     where: {
@@ -126,7 +126,16 @@ async function start() {
       }
     }
   }).then(_res => console.log("Updated.")).catch(err => console.error(err.message));
+  User.update({ isAdmin: true }, {
+    where: {
+      id: {
+        [Op.eq]: 1
+      }
+    }
+  }).then(_res => console.log("Updated.")).catch(err => console.error(err.message));
 
+  var users = await User.findAll();
+  console.log("All users:", JSON.stringify(users, null, 2));
   await User.destroy({
     truncate: true,
     restartIdentity: true
