@@ -50,13 +50,18 @@ User.init({
     type: DataTypes.TEXT,
     defaultValue: "green"
   },
-  dob: DataTypes.DATE,
+  dob: {
+    type:DataTypes.DATE,
+    allowNull: false,
+  },
   age:{ 
     type: DataTypes.VIRTUAL,
     get() {
-      var diff_ms = Date.now() - this.dob.getTime();
-      var age_dt = new Date(diff_ms); 
-      return Math.abs(age_dt.getUTCFullYear() - 1970);
+      if (this.dob) {
+        var diff_ms = Date.now() - this.dob.getTime();
+        var age_dt = new Date(diff_ms); 
+        return Math.abs(age_dt.getUTCFullYear() - 1970);
+      }
     },
   },
   cash:{
@@ -198,11 +203,11 @@ async function update() {
     where: {
       lastName: "Doe"
     }
-  }).catch(err => console.error(err.message));
+  });
   User.update({ lastName: "Smith" }, {
     where: {
     }
-  }).catch(err => console.error(err.message));
+  });
   console.log(`There are ${await User.count()} users.`);
 }
 
@@ -225,8 +230,9 @@ async function bulkCreate() {
   await User.bulkCreate([
     {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12"),
       favoriteColor: "blue"},
-    {firstName: "Joe", lastName: "Baker", dob: new Date("1940-05-09"), isAdmin: true,
-      favoriteColor: "yellow"}]);
+    {firstName: "Joe", lastName: "Baker", dob: 
+      new Date("1940-05-09"), isAdmin: true,
+    favoriteColor: "yellow"}]);
   var users = await User.findAll();
   console.log("Selected users post bulk create:", JSON.stringify(users, null, 2));
 }
@@ -279,6 +285,34 @@ async function truncate() {
   console.log("User table identity reset!");
 }
 
+async function finders() {
+  console.log("Find by PK");
+  var user = await User.findByPk(1, { raw: true});
+  if (user === null) {
+    console.log("Not found!");
+  } else {
+    console.log(user); 
+  }
+  user = await User.findOne({ where: { lastName: "Doe" } });
+  if (user === null) {
+    console.log("Not found!");
+  } else {
+    console.log(user.fullName); 
+  }
+  var [rec, created] = await User.findOrCreate({
+    where: { firstName: "Leopold" },
+    defaults: {
+      lastName: "Polinsky",
+      dob: new Date("1956-03-03")
+    }
+  });
+  console.log(rec.fullName); 
+  console.log(rec.isAdmin); 
+  console.log(created); 
+  if (created) 
+    console.log(rec.lastName); 
+}
+
 async function start() {
 
   await authenticate();
@@ -290,6 +324,7 @@ async function start() {
   await update();
   await aggregates();
   await bulkCreate();
+  await finders();
   await order();
   await destroyRecs();
   await truncate();
