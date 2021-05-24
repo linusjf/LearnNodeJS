@@ -7,7 +7,7 @@ const sequelize = new Sequelize({
   define: {
     freezeTableName: false
   },
-  logging: console.log
+  logging: false
 });
 
 class User extends Model {
@@ -103,23 +103,32 @@ async function start() {
   console.log(may.toJSON());
   may.firstName = "April";
   await may.save();
+  console.log("May was saved to the database!");
   console.log(may.toJSON());
   may.firstName = "June";
+  console.log("Name updated to June!");
   console.log(may.toJSON());
   await may.reload();
+  console.log("Reload May from database!");
   console.log(may.toJSON());
   may.firstName = "May II";
   may.favoriteColor = "blue";
+  console.log("May updated in memory!");
+  console.log(may.toJSON());
   await may.save({ fields: ["fullName"] });
+  console.log("May full name saved to database!");
   console.log(may.fullName); 
-  console.log(may.favoriteColor); // "blue"
+  console.log(may.favoriteColor);
   await may.reload();
+  console.log("Reload May from database!");
   console.log(may.fullName); 
   console.log(may.favoriteColor); // "
   await may.increment({
     "cash": 100
   });
+  console.log("May cash incremented by 100!");
   await may.reload();
+  console.log("Reload May from database!");
   console.log(may.toJSON());
 
   var users = await User.findAll();
@@ -127,7 +136,7 @@ async function start() {
   users = await User.findAll({
     attributes: ["firstName", ["lastName", "surname"], "cash"]
   });
-  console.log("All users:", JSON.stringify(users, null, 2));
+  console.log("All users first and last names and cash:", JSON.stringify(users, null, 2));
   users = await User.findAll({
     attributes: [
       "firstName",
@@ -136,7 +145,7 @@ async function start() {
     ],
     group: ["firstName","isAdmin"]
   });
-  console.log("All users:", JSON.stringify(users, null, 2));
+  console.log("All users with first name, sum cash and isAdmin:", JSON.stringify(users, null, 2));
   users = await User.findAll({
     where: {
       isAdmin: false
@@ -150,14 +159,14 @@ async function start() {
       }
     }
   });
-  console.log("Selected users:", JSON.stringify(users, null, 2));
+  console.log("Selected users with id 1 and 3:", JSON.stringify(users, null, 2));
   users = await User.findAll({
     where: {
       id: 1,
       isAdmin: false
     }
   });
-  console.log("Selected users:", JSON.stringify(users, null, 2));
+  console.log("Selected users with id 1 and non-admin:", JSON.stringify(users, null, 2));
   users = await User.findAll({
     where: {
       [Op.and]: [
@@ -166,7 +175,7 @@ async function start() {
       ]
     }
   });
-  console.log("Selected users:", JSON.stringify(users, null, 2));
+  console.log("Selected users with first name Jane and non-admin:", JSON.stringify(users, null, 2));
   users = await User.findAll({
     where: {
       [Op.or]: [
@@ -175,21 +184,17 @@ async function start() {
       ]
     }
   });
-  console.log("Selected users:", JSON.stringify(users, null, 2));
+  console.log("Selected users with id 1 or 3:", JSON.stringify(users, null, 2));
+  console.log("Stream of update errors");
   User.update({ lastName: "Smith" }, {
     where: {
       lastName: "Doe"
     }
   }).catch(err => console.error(err.message));
-  users = await User.findAll({ group: "isAdmin" });
-  console.log("Selected group users:", JSON.stringify(users, null, 2));
   User.update({ lastName: "Smith" }, {
     where: {
     }
   }).catch(err => console.error(err.message));
-
-  users = await User.findAll({ offset: 1,limit: 2 });
-  console.log("Selected users:", JSON.stringify(users, null, 2));
   console.log(`There are ${await User.count()} users.`);
 
   users = await User.max("dob"); 
@@ -205,6 +210,26 @@ async function start() {
   User.sum("age").catch(err => console.error("Aggregate functions on virtual columns disallowed: " +
   err.message));
 
+  console.log("Bulk create....");
+  await User.bulkCreate([
+    {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12")},
+    {firstName: "Joe", lastName: "Baker", dob: new Date("1940-05-09"), isAdmin: true}]);
+  users = await User.findAll();
+  console.log("Selected users post bulk create:", JSON.stringify(users, null, 2));
+  
+  users = await User.findAll({
+    order: [
+      ["lastName", "DESC"],
+    ]
+  });
+  console.log("Selected users by lastName DESC:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    order: sequelize.random()
+  });
+  console.log("Selected users by random:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    order: sequelize.col("age"),
+  }).catch(err => console.error(err.message));
   await User.destroy({
     where: {
       id: {
@@ -215,11 +240,6 @@ async function start() {
   users = await User.findAll();
   console.log("Selected users:", JSON.stringify(users, null, 2));
   await may.destroy();
-  users = await User.findAll();
-  console.log("Selected users:", JSON.stringify(users, null, 2));
-  await User.bulkCreate([
-    {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12")},
-    {firstName: "Joe", lastName: "Baker", dob: new Date("1940-05-09"), isAdmin: true}]);
   users = await User.findAll();
   console.log("Selected users:", JSON.stringify(users, null, 2));
   await User.destroy({
