@@ -183,6 +183,10 @@ async function start() {
   }).catch(err => console.error(err.message));
   users = await User.findAll({ group: "isAdmin" });
   console.log("Selected group users:", JSON.stringify(users, null, 2));
+  User.update({ lastName: "Smith" }, {
+    where: {
+    }
+  }).catch(err => console.error(err.message));
 
   users = await User.findAll({ offset: 1,limit: 2 });
   console.log("Selected users:", JSON.stringify(users, null, 2));
