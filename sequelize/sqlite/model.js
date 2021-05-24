@@ -310,16 +310,25 @@ async function finders() {
   console.log(rec.isAdmin); 
   console.log(created); 
   if (created) 
-    console.log(rec.lastName); 
+    console.log(rec.lastName);
+  const { count, rows } = await User.findAndCountAll({
+    where: {
+      lastName: {
+        [Op.like]: "Sm%"
+      }
+    },
+    offset: 1,
+    limit: 2,
+    raw: true
+  });
+  console.log(count);
+  console.log(rows);
 }
 
 async function start() {
-
   await authenticate();
   await sync();
-
   await addRecs();
-
   await findAll();
   await update();
   await aggregates();
