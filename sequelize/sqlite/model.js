@@ -74,18 +74,21 @@ User.init({
   tableName: "Users"
 });
 
-async function start() {
-
+async function authenticate() {
   await sequelize.authenticate();
   console.log("Connection has been established successfully.");
+}
 
+async function sync() {
   // This will run .sync() 
   // only if database name is 'mydb'
   await sequelize.sync({ force: false, 
     match: /mydb/ ,
     alter: false});
   console.log("Database & tables created!");
+}
 
+async function addRecs() {
   const jane = User.build({ firstName: "Jane", lastName: "Doe" ,
     dob: new Date("1969-12-23")});
   await jane.save();
@@ -130,7 +133,9 @@ async function start() {
   await may.reload();
   console.log("Reload May from database!");
   console.log(may.toJSON());
+}
 
+async function findAll() {
   var users = await User.findAll();
   console.log("All users:", JSON.stringify(users, null, 2));
   users = await User.findAll({
@@ -185,6 +190,9 @@ async function start() {
     }
   });
   console.log("Selected users with id 1 or 3:", JSON.stringify(users, null, 2));
+}
+
+async function update() {
   console.log("Stream of update errors");
   User.update({ lastName: "Smith" }, {
     where: {
@@ -196,8 +204,10 @@ async function start() {
     }
   }).catch(err => console.error(err.message));
   console.log(`There are ${await User.count()} users.`);
+}
 
-  users = await User.max("dob"); 
+async function aggregates() { 
+  var users = await User.max("dob"); 
   console.log("max dob:", JSON.stringify(users, null, 2));
   users = await User.max("dob", { where: { dob: { [Op.lt]: new Date("1970-01-01") } } }); 
   console.log("max dob < 1970:", JSON.stringify(users, null, 2));
@@ -206,20 +216,23 @@ async function start() {
   console.log("max dob < 1970:", JSON.stringify(users, null, 2));
   users = await User.min("dob", { where: { dob: { [Op.gt]: new Date("1980-01-01") } } }); 
   console.log("min dob > 1980:", JSON.stringify(users, null, 2));
-  
   User.sum("age").catch(err => console.error("Aggregate functions on virtual columns disallowed: " +
   err.message));
+}
 
+async function bulkCreate() {
   console.log("Bulk create....");
   await User.bulkCreate([
     {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12"),
       favoriteColor: "blue"},
     {firstName: "Joe", lastName: "Baker", dob: new Date("1940-05-09"), isAdmin: true,
       favoriteColor: "yellow"}]);
-  users = await User.findAll();
+  var users = await User.findAll();
   console.log("Selected users post bulk create:", JSON.stringify(users, null, 2));
-  
-  users = await User.findAll({
+}
+
+async function order() {
+  var users = await User.findAll({
     order: [
       ["lastName", "DESC"],
     ]
@@ -242,18 +255,21 @@ async function start() {
   users = await User.findAll({
     order: sequelize.col("age"),
   }).catch(err => console.error(err.message));
+}
+
+async function destroyRecs() {
   await User.destroy({
     where: {
       id: {
-        [Op.or]: [1, 2]
+        [Op.or]: [1, 2, 3]
       }
     }
   });
-  users = await User.findAll();
+  var users = await User.findAll();
   console.log("Selected users:", JSON.stringify(users, null, 2));
-  await may.destroy();
-  users = await User.findAll();
-  console.log("Selected users:", JSON.stringify(users, null, 2));
+}
+
+async function truncate() {
   await User.destroy({
     truncate: true,
     restartIdentity: true
@@ -261,6 +277,22 @@ async function start() {
   console.log("User table truncated!");
   await sequelize.query("DELETE FROM `sqlite_sequence` WHERE `name` = 'Users'");
   console.log("User table identity reset!");
+}
+
+async function start() {
+
+  await authenticate();
+  await sync();
+
+  await addRecs();
+
+  await findAll();
+  await update();
+  await aggregates();
+  await bulkCreate();
+  await order();
+  await destroyRecs();
+  await truncate();
 }
 
 start();
