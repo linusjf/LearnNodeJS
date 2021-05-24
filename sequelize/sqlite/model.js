@@ -212,8 +212,10 @@ async function start() {
 
   console.log("Bulk create....");
   await User.bulkCreate([
-    {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12")},
-    {firstName: "Joe", lastName: "Baker", dob: new Date("1940-05-09"), isAdmin: true}]);
+    {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12"),
+      favoriteColor: "blue"},
+    {firstName: "Joe", lastName: "Baker", dob: new Date("1940-05-09"), isAdmin: true,
+      favoriteColor: "yellow"}]);
   users = await User.findAll();
   console.log("Selected users post bulk create:", JSON.stringify(users, null, 2));
   
@@ -227,6 +229,16 @@ async function start() {
     order: sequelize.random()
   });
   console.log("Selected users by random:", JSON.stringify(users, null, 2));
+  users = await User.findAll({
+    attributes: [
+      "favoriteColor",
+      [sequelize.fn("COUNT", sequelize.col("favoriteColor")), "count"],
+    ],
+    group: ["favoriteColor"],
+    order: sequelize.fn("count", sequelize.col("favoriteColor")),
+    logging: console.log
+  });
+  console.log("Selected users by count favoriteColor:", JSON.stringify(users, null, 2));
   users = await User.findAll({
     order: sequelize.col("age"),
   }).catch(err => console.error(err.message));
