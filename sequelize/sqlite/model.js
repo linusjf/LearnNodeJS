@@ -435,18 +435,21 @@ async function queries() {
 }
 
 async function start() {
-  await authenticate();
-  await sync();
-  await addRecs();
-  await findAll();
-  await update();
-  await aggregates();
-  await bulkCreate();
-  await finders();
-  await order();
-  await queries();
-  await destroyRecs();
-  await truncate();
+  try {
+    await authenticate();
+    await sync();
+    await addRecs();
+    await findAll();
+    await update();
+    await aggregates();
+    await bulkCreate();
+    await finders();
+    await order();
+    await queries();
+    await destroyRecs();
+  } finally {
+    await truncate();
+  }
 }
 
 start();
