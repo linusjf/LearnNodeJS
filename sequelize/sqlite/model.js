@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const hash = require("object-hash");
-const { Sequelize, DataTypes, Model, Op } = require("sequelize");
+const { Sequelize, DataTypes, Model, Op, QueryTypes } = require("sequelize");
 const sequelize = new Sequelize({
   database: "mydb",
   dialect: "sqlite",
@@ -358,6 +358,21 @@ async function finders() {
   console.log(rows);
 }
 
+async function queries() {
+  const [results, metadata] = await sequelize.query("UPDATE users SET cash = 200 WHERE cash = 0");
+  console.log("results = " + results);
+  console.log("metadata = ");
+  console.log(metadata);
+  var users = await sequelize.query("SELECT * FROM `users`", { type: QueryTypes.SELECT });
+  console.log("Select * users:", JSON.stringify(users, null, 2));
+  users = await sequelize.query("SELECT * FROM users", {
+    model: User,
+    mapToModel: true,
+    raw: true
+  });
+  console.log("Select * from users as model:", users);
+}
+
 async function start() {
   await authenticate();
   await sync();
@@ -368,6 +383,7 @@ async function start() {
   await bulkCreate();
   await finders();
   await order();
+  await queries();
   await destroyRecs();
   await truncate();
 }
