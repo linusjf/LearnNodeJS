@@ -99,7 +99,8 @@ User.init({
   sequelize,
   timestamps: true,
   modelName: "User",
-  tableName: "Users"
+  tableName: "Users",
+  paranoid: true
 });
 
 async function authenticate() {
@@ -305,16 +306,6 @@ async function destroyRecs() {
   console.log("Selected users:", JSON.stringify(users, null, 2));
 }
 
-async function truncate() {
-  await User.destroy({
-    truncate: true,
-    restartIdentity: true
-  });
-  console.log("User table truncated!");
-  await sequelize.query("DELETE FROM `sqlite_sequence` WHERE `name` = 'Users'");
-  console.log("User table identity reset!");
-}
-
 async function finders() {
   console.log("Find by PK");
   var user = await User.findByPk(1, { raw: true});
@@ -432,6 +423,18 @@ async function queries() {
       type: QueryTypes.SELECT
     }
   ));
+}
+
+async function truncate() {
+  const count = await User.destroy({
+    truncate: true,
+    restartIdentity: true,
+    logging: console.log,
+    force: true
+  });
+  console.log("User table truncated with " + count + " records!");
+  await sequelize.query("DELETE FROM sqlite_sequence WHERE name = 'Users'");
+  console.log("User table identity reset!");
 }
 
 async function start() {
