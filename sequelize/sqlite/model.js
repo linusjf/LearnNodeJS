@@ -4,11 +4,14 @@ const { Sequelize, DataTypes, Model, Op, QueryTypes } = require("sequelize");
 const sequelize = new Sequelize({
   database: "mydb",
   dialect: "sqlite",
+  dialectOptions: {
+    multipleStatements: true
+  },
   storage: "mydb.sqlite",
   define: {
     freezeTableName: false
   },
-  logging: false
+  logging: false,
 });
 
 class User extends Model {
