@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const hash = require("object-hash");
 const { Sequelize, DataTypes, Model, Op } = require("sequelize");
 const sequelize = new Sequelize({
   database: "mydb",
@@ -19,14 +20,16 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      len: [1, 20]
+      len: [1, 20],
+      isAlpha: true
     }
   },
   lastName: {
     type: DataTypes.STRING,
     defaultValue: "",
     validate: {
-      len: [1, 30]
+      len: [1, 30],
+      isAlpha: true
     }
   },
   fullName: {
@@ -35,14 +38,16 @@ User.init({
       return `${this.firstName} ${this.lastName}`;
     },
     set(value) {
-      var arr = value.split(" ");
-      if (arr.length == 1) {
-        this.firstName = arr.pop();
-        this.lastName = "";
-      }
-      else {
-        this.lastName = arr.pop();
-        this.firstName = arr.join(" ");
+      if (value) {
+        var arr = value.split(" ");
+        if (arr.length == 1) {
+          this.firstName = arr.pop();
+          this.lastName = "";
+        }
+        else {
+          this.lastName = arr.pop();
+          this.firstName = arr.join(" ");
+        }
       }
     }
   },
@@ -53,6 +58,9 @@ User.init({
   dob: {
     type:DataTypes.DATE,
     allowNull: false,
+    validate: {
+      isDate: true
+    }
   },
   age:{ 
     type: DataTypes.VIRTUAL,
@@ -66,11 +74,26 @@ User.init({
   },
   cash:{
     type: DataTypes.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
   isAdmin:{
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  username: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    unique: true
+  },
+  password: {
+    type: DataTypes.STRING(64),
+    is: /^[0-9a-f]{64}$/i,
+    set(value) {
+      this.setDataValue("password", hash(this.username + value, "SHA-512"));
+    }
   }
 }, {
   sequelize,
@@ -95,19 +118,22 @@ async function sync() {
 
 async function addRecs() {
   const jane = User.build({ firstName: "Jane", lastName: "Doe" ,
-    dob: new Date("1969-12-23")});
+    dob: new Date("1969-12-23"),
+    username: "janedoe", password: "janet123"});
   await jane.save();
   console.log("Jane was saved to the database!");
   console.log(jane.toJSON()); 
   const john = await User.create({ firstName: "John",
     lastName: "Doe", dob: new Date("1974-06-29"),
-    isAdmin: true});
+    isAdmin: true,
+    username: "johndoe", password: "johnd123"});
   await john.save();
   console.log("John was saved to the database!");
   console.log(JSON.stringify(john, null, 2));
   const may = await User.create({ firstName: "May",
     lastName: "Poe",
-    dob: new Date("1980-12-24")});
+    dob: new Date("1980-12-24"),
+    username: "maypoe", password: "may123"});
   console.log(may.toJSON());
   may.firstName = "April";
   await may.save();
@@ -198,7 +224,6 @@ async function findAll() {
 }
 
 async function update() {
-  console.log("Stream of update errors");
   User.update({ lastName: "Smith" }, {
     where: {
       lastName: "Doe"
@@ -229,11 +254,13 @@ async function bulkCreate() {
   console.log("Bulk create....");
   await User.bulkCreate([
     {firstName: "Sue", lastName: "Brown", dob: new Date("1960-12-12"),
-      favoriteColor: "blue"},
+      favoriteColor: "blue",
+      username: "suebrown", password: "brown123"},
     {firstName: "Joe", lastName: "Baker", dob: 
       new Date("1940-05-09"), isAdmin: true,
-    favoriteColor: "yellow"}]);
-  var users = await User.findAll();
+    favoriteColor: "yellow",
+    username: "joebaker", password: "baker123"}]);
+  var users = await User.findAll({raw: true});
   console.log("Selected users post bulk create:", JSON.stringify(users, null, 2));
 }
 
@@ -241,11 +268,13 @@ async function order() {
   var users = await User.findAll({
     order: [
       ["lastName", "DESC"],
-    ]
+    ],
+    raw:true
   });
   console.log("Selected users by lastName DESC:", JSON.stringify(users, null, 2));
   users = await User.findAll({
-    order: sequelize.random()
+    order: sequelize.random(),
+    raw:true
   });
   console.log("Selected users by random:", JSON.stringify(users, null, 2));
   users = await User.findAll({
@@ -255,11 +284,12 @@ async function order() {
     ],
     group: ["favoriteColor"],
     order: sequelize.fn("count", sequelize.col("favoriteColor")),
-    logging: console.log
+    raw: true
   });
   console.log("Selected users by count favoriteColor:", JSON.stringify(users, null, 2));
   users = await User.findAll({
     order: sequelize.col("age"),
+    raw: true
   }).catch(err => console.error(err.message));
 }
 
@@ -293,7 +323,8 @@ async function finders() {
   } else {
     console.log(user); 
   }
-  user = await User.findOne({ where: { lastName: "Doe" } });
+  user = await User.findOne({ where: { lastName: "Doe" },
+    raw: true});
   if (user === null) {
     console.log("Not found!");
   } else {
@@ -303,7 +334,9 @@ async function finders() {
     where: { firstName: "Leopold" },
     defaults: {
       lastName: "Polinsky",
-      dob: new Date("1956-03-03")
+      dob: new Date("1956-03-03"),
+      username: "leopoldp",
+      password: "polinsky123"
     }
   });
   console.log(rec.fullName); 
@@ -317,9 +350,9 @@ async function finders() {
         [Op.like]: "Sm%"
       }
     },
+    raw: true,
     offset: 1,
     limit: 2,
-    raw: true
   });
   console.log(count);
   console.log(rows);
