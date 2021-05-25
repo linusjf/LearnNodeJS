@@ -371,6 +371,67 @@ async function queries() {
     raw: true
   });
   console.log("Select * from users as model:", users);
+  await sequelize.query("SELECT 1", {
+    logging: console.log,
+    plain: false,
+    raw: false,
+    type: QueryTypes.SELECT
+  });
+
+  console.log(await sequelize.query("SELECT * FROM users", { raw: true }));
+  var records = await sequelize.query("select 1 as `foo.bar.baz`", {
+    type: QueryTypes.SELECT
+  });
+  console.log(JSON.stringify(records[0], null, 2));
+  records = await sequelize.query("select 1 as `foo.bar.baz`", {
+    nest: true,
+    type: QueryTypes.SELECT
+  });
+  console.log(JSON.stringify(records[0], null, 2));
+  console.log(await sequelize.query(
+    "SELECT * FROM users WHERE isAdmin = ?",
+    {
+      replacements: [true],
+      type: QueryTypes.SELECT
+    }
+  ));
+
+  console.log(await sequelize.query(
+    "SELECT * FROM users WHERE isAdmin = :status",
+    {
+      replacements: { status: true },
+      type: QueryTypes.SELECT
+    }
+  ));
+  console.log(await sequelize.query(
+    "SELECT * FROM users WHERE lastName IN(:name)",
+    {
+      replacements: { name: ["Smith", "Baker"] },
+      type: QueryTypes.SELECT
+    }
+  ));
+  console.log(await sequelize.query(
+    "SELECT * FROM users WHERE lastName LIKE :search_name",
+    {
+      replacements: { search_name: "sm%" },
+      type: QueryTypes.SELECT
+    }
+  ));
+  console.log(await sequelize.query(
+    "SELECT *, \"text with literal $$1 and literal $$status\" as t FROM users WHERE isAdmin = $1",
+    {
+      bind: [true],
+      type: QueryTypes.SELECT
+    }
+  ));
+
+  console.log(await sequelize.query(
+    "SELECT *, \"text with literal $$1 and literal $$status\" as t FROM users WHERE isAdmin = $status",
+    {
+      bind: { status: true },
+      type: QueryTypes.SELECT
+    }
+  ));
 }
 
 async function start() {
