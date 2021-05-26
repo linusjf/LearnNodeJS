@@ -25,18 +25,21 @@ let employees = [
 
 async function start() {
   await sequelize.sync({ force: true });
-  const emps = await Employee.bulkCreate(employees);
+  var emps = await Employee.bulkCreate(employees);
   for (let i = 0; i < emps.length; i++)  {
     let pname = "Project " + String.fromCharCode("A".charCodeAt() + i);
     let employee = emps[i];
     let project = await Project.create({ name: pname });
     await employee.setProject(project);
   }
-  console.log(await Employee.findAll({raw: true,
+  emps = await Employee.findAll({raw: true,
     include: {
-      model: Project
-    }
-  }));
+      model: Project,
+    },
+  });
+  emps.forEach(employee => {
+    console.log(`${employee.name} is in ${employee["Project.name"]}`);
+  });
   console.log(await Project.findAll({raw: true}));
   await sequelize.close();
   console.log("finish");
