@@ -1,17 +1,21 @@
 #!/usr/bin/env node
-const Sequelize = require("sequelize");
+const { DataTypes,Sequelize, Model } = require("sequelize");
 const sequelize = new Sequelize("sqlite::memory:", {
   logging: false
 });
 
-let Employee = sequelize.define("employees", {
-  name: Sequelize.STRING
-},{paranoid: true});
+class Employee extends Model {}
+Employee.init({
+  name: DataTypes.STRING
+},{sequelize,paranoid: true});
   
-
-let Project = sequelize.define("projects", {
-  name: Sequelize.STRING},{paranoid: true}
-);
+class Project extends Model {}
+Project.init({
+  name: DataTypes.STRING},
+{
+  sequelize,
+  paranoid: true
+});
 
 Employee.belongsTo(Project);
 
