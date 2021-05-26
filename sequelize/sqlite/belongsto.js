@@ -32,7 +32,11 @@ async function start() {
     let project = await Project.create({ name: pname });
     await employee.setProject(project);
   }
-  console.log(await Employee.findAll({raw: true}));
+  console.log(await Employee.findAll({raw: true,
+    include: {
+      model: Project
+    }
+  }));
   console.log(await Project.findAll({raw: true}));
   await sequelize.close();
   console.log("finish");
