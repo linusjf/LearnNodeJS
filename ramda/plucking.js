@@ -14,3 +14,10 @@ const users = [
 
 console.log(R.pluck("age", users));
 console.log(R.pluck("name", users));
+
+let maxAge = R.apply(Math.max, R.pluck("age", users));
+
+console.log(`The oldest person is ${maxAge} years old.`);
+
+maxAge = Math.max(... R.pluck("age", users));
+console.log(`The oldest person is ${maxAge} years old.`);
