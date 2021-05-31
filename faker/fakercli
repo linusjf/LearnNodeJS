@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+faker-cli -d future
+faker-cli -d recent
+faker-cli -n firstName
+faker-cli -n lastName
