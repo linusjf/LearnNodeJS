@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 folders=0
+files=0
 errors=0
+
+filecount() {
+return $(ls "$1" | grep -e "[.]js$" | wc -l)
+}
+
 if [ "$#" -eq 0 ] ; then 
 for dir in $(find . -maxdepth 1 -type d  ! -path "*node_modules*" ! -path "*.git*" ! -path "*config*" ! -path . );
   do
     echo $dir
+    filecount "$dir"
+    files=`expr $files + $?`
     (cd "$dir";
     js-beautify *.js;
   cd ..;)
@@ -12,10 +20,12 @@ for dir in $(find . -maxdepth 1 -type d  ! -path "*node_modules*" ! -path "*.git
   folders=`expr $folders + 1`
 done
 else
+    filecount "$1"
+    files=`expr $files + $?`
   (cd "$1";
   js-beautify *.js;cd ..;)
   errors=`expr $(echo $?) + $errors`
   folders=`expr $folders + 1`
 fi
-echo $folders 'folders processed with ' $errors ' errors.'
+echo $folders 'folder(s) and' $files 'file(s) processed with '$errors 'error(s).'
 exit $errors

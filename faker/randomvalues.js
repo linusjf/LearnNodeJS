@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const faker = require('faker');
 
 let number = faker.datatype.number();

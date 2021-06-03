@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const faker = require("faker/locale/ru");
 
 let firstName = faker.name.firstName();

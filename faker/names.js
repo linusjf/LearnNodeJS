@@ -1,11 +1,12 @@
 #!/usr/bin/env node
+
 const faker = require("faker");
 
 let firstName = faker.name.firstName();
 let lastName = faker.name.lastName();
 
 let jobTitle = faker.name.jobTitle();
-let prefix = faker.name.prefix(); 
+let prefix = faker.name.prefix();
 let suffix = faker.name.suffix();
 let jobArea = faker.name.jobArea();
 
