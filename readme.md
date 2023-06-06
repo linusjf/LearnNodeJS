@@ -1,3 +1,5 @@
+[![Hits-of-Code](https://hitsofcode.com/github/linusjf/LearnNodeJS?branch=main)](https://hitsofcode.com/github/linusjf/LearnNodeJS/view?branch=main)
+
 ## Synopsis
 
 This repository contains Node.js examples.
