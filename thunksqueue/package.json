@@ -18,7 +18,7 @@
     "request": "^2.88.2",
     "slug": "^5.1.0",
     "thunkify": "^2.1.2",
-    "validator": "^13.5.2",
+    "validator": "^13.7.0",
     "url": "^0.11.0"
   },
   "devDependencies": {},
