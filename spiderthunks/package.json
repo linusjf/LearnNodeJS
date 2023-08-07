@@ -24,6 +24,6 @@
     "path": "^0.12.7",
     "request": "^2.88.2",
     "thunkify": "^2.1.2",
-    "validator": "^13.5.2"
+    "validator": "^13.11.0"
   }
 }
