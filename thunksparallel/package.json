@@ -10,7 +10,7 @@
     "co": "^4.6.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
-    "debug": "^4.3.1",
+    "debug": "^4.3.4",
     "fs": "^0.0.2",
     "config": "^3.3.6",
     "mkdirp": "^1.0.4",
@@ -19,10 +19,8 @@
     "slug": "^5.1.0",
     "thunkify": "^2.1.2",
     "url": "^0.11.0",
-
     "validator": "^13.1.1",
     "snyk": "^1.1064.0"
-
   },
   "devDependencies": {},
   "scripts": {
