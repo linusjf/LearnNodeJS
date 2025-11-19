@@ -20,7 +20,7 @@
     "command-line-usage": "^6.1.1",
     "config": "^3.3.6",
     "fs": "0.0.2",
-    "mkdirp": "^1.0.4",
+    "mkdirp": "^3.0.0",
     "path": "^0.12.7",
     "request": "^2.88.2",
     "thunkify": "^2.1.2",
